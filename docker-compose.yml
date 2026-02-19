@@ -1,0 +1,223 @@
+# Copyright (c) 2024 Qu Zhi
+# All Rights Reserved.
+
+# This software is proprietary and confidential.
+# Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+
+
+
+services:
+
+  app:
+    build:
+      context: ./tmbu         # Path to the build context (Django app folder)
+      dockerfile: Dockerfile  
+    expose:
+      - "8000"
+    #command: gunicorn --bind 0.0.0.0:8000 tmbu.wsgi:application
+    #command: >
+    #    sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 tmbu.wsgi:application"
+    container_name: tmbu-app
+    volumes:
+      # - ./tmbu:/usr/src/tmbu
+      - ./tmbu/staticfiles:/usr/src/tmbu/staticfiles
+      - ./tmbu/media:/usr/src/tmbu/media
+      - ./tmbu/locale:/usr/src/tmbu/locale
+      - corekb-data:/usr/src/tmbu/solutions/corekb
+      - ./tmbu/solutions/huggingface:/usr/src/tmbu/solutions/huggingface
+      - ./tmbu/solutions/nltk_data:/usr/src/tmbu/solutions/nltk_data
+    depends_on:
+      - db
+      - milvus
+      - rabbitmq  
+    env_file:
+      - .env
+    networks:
+      - tmbu_network
+
+  
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: tmbu-rabbitmq
+    ports:
+      - "5672:5672"     # AMQP protocol
+      - "15672:15672"   # Web management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    volumes:
+    - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+    - tmbu_network
+
+
+  celery:
+    build:
+      context: ./tmbu
+      dockerfile: Dockerfile
+    container_name: tmbu-celery
+    entrypoint: [""]
+    command: celery -A tmbu worker --concurrency=4 --loglevel=info --uid=nobody
+    volumes:
+      - ./tmbu/staticfiles:/usr/src/tmbu/staticfiles
+      - ./tmbu/media:/usr/src/tmbu/media
+      - ./tmbu/locale:/usr/src/tmbu/locale
+      - corekb-data:/usr/src/tmbu/solutions/corekb
+      - ./tmbu/solutions/huggingface:/usr/src/tmbu/solutions/huggingface
+      - ./tmbu/solutions/nltk_data:/usr/src/tmbu/solutions/nltk_data
+    depends_on:
+      - rabbitmq
+      - db
+      - milvus
+    env_file:
+      - .env
+    networks:
+      - tmbu_network
+
+
+
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.18
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    restart: always
+    volumes:
+      - etcd_data:/etcd
+    command: >
+      etcd 
+      --advertise-client-urls=http://etcd:2379 
+      --listen-client-urls=http://0.0.0.0:2379 
+      --data-dir=/etcd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - tmbu_network
+
+  minio:
+    container_name: milvus-minio
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    #env_file:
+    #  - .env
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    restart: always
+    volumes:
+      - minio_data:/data
+    command: minio server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - tmbu_network
+
+  milvus:
+    container_name: milvus-standalone
+    image: milvusdb/milvus:v2.5.12
+    command: ["milvus", "run", "standalone"]
+    security_opt:
+    - seccomp:unconfined
+    #env_file:
+    #  - .env
+    environment:
+      MINIO_REGION: us-east-1
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+      MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY}
+      LD_PRELOAD: /milvus/lib/libjemalloc.so
+    restart: always
+    volumes:
+      - milvus_data:/var/lib/milvus
+      - ./milvus.yaml:/milvus/configs/milvus.yaml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      start_period: 90s
+      timeout: 60s
+      retries: 5
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      etcd:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - tmbu_network
+
+  db:
+    image: postgres:16
+    container_name: tmbu-postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    networks:
+      - tmbu_network
+
+# For usage-based subscription
+#  scheduler:
+#    build: 
+#      context: ./tmbu
+#    command: python3 manage.py run_apscheduler
+#    container_name: tmbu-scheduler
+#    env_file:
+#      - .env
+#    depends_on:
+#      - app
+#      - db
+#    restart: always
+#    networks:
+#      - tmbu_network
+
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./tmbu/staticfiles:/usr/src/tmbu/staticfiles
+      - ./tmbu/media:/usr/src/tmbu/media
+    networks:
+      - tmbu_network
+
+volumes:
+  corekb-data:
+  postgres_data:
+  milvus_data:
+  etcd_data:
+  minio_data:
+  rabbitmq_data:
+  
+  
+networks:
+  tmbu_network:
+    driver: bridge
+

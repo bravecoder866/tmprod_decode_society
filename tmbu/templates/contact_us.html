@@ -1,0 +1,30 @@
+{% extends "global_base.html" %}
+
+{% load i18n %}  
+
+{% block title %}
+{% trans "Contact Us" %}
+{% endblock title %}
+
+{% block content %}
+ <head>
+    <style>
+        h1 {font-size: 24px;font-weight: bold;}
+        h2 {font-size: 20px;font-weight: normal;line-height: 1.5;}
+        h3 {font-size: 16px;font-weight: normal;line-height: 1.5;}
+        .container {
+        padding-top: 20px; 
+        padding-bottom: 20px; 
+        }
+    </style>
+ </head>
+
+  <div class="container">  <!-- Bootrap is used.Adds automatic padding -->
+    
+    <h1>{% trans "Contact Us" %}</h1>
+
+    <h2>{% blocktrans %}Please contact us via this email: customerservice@xtembusu.com{% endblocktrans %}</h2>
+
+  </div>
+
+{% endblock content %}

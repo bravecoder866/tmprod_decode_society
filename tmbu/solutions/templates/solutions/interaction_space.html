@@ -1,0 +1,908 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+
+{% load i18n %}
+
+{% block main_content %}
+    
+    <div class="container"> 
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 20px;">
+            <div></div> <!-- empty left side -->
+            <a href="{% url 'my_simulations' %}" style="font-weight: bold;">
+                {% trans "→ My Simulations" %}
+            </a>
+        </div>
+
+        <div class="landing-introduction" style="text-align: left; margin-left: 0; padding-left: 0; width: 100%;">                    
+            <h2 style="font-weight: bold; color: #FF9800">{% trans "Interaction Space" %}</h2>
+            <p style="color: #1877f2; font-weight: bold;">{% trans "Explore social networks and simulate social interactions." %}</p>
+            <p>{% trans "Social Nodes and Social Networks are built from" %} <a href="{% url 'new_scenario_mining' %}?new=true">{% trans "Experience Mining." %}</a></p>
+        </div>    
+
+        {% if not user.is_authenticated %}
+        <div class="login-warning">
+            <p>{% trans "⚠️ Please log in to use the Interaction Space." %}</p>
+        </div>
+        {% endif %}
+
+        <!-- Section 1: Social Nodes -->
+        <div class="interaction-section">
+            <h2>{% trans "Social Nodes" %}</h2>
+            <p>{% trans "Tap any person or group to find their traits" %}</p>
+
+            <div id="social-nodes-container">            
+            <p>{% trans "Loading social nodes..." %}</p>
+            </div>
+        </div>
+               
+
+        <!-- Section 2: Social Network Graph -->
+        <div class="interaction-section">
+            <h2>{% trans "Social Networks" %}</h2>          
+            <p>{% trans "Tap any edge to see how people or groups are related. Social network graphs can be zoomed in/out or moved arround." %}</p>
+            
+            <div id="cy" style="width: 100%; height: 600px; border: 1px solid #ccc;"></div>
+
+            <div id="edge-popover" class="edge-popover" style="display:none;">
+                <button id="edge-popover-close" class="edge-popover__close" aria-label="Close">✕</button>
+                <div class="edge-popover__row"><strong>Actors:</strong> <span id="edge-popover-actors"></span></div>
+                <div id="edge-popover-summary" class="edge-popover__summary"></div>
+            </div>
+
+            <!-- Info panel for edges -->
+            <div id="edge-info" class="edge-info">
+                <h3>{% trans "Relationship Details" %}</h3>
+                <p><strong>{% trans "Actors:" %}</strong> <span id="edge-actors"></span></p>
+                <p><strong>{% trans "Relationship Status:" %}</strong> <span id="edge-status"></span></p>
+            </div>
+        </div>
+
+        <!-- Simulation Toggle Buttons -->
+        <div class="sim-toggle">
+            <button type="button" class="sim-toggle-btn" onclick="showSimulation('generate')">
+                {% trans "Generate Simulation" %}
+            </button>
+            <button type="button" class="sim-toggle-btn" onclick="showSimulation('live')">
+                {% trans "Live Simulation" %}
+            </button>
+        </div>
+
+        <!-- Section 3: Generate Simulation -->
+        <div id="generate-sim-section" class="sim-section">
+            <h2>{% trans "Generate Simulation" %}</h2>
+
+            <p class="instruction-text">
+                {% trans "Select or deselect any person or group in the above social network for simulation. The selected turns orange." %}
+            </p>
+
+            <form id="simulation-form">
+                
+                <label style="color: #fea76d; font-weight: bold; margin-bottom: 8px;">{% trans "Selected Actors:" %}</label>
+                <!-- Actor list will be updated dynamically -->
+                <ul id="selected-actors-list" class="selected-actors"></ul><br>           
+
+                <label for="scenario-input" style="color: #fea76d; font-weight: bold;">{% trans "Scenario" %}:</label><br>
+                
+                <p class="instruction-text">
+                    {% trans "Describe a scenario for the simulation." %}
+                </p><br>
+
+                <textarea id="scenario-input" rows="6" style="width:100%;" required></textarea><br>
+                
+                <div class="recording-controls">
+                    <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+                    <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+                    <div class="recording-status"></div>
+                </div>
+
+                <br>
+                <button id="run-simulation-btn" type="submit">{% trans "Run Simulation" %}</button>
+            </form>
+
+            <div id="simulation-error-generate" class="error-box"></div>
+            <div id="simulation-result" class="result-box"></div>
+
+            {% comment %}
+            <div id="simulation-controls">
+                <button id="new-simulation-btn" style="display:none;">🔄 Start New Simulation</button>
+            </div>
+            {% endcomment %}
+
+
+        </div>
+
+        <!-- Section 4: Live Simulation -->
+        <div id="live-sim-section" class="sim-section">
+            <h2>{% trans "Live Simulation" %}</h2>
+
+            <p class="instruction-text">
+                {% trans "Click nodes in the graph to select or deselect actors for simulation. Selected nodes turn orange." %}
+            </p>
+
+            <form id="live-simulation-form" onsubmit="startSimulation(event)">
+                
+                <label style="color: #fea76d; font-weight: bold; margin-bottom: 8px;">{% trans "Selected Actors:" %}</label>
+                <ul id="live-selected-actors" class="selected-actors"></ul>
+
+                <label for="user-actor" style="color: #fea76d; font-weight: bold; margin-bottom: 8px;">{% trans "Your Role" %}</label><br>
+                <select id="user-actor" required disabled>
+                    <option value="">{% trans "Select at least 2 actors first" %}</option>
+                </select><br><br>
+                
+                <label for="simulation-scenario" style="color: #fea76d; font-weight: bold; margin-bottom: 10px;">{% trans "Scenario" %}</label><br>
+                
+                <p class="instruction-text">
+                    {% trans "Describe a scenario for the simulation." %}
+                </p><br>
+                <textarea id="simulation-scenario" rows="4" required minlength="50" maxlength="2500" style="width: 100%;"></textarea><br>
+                                
+                <div class="recording-controls">
+                    <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+                    <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+                    <div class="recording-status"></div>
+                </div>
+
+                <label for="user-message" style="color: #fea76d; font-weight: bold; margin-top: 20px;">{% trans "Your First Message" %}</label><br>
+                <textarea id="user-message" rows="2" required minlength="1" maxlength="600" style="width:100%;"></textarea><br>
+
+                <div class="recording-controls">
+                    <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+                    <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+                    <div class="recording-status"></div>
+                </div>
+
+                <button id="start-simulation-btn" type="submit" style="margin-top: 20px;">{% trans "Start Simulation" %}</button>
+            </form>
+
+            <div id="simulation-chat" class="chat-box"></div>
+            <div id="simulation-error-live" class="error-box"></div>
+            <form id="continue-simulation-form" onsubmit="continueSimulation(event)" class="continue-form">
+                <input type="text" id="continue-message" placeholder="Type your reply..." required style="width:80%;" />
+
+                <div class="recording-controls">
+                    <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+                    <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+                    <div class="recording-status"></div>
+                </div>
+                
+                <button type="submit">{% trans "Send" %}</button>
+            </form>
+
+            {% comment %}
+            <div id="simulation-controls">
+                <button id="new-simulation-btn" style="display:none;">🔄 End the Current Session and Start New Simulation</button>
+            </div>
+            {% endcomment %}
+
+
+        </div>
+
+    </div>
+
+    <!-- Overlay with message -->
+    <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4); z-index:1000; text-align:center; padding-top:20%; font-size:24px; color:white; font-family:Arial, sans-serif;">
+        {% trans "Processing, please wait..." %}
+    </div>
+
+    <!-- Custom confirmation modal -->
+    <div id="confirm-delete-modal" style="display:none; 
+        position:fixed; top:0; left:0; width:100%; height:100%;
+        background-color:rgba(0,0,0,0.45); z-index:2000;
+        text-align:center; font-family:Arial, sans-serif;">
+
+        <div id="confirm-delete-box" style="
+            display:inline-block;
+            margin-top:15%;
+            background:white;
+            padding:25px 35px;
+            border-radius:8px;
+            box-shadow:0 6px 24px rgba(0,0,0,0.2);
+            width:340px;
+            text-align:center;
+        ">
+            <h3 style="margin-top:0; color:#e74c3c;">⚠️ Confirm Deletion</h3>
+            <p id="confirm-delete-message" style="margin:15px 0; color:#333;">
+            Are you sure you want to delete this node? The respective node on the social networks will be deleted too. This action cannot be undone.
+            </p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button id="cancel-delete-btn" style="
+                    background-color:#ccc; color:#222; border:none; 
+                    padding:6px 14px; border-radius:4px; cursor:pointer;
+                    font-weight:600;">Cancel</button>
+                <button id="confirm-delete-btn" style="
+                    background-color:#e74c3c; color:white; border:none; 
+                    padding:6px 14px; border-radius:4px; cursor:pointer;
+                    font-weight:600;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CSS file -->
+    <link rel="stylesheet" href="{% static 'css/interaction_space.css' %}">
+
+    <!-- Load JavaScript translation catalog before any script that uses gettext -->
+    <script src="{% url 'javascript-catalog' %}"></script>
+
+    <script src="{% static 'solutions/js/form_utils.js' %}"></script>
+
+    <script src="{% static 'solutions/js/speech_to_text.js' %}"></script>
+
+
+
+    <!-- Cytoscape -->
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.33.1/cytoscape.min.js"
+        integrity="sha512-kHAY8XzRfLVMcLuowdk91552RD+Nb2/1uHamfHMdLejNqlZnbEJLl1wYnsNnqIFCEZ++WaOcOlfokC6p9JWrLw=="
+        crossorigin="anonymous"
+        defer
+    ></script>
+
+    
+    <script>
+        let selectedActors = [];
+        let currentSessionId = null;
+        let chatTurnCount = 0;
+        const MAX_TURNS = 100;
+
+        // ---- Social Nodes fetch ----
+        fetch("{% url 'get_global_actors_profiles' %}")
+        .then(res => res.json())
+        .then(categories => {
+            const container = document.getElementById("social-nodes-container");
+            container.innerHTML = "";
+            let hasData = false;
+
+            for (const [cat, entities] of Object.entries(categories)) {
+            if (entities.length > 0) {
+                hasData = true;
+                let section = document.createElement("div");
+                section.classList.add("entity-category");
+
+                let title = document.createElement("h4");
+                title.innerText = cat;
+                section.appendChild(title);
+
+                let buttons = document.createElement("div");
+                buttons.classList.add("entity-buttons");
+
+                entities.forEach((entity, idx) => {
+                let btn = document.createElement("button");
+                btn.innerText = entity.canonical_name;
+                btn.onclick = () => showEntityInfo(cat, idx);
+                buttons.appendChild(btn);
+
+                let popup = document.createElement("div");
+                popup.id = `entity-popup-${cat}-${idx}`;
+                popup.classList.add("entity-popup");
+                popup.style.display = "none";
+                popup.innerHTML = `
+                    <div class="popup-content">
+                        <span class="close" onclick="hideEntityInfo('${cat}', ${idx})">&times;</span>
+                        <h4>${entity.canonical_name}</h4>
+                        <div style="white-space: pre-wrap;">${entity.traits || ""}</div>
+                        <hr>
+                        <button class="popup-delete-btn" onclick="deleteEntity('${entity.canonical_name}', '${cat}', ${idx})">
+                            🗑️ Delete this node
+                        </button>
+                    </div>
+                `;
+                container.appendChild(popup);
+                });
+
+                section.appendChild(buttons);
+                container.appendChild(section);
+            }
+            }
+
+            if (!hasData) {
+            container.innerHTML = "<p>{% trans 'No social nodes are available.' %}</p>";
+            }
+        });
+
+        function showEntityInfo(cat, idx) {
+        document.getElementById('entity-popup-' + cat + '-' + idx).style.display = 'block';
+        }
+        function hideEntityInfo(cat, idx) {
+        document.getElementById('entity-popup-' + cat + '-' + idx).style.display = 'none';
+        }
+
+        // ========== DELETE ENTITY ==========
+        // Global variable to store what user wants to delete
+        let pendingDelete = null;
+        
+        function deleteEntity(canonical_name, cat, idx) {
+            // Store pending delete details
+            pendingDelete = { canonical_name, cat, idx };
+            // Show modal
+            document.getElementById("confirm-delete-modal").style.display = "block";
+            }
+        
+        // Handle confirmation click
+        document.getElementById("confirm-delete-btn").addEventListener("click", () => {
+            if (!pendingDelete) return;
+            const { canonical_name, cat, idx } = pendingDelete;
+
+            // Hide modal
+            document.getElementById("confirm-delete-modal").style.display = "none";
+
+
+            fetch("{% url 'delete_global_actor_profiles' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCookie("csrftoken"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ canonical_name }),
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        hideEntityInfo(cat, idx);
+
+                        // Remove popup + button
+                        const popupEl = document.getElementById(`entity-popup-${cat}-${idx}`);
+                        if (popupEl) popupEl.remove();
+                        
+                        document.querySelectorAll(".entity-buttons button").forEach(btn => {
+                            if (btn.innerText === canonical_name) btn.remove();
+                        });
+
+                        // Remove node from graph
+                        if (window.cy) {
+                            const node = cy.nodes().filter(n => n.data("label") === canonical_name);
+                            if (node.length > 0) {
+                                node.animate(
+                                    { style: { "background-color": "#e74c3c", opacity: 0 } },
+                                    { duration: 400, complete: () => cy.remove(node) }
+                                );
+                            }
+                        }
+
+
+                        // Show empty graph message if all nodes gone
+                        if (window.cy && cy.nodes().length === 0) {
+                            document.getElementById("cy").innerHTML =
+                                "<p style='text-align:center;color:#666;'>No more nodes to display.</p>";
+                        }
+                    } else {
+                        alert("❌ " + (data.error || "Could not delete."));
+                    }
+                })
+                .catch(err => console.error(err));
+
+            // Clear stored reference
+            pendingDelete = null;
+        });
+
+        // Handle cancel click
+        document.getElementById("cancel-delete-btn").addEventListener("click", () => {
+            document.getElementById("confirm-delete-modal").style.display = "none";
+            pendingDelete = null;
+        });
+
+        // ---- Social Graph ----
+        fetch("{% url 'get_social_network_graph' %}")
+        .then(res => res.json())
+        .then(data => {
+            const cy = cytoscape({
+                container: document.getElementById("cy"),
+                elements: [
+                    ...data.nodes.map(node => ({ 
+                    data: { 
+                        id: String(node.id), 
+                        label: String(node.label) 
+                    } 
+                    })),
+                    ...data.edges.map((edge,idx) => ({
+                    data: {
+                        id: "edge" + idx,
+                        source: String(edge.source),
+                        target: String(edge.target),
+                        summary: String(edge.summary || "")  
+                    }
+                    }))
+                ],
+                style: [
+                    { selector: "node", 
+                    style: {
+                        "shape": "roundrectangle",
+                        "label": "data(label)",
+                        "background-color": "#3b82f6",
+                        "color": "#fff",
+                        "text-valign": "center",
+                        "text-halign": "center",
+                        "font-size": "12px",              
+                        "text-wrap": "wrap",             
+                        "text-max-width": "80px",
+                        "width": 80,             
+                        "padding": "5px",            
+                        "height": 30     
+                    }
+                    },
+                    { selector: "node.selected", 
+                    style: {
+                        "background-color": "#f97316",
+                        "border-width": 3,
+                        "border-color": "#000"
+                    }
+                    },
+                    { selector: "edge", 
+                    style: {
+                        "line-color": "#aaa",
+                        "curve-style": "bezier",
+                        "width": 3
+                    }
+                    },
+                    { selector: "edge.selected", 
+                    style: {                   
+                        "line-color": "#666",
+                        "width": 3
+                    }
+                }
+                ],
+                layout: { 
+                    name: "cose", 
+                },
+
+                minZoom: 0.25,   // minimum zoom out (adjust as needed)
+                maxZoom: 2.5,
+            });
+
+            window.cy = cy; // make global for deletion updates
+            
+            // --- tiny popover API ---
+            const pop = document.getElementById('edge-popover');
+            const popClose = document.getElementById('edge-popover-close');
+            const popActors = document.getElementById('edge-popover-actors');
+            const popSummary = document.getElementById('edge-popover-summary');
+
+            function actorsText(edge){
+                const s = cy.$id(edge.data('source'));
+                const t = cy.$id(edge.data('target'));
+                const sName = s.data('label') || s.id();
+                const tName = t.data('label') || t.id();
+                return `${sName} ⇄ ${tName}`;
+            }
+
+            function openPopoverAtViewport(vx, vy, {actors, summary}){               
+                // Measure popover first
+                pop.style.display = 'block'; 
+                popActors.textContent = actors || '';
+                popSummary.textContent = (summary || '').trim() || "{% trans 'No relationship description' %}";
+                
+                const OFFSET = 12;
+                const popRect = pop.getBoundingClientRect();
+
+                // Cytoscape container position
+                const cyContainerRect = cy.container().getBoundingClientRect();
+
+                // Compute page-relative coordinates
+                let left = cyContainerRect.left + vx + OFFSET + window.scrollX;
+                let top  = cyContainerRect.top  + vy + OFFSET + window.scrollY;
+
+                // Clamp within viewport boundaries
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                if (left + popRect.width > viewportWidth + window.scrollX) {
+                    left = viewportWidth + window.scrollX - popRect.width - OFFSET;
+                }
+                if (top + popRect.height > viewportHeight + window.scrollY) {
+                    top = viewportHeight + window.scrollY - popRect.height - OFFSET;
+                }
+                if (left < window.scrollX + OFFSET) left = window.scrollX + OFFSET;
+                if (top < window.scrollY + OFFSET) top = window.scrollY + OFFSET;
+
+                // Apply clamped position
+                pop.style.left = `${left}px`;
+                pop.style.top = `${top}px`;
+            }
+
+            function closePopover(){
+                pop.style.display = 'none';
+            }
+            popClose.addEventListener('click', closePopover);
+
+
+            // --- click anywhere along any edge -> open sticky popover ---
+            cy.on('tap', 'edge', (evt) => {
+                const pos = evt.position; // model coords where you tapped the edge
+                if(!pos) return;
+                const [vx, vy] = cy.renderer().projectIntoViewport(pos.x, pos.y); // to viewport coords
+                const edge = evt.target;
+
+                openPopoverAtViewport(vx, vy, {
+                    actors: actorsText(edge),
+                    summary: edge.data('summary')
+            });
+
+                edge.select();
+                evt.stopPropagation();
+            });
+
+            // Optional: click on background does NOT close (user must close manually)
+            cy.on('tap', (evt) => { if (evt.target === cy) {/* do nothing */} });
+
+            // Optional nicety: if the graph is panned/zoomed while popover is open, you can hide it
+            cy.on('pan zoom', () => { if (pop.style.display === 'block') closePopover(); });
+            
+
+            // Node click toggles selection
+            cy.on("tap", "node", (evt) => {
+                const node = evt.target;
+                const actorName = node.data("label");
+
+                if (node.hasClass("selected")) {
+                    node.removeClass("selected");
+                    selectedActors = selectedActors.filter(a => a !== actorName);
+                } else {
+                    node.addClass("selected");
+                    selectedActors.push(actorName);
+                }
+                
+
+                // Update both sections
+                updateGenerateActorsList();
+                updateLiveActorsList();
+            });
+        });
+    
+
+            
+        // ---- Simulation toggle ----
+        function showSimulation(type) {
+            document.getElementById("generate-sim-section").style.display = "none";
+            document.getElementById("live-sim-section").style.display = "none";
+
+            if (type === "generate") {
+                document.getElementById("generate-sim-section").style.display = "block";
+            } else if (type === "live") {
+                document.getElementById("live-sim-section").style.display = "block";
+            }
+        }
+
+        // ---- Default: show Generate Simulation on load ----
+        document.addEventListener("DOMContentLoaded", () => {
+        showSimulation("generate");
+        });
+
+                          
+
+        // ---- Update Generate Simulation actor list ----
+        function updateGenerateActorsList() {
+            const ul = document.getElementById("selected-actors-list");
+            ul.innerHTML = "";
+            selectedActors.forEach(actor => {
+                const li = document.createElement("li");
+                li.textContent = actor;
+                ul.appendChild(li);
+            });
+        }
+
+        // ---- Update Live Simulation actor list + role dropdown ----
+        function updateLiveActorsList() {
+            const ul = document.getElementById("live-selected-actors");
+            ul.innerHTML = "";
+            selectedActors.forEach(actor => {
+                const li = document.createElement("li");
+                li.textContent = actor;
+                ul.appendChild(li);
+            });
+
+            const roleSelect = document.getElementById("user-actor");
+            roleSelect.innerHTML = "";
+
+            if (selectedActors.length < 2) {
+                roleSelect.disabled = true;
+                const opt = document.createElement("option");
+                opt.value = "";
+                opt.textContent = "{% trans 'Select at least 2 actors first' %}";
+                roleSelect.appendChild(opt);
+            } else {
+                roleSelect.disabled = false;
+                selectedActors.forEach(actor => {
+                const opt = document.createElement("option");
+                opt.value = actor;
+                opt.textContent = actor;
+                roleSelect.appendChild(opt);
+                });
+            }
+        }
+
+
+        // === Utility: CSRF Token ===
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie("csrftoken");
+
+
+        // === Generate Simulation handler ===
+        document.getElementById("simulation-form").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        const scenario = document.getElementById("scenario-input").value.trim();
+        const errorBox = document.getElementById("simulation-error-generate");
+        const overlay = document.getElementById("overlay");
+        errorBox.innerHTML = "";
+
+        if (selectedActors.length < 2) {
+            errorBox.innerHTML = "⚠️ Please select at least 2 actors.";
+            return;
+        }
+        if (scenario.length < 50 || scenario.length > 2500) {
+            errorBox.innerHTML = "⚠️ Scenario must be between 50 and 2500 characters.";
+            return;
+        }
+
+        overlay.style.display = "block";
+
+        fetch("{% url 'generate_simulation' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({actors: selectedActors, scenario: scenario})
+        })
+        .then(res => res.json())
+        .then(data => {
+            overlay.style.display = "none";
+
+            if (data.error) {
+                errorBox.innerHTML = "⚠️ " + data.error;
+                if (data.redirect) window.location.href = data.redirect;
+                return;
+            }
+
+            const resultDiv = document.getElementById("simulation-result");
+            resultDiv.innerHTML = "<h3>{% trans 'Simulation Result' %}</h3>";
+
+            if (data.simulation && data.simulation.length > 0) {
+                let list = document.createElement("ul");
+                data.simulation.forEach(step => {
+                    let li = document.createElement("li");
+                    if (step.type === "speech") {
+                    li.innerHTML = `💬 <strong>${step.actor}</strong>: "${step.content}"`;
+                    } else if (step.type === "thought") {
+                    li.innerHTML = `💭 <strong>${step.actor}</strong> (thought): <em>${step.content}</em>`;
+                    } else if (step.type === "feeling") {
+                    li.innerHTML = `🎭 <strong>${step.actor}</strong> (feeling): ${step.content}`;
+                    } else if (step.type === "action") {
+                    li.innerHTML = `👣 <strong>${step.actor}</strong> (action): ${step.content}`;
+                    } else {
+                    li.innerHTML = `<strong>${step.actor}</strong> (${step.type}): ${step.content}`;
+                    }
+                    list.appendChild(li);
+                });
+                resultDiv.appendChild(list);
+            } else {
+                resultDiv.innerHTML += "<p>{% trans 'No simulation generated.' %}</p>";
+                }
+            
+            // //Show the "Start New Simulation" button AFTER success
+            // document.getElementById("new-simulation-btn").style.display = "inline-block";
+        })
+            .catch(err => {
+                overlay.style.display = "none";
+                console.error(err);
+                errorBox.innerHTML = "⚠️ Error generating simulation. Please try again.";
+            });
+        });
+
+
+        //document.getElementById("new-simulation-btn").addEventListener("click", function() {
+            // //Clear UI
+            //document.getElementById("simulation-result").innerHTML = "";
+            //document.getElementById("simulation-error-generate").innerHTML = "";
+            //document.getElementById("scenario-input").value = "";
+       
+            // //Hide this button
+            //this.style.display = "none";
+
+            // // Optionally scroll to top or show message
+            //window.scrollTo(0, 0);
+            //alert("Ready for a new simulation!");
+        //});
+
+
+
+        // === Live Simulation handlers ===
+        function startSimulation(e) {
+        e.preventDefault();
+
+        const scenario = document.getElementById("simulation-scenario").value.trim();
+        const userActor = document.getElementById("user-actor").value;
+        const userMessage = document.getElementById("user-message").value.trim();
+        const errorBox = document.getElementById("simulation-error-live");
+        errorBox.innerHTML = "";
+
+        if (selectedActors.length < 2) {
+            errorBox.innerHTML = "⚠️ Please select at least 2 actors.";
+            return;
+        }
+        if (scenario.length < 50 || scenario.length > 2500) {
+            errorBox.innerHTML = "⚠️ Scenario must be between 50 and 2500 characters.";
+            return;
+        }
+        if (!userActor) {
+            errorBox.innerHTML = "⚠️ Please choose your role.";
+            return;
+        }
+        if (!userMessage) {
+            errorBox.innerHTML = "⚠️ Message cannot be empty.";
+            return;
+        }
+
+        if (userMessage.length < 1 || scenario.length > 600) {
+            errorBox.innerHTML = "⚠️ First message must be between 1 and 600 characters.";
+            return;
+        }
+
+        fetch("{% url 'live_simulation' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({
+                actors: selectedActors,
+                scenario: scenario,
+                user_actor: userActor,
+                message: userMessage
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                errorBox.innerHTML = "⚠️ " + data.error;
+                if (data.redirect) window.location.href = data.redirect;
+                return;
+            }
+            currentSessionId = data.session_id;
+            chatTurnCount = data.history.length;
+
+            renderChat(data.history);
+
+            // // Show start new simulation button
+            //document.getElementById("new-simulation-btn").style.display = "inline-block";
+
+            // Clear input
+            document.getElementById("user-message").value = "";
+            document.getElementById("simulation-chat").style.display = "block";
+            document.getElementById("continue-simulation-form").style.display = "block";
+        })
+        .catch(err => {
+            console.error(err);
+            errorBox.innerHTML = "⚠️ Error starting live simulation. Please try again.";
+        });
+    }
+
+        function continueSimulation(e) {
+        e.preventDefault();
+
+        const scenario = document.getElementById("simulation-scenario").value.trim();
+        const userActor = document.getElementById("user-actor").value;
+        const message = document.getElementById("continue-message").value.trim();
+        const errorBox = document.getElementById("simulation-error-live");
+        errorBox.innerHTML = "";
+
+        if (!message) {
+            errorBox.innerHTML = "⚠️ Message cannot be empty.";
+            return;
+        }
+        if (chatTurnCount >= MAX_TURNS) {
+            errorBox.innerHTML = `⚠️ Maximum number of chat turns (${MAX_TURNS}) reached.`;
+            return;
+        }
+
+        fetch("{% url 'live_simulation' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({
+                actors: selectedActors,
+                scenario: scenario,
+                user_actor: userActor,
+                message: message,
+                session_id: currentSessionId
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                errorBox.innerHTML = "⚠️ " + data.error;
+                if (data.redirect) window.location.href = data.redirect;
+                return;
+            }
+            chatTurnCount = data.history.length;
+            renderChat(data.history);
+
+            document.getElementById("continue-message").value = "";
+
+            if (chatTurnCount >= MAX_TURNS) {
+                document.getElementById("continue-simulation-form").style.display = "none";
+                errorBox.innerHTML = `⚠️ Chat ended: reached maximum ${MAX_TURNS} turns.`;
+            }   
+        })
+        .catch(err => {
+            console.error(err);
+            errorBox.innerHTML = "⚠️ Error continuing live simulation. Please try again.";
+        });
+
+        }
+
+        function renderChat(history) {
+            const chatBox = document.getElementById("simulation-chat");
+            chatBox.innerHTML = "";
+            if (!history || history.length === 0) {
+            chatBox.innerHTML = "<p>No chat history yet.</p>";
+            return;
+        }
+            history.forEach(turn => {
+                let div = document.createElement("div");
+                div.innerHTML = `<strong>${turn.actor}:</strong> ${turn.content}`;
+                chatBox.appendChild(div);
+            });
+            
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+
+        //document.getElementById("new-simulation-btn").addEventListener("click", function() {
+            // // Confirm optional
+            // if (!confirm("End current live simulation and start a new one?")) return;
+
+            // // 🔄 Reset JS state
+            // currentSessionId = null;
+            // chatTurnCount = 0;
+
+            // // 🔄 Clear UI
+            //document.getElementById("simulation-chat").innerHTML = "";
+            //document.getElementById("continue-message").value = "";
+            //document.getElementById("simulation-error-live").innerHTML = "";
+            //document.getElementById("simulation-scenario").value = "";
+            //document.getElementById("user-message").value = "";
+
+            // // Hide this button until next session starts
+            //this.style.display = "none";
+
+            // Hide continue form
+            //document.getElementById("continue-simulation-form").style.display = "none";
+
+            // // Optionally show message
+            //const chatBox = document.getElementById("simulation-chat");
+            //chatBox.innerHTML = "<p>🆕 Live simulation ended. You can start a new one above!</p>";
+
+            // // Scroll to top (optional)
+            //window.scrollTo(0, 0);
+        //});
+
+    </script>
+
+{% endblock %}
+  

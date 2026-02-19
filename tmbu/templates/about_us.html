@@ -1,0 +1,51 @@
+{% extends "global_base.html" %}
+
+{% load i18n %}  
+
+{% block title %}
+{% trans "About Us" %}
+{% endblock title %}
+
+{% block content %}
+ <head>
+    <style>
+        h1 {font-size: 24px;font-weight: bold;}
+        h2 {font-size: 20px;font-weight: normal;line-height: 1.5;}
+        h3 {font-size: 16px;font-weight: normal;line-height: 1.5;}
+        .container {
+        padding-top: 20px; 
+        padding-bottom: 20px; 
+        }
+    </style>
+ </head>
+
+  <div class="container">  <!-- Bootrap is used.Adds automatic padding -->
+    <div class="vision-block">
+        <h1>{% trans "Founders" %}</h1>
+
+        <h2>{% blocktrans %}Xtembusu is founded by veterans in businesses who are keenly aware of the urgent need for most people to understand and master social interactions, becuase it is crucial for personal wellbeing and efficiency.{% endblocktrans %}</h2>
+    </div>
+
+    <div class="vision-block">
+        <h1>{% trans "Our Vision" %}</h1>
+
+        <h2>{% blocktrans %}Everyone can navigate and manage their social interactions with confidence, leading to greater personal well-being and effeciency.{% endblocktrans %}</h2>
+    </div>
+
+    <div class="mission-block">
+        <h1>{% trans "Our Mission" %}</h1>
+
+        <h2>{% blocktrans %}Provide the best services for people to learn from social interaction experiences, explore and understand social networks, train social interaction skills and find solutions for achieving goals and managing situations.{% endblocktrans %}</h2>
+    </div>
+
+    <div class="values-block">
+        <h1>{% trans "Our Values" %}</h1>
+        <ul>
+            <li><h2>{% trans "Care" %}</h2></li>
+            <li><h2>{% trans "Integrity" %}</h2></li>
+            <li><h2>{% trans "Innovation" %}</h2></li>
+        </ul>
+    </div>
+  </div>
+
+{% endblock content %}

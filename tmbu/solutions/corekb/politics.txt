@@ -1,0 +1,51 @@
+
+Politics
+
+political system: a framework for managing the affairs of a country or community, encompassing the processes, institutions, and rules through which political power and authority are exercised. It defines how decisions are made, how leaders are chosen, and how laws and policies are implemented and enforced.
+
+type of political system/democracy: power is vested in the people i.e. the general public who will make decisions collectively in a direct or indirect way.
+
+type of political system/authoritarian: power is concentrated in the hands of a single leader and a small supporting group who make decisions without regards of the public. There are many variations of authoritarian political systems based on the degree of power concentration.
+
+type of political system/totalitarian: all power is held by a single person who has absolute power that prohibits any opposition and controls the public and private sphere of society. 
+
+type of democracy/direct democracy:  also called participatory democracy where citizens themselves make decisions without electing any representatives, such as voting in a referendum. The benefits of direct democracy are improved transparency and cooperation, and it makes citizens themselves accountable for the outcomes of their choices, good and bad. However, in order to be effective, it requires ordinary people to be well-informed about the issues they are voting on, which can be challenging given the demands of modern life. There is also a risk that the tyranny of the majority will prevail, resulting in the rights of minorities being overlooked. 
+
+type of democracy/representative democracy: citizens elect political representatives to act on their behalf and make decisions in their best interests, founded on the principle that the people are the source of political power. Periodic elections give citizens the opportunity to hold their elected representatives accountable.
+
+political party: a group of people organized to acquire and exercise political power.
+
+Type of political party/cadre party: dominated by politically elite groups of activists. The mass of people were limited to the role of spectators rather than that of active participants.
+
+type of political party/mass-based party: party basing itself on an appeal to the masses. It attempts to organize not only those who are influential or well known or those who represent special interest groups but rather any citizen who is willing to join the party.
+
+ type of political party/revolutionary party: a party that attempts to gain power by violence.
+
+party systems: there are two-party system, multiparty system, and single-party system based on the number of parties operating within a particular country and a variety of distinctive features. Generally speaking, two-party and multiparty systems represent means of organizing political conflict within pluralistic societies and are thus part of the apparatus of democracy. Single party system usually operates in situations in which genuine political conflict is not tolerated. However, there may well be intense conflict over policy within the single party itself. And within a two-party or a multiparty system, debate may become so stymied and a particular coalition of interests so entrenched that the democratic process is seriously compromised.
+
+
+government: the organization, system and people who govern a state or community. It has the authority to make and enforce laws, manage public resources, and provide services to its citizens. Governments typically have several key functions including legislation- creating laws and policies that guide behavior and ensure order, administration-implementing and enforcing laws and policies, judiciary- interpreting laws and resolving disputes, and public services-providing essential services like education, healthcare, infrastructure, and safety.
+
+nation-state unitary system: systems in which the local provincial or state government’s power is delegated from the national central government, and such power may be rescinded at the will of the national central government.
+
+nation-state federal system: systems in which a power balance is established between two autonomous sets of governments i.e.the national central governments and the local provincial or state governments.
+
+power distribution: condition of who controls what power, how government roles and authority are assigned and organized, and how the resources are allocated.
+
+political behavior: any act of any member of a society, including individuals, groups or organizations that affects the distribution of power to make decisions for that society, such as voting, campaigning, expressing attitudes or opinions about political issues etc. 
+
+ political freedom: the rights and liberties that allow individuals to participate in and influence the political process without undue restrictions or coercion. It encompasses freedom of expression-the right to express opinions, ideas, and beliefs without fear of censorship or punishment; freedom of assembly - the right to gather peacefully in groups to express political views, protest, or organize for various causes; freedom of association- the right to join or form groups, including political parties and advocacy organizations, and to collaborate with others who share similar interests or beliefs; freedom of participation - the right to take part in the political process, which includes voting in elections, running for office, and engaging in public decision-making. Political freedom is a cornerstone of democratic societies and contributes to the protection of individual rights and the promotion of active citizenship. It enables people to engage in political life, advocate for their interests, and hold governments accountable for their actions. 
+
+political stability: the condition if and to what extent a government or political system is consistently functional, maintains order, and avoids significant disruptions or changes, and whether there is a predictable and orderly political environment where institutions and processes are reliable and effective. Political stability is crucial for fostering economic development, encouraging investment, and ensuring that societies can function smoothly. It creates an environment where citizens feel secure and confident in their governance, which in turn contributes to overall societal well-being. However, it’s important to note that stability doesn’t necessarily mean the absence of all change or dissent; rather, it signifies that changes are managed in a way that avoids disruption and maintains order.
+
+political conflict: disagreements or struggles over political power, resources, policies, or ideologies. This conflict can manifest at various levels, from local disputes to international tension, and can involve a range of actors, including governments, political parties, interest groups, and individuals. Political conflicts can be resolved through various means, including negotiation, mediation, legal processes, public protest, or, in more extreme cases, violence or armed conflict. Political conflicts can have significant impacts on societies, including social instability, hindering economic development and humanitarian crises.
+
+rule of law: a fundamental principle of governance and legal systems that emphasizes that laws should govern a nation, as opposed to the arbitrary decisions of individual leaders. It includes equality before the law-everyone is subject to the same laws and no one is above the law; due process- legal procedures must be followed and everyone has the right to a fair trial and legal representation; legal certainty and predictability- laws should be clear, stable and publicly accessible; accountability- governments must act within the boundaries of law and be held accountable for their actions; judiciary independence - the judiciary should be independent from other branches of government and free from political or external pressures. The rule of law is essential for maintaining social order, protecting individual rights, and ensuring that power is exercised according to established legal norms rather than personal or arbitrary decisions. It is a cornerstone of democratic governance and a safeguard against tyranny and injustice.
+
+international politics and relations: the interactions and relationships between countries. Key aspects of international politics include diplomacy - the practice of managing relations between countries through negotiation, dialogue, and compromise to resolve conflicts, build alliances, and address global issues through peaceful means; international organizations - institutions that facilitate cooperation and coordination among states, such as the United Nations (UN), the International Monetary Fund (IMF), and the World Trade Organization (WTO); global governance - the system of rules, institutions, and processes that manage global issues and facilitate cooperation among states; power and influence- the ways in which states and other actors use their resources, capabilities, and strategies to shape outcomes in the international arena; economic relations - the ways in which countries interact economically, including trade agreements, investment flows, and economic sanctions; human rights and humanitarian issues - the focus on protecting and promoting human rights across borders, addressing humanitarian crises, and responding to issues such as refugee crises and international justice. International politics is complex and multifaceted, involving a wide range of actors and issues. It seeks to understand how countries and other entities interact, pursue their interests, and address global challenges in an interconnected world.
+
+political alliance: a formal or informal agreement between individuals, parties, groups, or states to collaborate on shared political goals or interests. These alliances can be strategic and may involve cooperation on a range of political, economic, or social issues. Political alliances play a crucial role in shaping governance and policy outcomes by enabling collaboration and coordination among different actors.
+
+
+
+

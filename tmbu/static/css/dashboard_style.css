@@ -1,0 +1,903 @@
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    background: radial-gradient(ellipse at top left, #9bc9f2, #ff9155);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+/* Transparent overlay effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 30%, rgba(255, 224, 204, 0.10), rgba(194, 233, 251, 0.12), rgba(255, 255, 255, 0.24));
+    z-index: -1;
+  }
+
+/* Top Menu Styling */
+.top-menu {
+    background-color: #00527e;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-menu .dropdown > .dropbtn::after {
+  content: "▾";         
+  font-size: 0.9em;      
+  margin-left: 6px;       
+  display: inline-block;
+  vertical-align: -0.1em;
+  line-height: 1;                
+  transition: transform 0.2s ease;  /* for rotation animation later */
+}
+
+.top-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.top-menu ul li {
+    margin-right: 20px;
+}
+
+.top-menu ul li a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: white; /* text color */
+    padding: 5px 10px;
+    display: inline-block; /* Ensures padding works properly */
+}
+
+.top-menu ul li a:hover {
+    text-decoration: underline; /* Use underline instead of padding/margin */
+}
+
+.auth-buttons {
+    margin-left: auto; /* Push the logout button to the right */
+    margin-right: 5px;
+    flex-shrink: 0; /* Prevent the logout button from shrinking or moving */
+}
+
+/* Remove background and border for the logout button */
+.login-button {
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    border: none; /* Remove the border */
+    background-color: none;
+    color: white; /* Inherit the text color from the parent */
+    padding: 0; /* Remove default padding */
+    cursor: pointer; /* Ensure it still looks like a button */    
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Add a hover effect for better interactivity */
+.login-button:hover {
+    text-decoration: underline; /* Remove underline on hover */
+}
+
+
+/* Main Content Area */
+.main-content {
+    width: 80%; /* 80% of the viewport width */
+    max-width: 100%; /* Ensure it doesn't exceed the screen width */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: none;
+    flex:1;
+    text-align: left;
+    gap: 20px;
+}
+
+
+h2 {
+    font-size: 28px; /* Larger than h3 */
+    color: #1877f2;
+    margin-bottom: 25px; /* Slightly more spacing */
+    line-height: 1.3; /* Optional: Improves readability */
+}
+
+h3 {
+    font-size: 24px; /* Smaller size */
+    margin-bottom: 20px; /* Less spacing than h2 */
+    line-height: 1.3; /* Match h2 for consistency */
+}
+
+h4 {
+    font-size: 22px; /* Smaller size */
+    margin-bottom: 20px; /* Less spacing than h2 */
+    line-height: 1.3; /* Match h2 for consistency */
+    text-decoration: underline;
+}
+
+
+/* General Form Styling */
+.main-content form {
+    width: 90%;
+    max-width: 100%;
+    /* margin-bottom: 20px;*/ /* Add spacing between forms */
+    padding: 15px; /* Add padding for better visual appearance */
+    border: none; /* Optional: Border to distinguish forms */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.main-content form p .helptext {
+    display: block; /* Ensures the help text appears on a new line */
+    font-size: 12px; /* Optional: Smaller font size for help text */
+    margin-top: 3px; /* Add spacing between textarea and help text */
+}
+
+
+.main-content .form-group {
+    width: 100%;
+    /* margin-bottom: 15px;*/
+}
+
+.main-content .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.main-content input[type="text"],
+.main-content textarea {
+    width: 100%; /* Full width to fit the form */
+    padding: 8px; /* Add padding for height */
+    font-size: 17px; /* Ensure readable font size */
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    background-color: #ffffff; /* light background */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */    
+}
+
+.main-content textarea {
+    min-height: 180px; /* Default starting height */
+    max-height: 1000px; 
+    resize: none; /* Disable manual resizing */
+    overflow-y: auto; /* Hide scrollbar while resizing */
+    overflow-anchor: none; /* prevent scroll jump */
+    padding-bottom: 10px; /* Space for the last line */
+    line-height: 1.5; /* Better text spacing */
+}
+
+
+.main-content textarea.input-underline {
+    min-height: auto;
+    border: none;
+    border-bottom: 3px solid #ccc;
+    outline: none;
+    height: 70px;               /* or another height you like */
+    width: 100%;
+    box-shadow: none;
+    background: transparent;
+}
+.main-content textarea.input-underline:focus {
+    border-bottom-color: #007bff; /* optional focus color */
+}
+
+
+button.btn {
+    margin-top: 10px; /* Spacing above the button */
+    background-color: #1877f2; /* blue button */
+    color: white;
+    padding: 8px 10px;
+    border: 2px solid #1877f2;;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: #165ec7; /* Darker blue on hover */
+}
+
+button.btn[name="submit_scenario"],
+button.btn[name="submit_solution"]
+button.btn[name="submit_experience"] {
+    margin-top: 20px;
+}
+
+.btn-group {
+  display: flex;          /* flexbox layout */
+  flex-wrap: wrap;        /* allow wrapping to next line */
+  justify-content: flex-start;  /* align buttons to the left */
+  gap: 30px;              /* space between buttons */
+  margin-top: 40px; /* space above */
+  margin-bottom: 40px; /* space below */
+}
+
+.btn-group .btn { 
+  white-space: nowrap;    /* prevent text from breaking into two lines */
+  flex: 0 0 auto;       /* prevent buttons from expanding */
+  padding: 10px 20px;  /* internal spacing inside button */
+  border-radius: 6px;
+  margin: 0;
+}
+
+.btn.btn-actors {
+  background-color: #4CAF50;   /* green */
+  color: white;
+}
+
+.btn.btn-dynamics {
+  background-color: #2196F3;   /* blue */
+  color: white;
+}
+
+.btn.btn-needs {
+  background-color: #FF9800;   /* orange */
+  color: white;
+}
+
+.btn.btn-skills {
+  background-color: #9C27B0;   /* purple */
+  color: white;
+}
+
+.btn.btn-analysis {
+  background-color: #F44336;   /* red */
+  color: white;
+}
+
+/* Optional hover effect */
+.btn-group .btn:hover {
+  opacity: 0.9;
+}
+
+/* Scenario Process */
+
+.scenario-process p {
+    font-family: "Arial", sans-serif; /* Change to your preferred font */
+    font-size: 20px; 
+    line-height: 1.5; /* Improves readability */
+    color: #333; /* Dark gray text for readability */
+}
+
+.messages {
+    font-size: 20px; 
+    color: #333;
+    margin-bottom: 25px; /* Slightly more spacing */
+    line-height: 1.3; /* Optional: Improves readability */
+}
+
+.scenario-review,
+.solution-thoughts,
+.solution-review {
+    padding: 10px 14px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color:#ffffff
+}
+
+.last-scenario-input,
+.last-solution-input,
+.last-experience-input {
+    padding: 10px 14px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color:#ffffff
+}
+
+
+/* Hide expandable sections initially */
+.hidden-section {
+    display: none;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Button styling */
+.toggle-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+.subscription-plan h2{
+    font-size: 28px; 
+    color: #1877f2;
+    margin-bottom: 25px; /* Slightly more spacing */
+    line-height: 1.3; /* Optional: Improves readability */
+}
+
+.subscription-plan p {
+    display: block; 
+    font-size: 18px; 
+    margin-top: 3px;
+}
+
+.subscription-plan ul li {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 5px 10px;
+    display: inline-block; 
+}
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .top-menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .top-menu ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .top-menu ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+
+    /* Remove border-top from the first button in the menu */
+    .top-menu ul li:first-child .dropbtn {
+        border-top: none;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .main-content {
+        width: 95%;         /* Wider on smaller screens */
+        padding: 10px;      /* Less padding for narrow devices */
+    }
+
+    .main-content form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .main-content input[type="text"],
+    .main-content textarea {
+        font-size: 15px;    /* Slightly smaller font to fit */
+    }
+}
+
+
+/* Table Styling */
+.table-container table {
+    max-width: 100%;
+    width: 100%; /* Full width for better alignment */
+    border-collapse: collapse; /* Remove spacing between cells */
+    margin-top: 20px; /* Add spacing from other elements */
+}
+
+.table-container table td, 
+.table-container table th
+{
+    padding: 10px 15px; /* Add space inside cells */
+    border-bottom: 1px solid #dbdbdb; /* Subtle row separators */
+}
+
+.table-container table th {
+    background-color: #ffffff; /* Light gray background for header */
+    font-weight: bold; /* Bold headers */
+}
+
+.table-container table td {
+    text-align: left; /* Align text to the left */
+    vertical-align: top; /* Align content to the top */
+}
+
+/* Input Time column (first column) alignment */
+th:nth-child(1), td:nth-child(1) {
+    width: 20%;
+    text-align: left; /* Align both <th> and <td> to the left */
+}
+
+/* Scenario column (second column) alignment */
+th:nth-child(2), td:nth-child(2) {
+    width: 40%;
+    text-align: left; /* Align both <th> and <td> to the center */
+}
+
+
+/* Status column (third column) alignment */
+th:nth-child(3), td:nth-child(3) {
+    width: 30%;
+    text-align: left; /* Align both <th> and <td> to the left */
+}
+
+/* Status column (fourth column) alignment */
+th:nth-child(4), td:nth-child(4) {
+    width: 10%;
+    text-align: left; /* Align both <th> and <td> to the left */
+}
+
+/* Table Container for Responsiveness */
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    margin-bottom: 20px; /* Add space below the table */
+}
+
+@media (max-width: 600px) {
+    table {
+        min-width: 800px; /* Ensure table does not shrink too much */
+    }
+}
+
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination links */
+    margin-top: 20px; /* Add space above the pagination */
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.pagination .page-link:hover {
+    background-color: #f4f4f4;
+    color: #0056b3;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    pointer-events: none;
+}
+
+.pagination li {
+    margin: 0 5px; /* Add space between page links */
+}
+
+.pagination a,
+.pagination span {
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd; /* Optional: Add borders for better styling */
+    border-radius: 4px; /* Optional: Round corners */
+}
+
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+    display: inline-block;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 250px;
+    white-space: nowrap;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1877f2 !important;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #ccc; /* Light grey separator */
+}
+
+/* Show as flex column on hover or active */
+.dropdown:hover .dropdown-content,
+.dropdown.active .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+
+@media (max-width: 768px) {
+    .top-menu ul {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown {
+        display: block;
+        width: 100%;
+    }
+
+    .dropbtn {
+        width: 100%;
+        text-align: left;
+        padding: 12px;
+        font-size: 16px;
+        border-top: none !important;
+        border-bottom: none !important;
+        border-radius: 0;
+    }
+
+    .top-menu ul li:first-child .dropbtn {
+        border-top: none;
+    }
+
+    .dropdown-content {
+        display: none; /* Always hide by default */
+        position: static;
+        box-shadow: none;
+        background-color: #f9f9f9;
+        flex-direction: column !important;   /* <-- Add this */
+        align-items: stretch !important;     /* <-- Add this */
+        white-space: normal !important;      /* <-- Add this to allow wrapping */
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .dropdown-content a {
+        padding: 10px 15px;
+        border-bottom: 1px solid #eaeaea;
+        display: block;
+        font-size: 15px;
+    }
+
+    /* Optional: toggle dropdown on click instead of hover */
+    .dropdown:hover .dropdown-content {
+        display: none;
+    }
+
+    .dropdown.active .dropdown-content {
+        display: flex !important;
+    }
+}
+
+
+.form-group p:last-child { margin-bottom: 0; }
+
+
+.recording-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;  /* Right align */
+    align-items: center;
+    gap: 10px;                  /* Space between buttons/status */
+    margin-top: 1px;
+}
+
+.recording-status {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #2b2b2b;
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 600px) {
+    .recording-controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;    /* Allows buttons to go to next line if no space */
+        justify-content: flex-end;  /* This right-aligns the buttons */
+        margin-top: 1px;     
+    }
+    
+
+    .recording-status {
+        margin-left: 0;
+        margin-top: 4px;
+        font-size: 0.98em;
+    }
+}
+
+/* social map page style */
+
+/* Category section styling */
+.entity-category {
+    margin-bottom: 2.7em;
+}
+.entity-category h4 {
+    margin-bottom: 1.1em;
+    text-decoration: none; 
+    font-weight: 600;
+    font-size: 1.23em;
+    letter-spacing: 0.02em;
+    border-bottom: none;   
+}
+
+/* Button group styling */
+.entity-buttons {
+    margin-bottom: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4em 1.4em;  /* Big horizontal & vertical space between buttons */
+    justify-content: flex-start;  /* Align buttons to the left */
+}
+
+/* Individual button styling */
+.entity-buttons button {
+    padding: 0.8em 2.1em;
+    border-radius: 9px;
+    border: 1.5px solid #888;
+    background: rgb(246, 246, 255);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    font-size: 1.12em;
+    font-family: inherit;
+    margin: 0;  /* Space is managed by gap in .entity-buttons */
+    box-shadow: 0 2px 9px rgba(100,110,160,0.06);
+}
+.entity-buttons button:hover {
+    background: #d5e8ff;
+    box-shadow: 0 4px 16px rgba(140,160,210,0.12);
+}
+
+/* Popup (modal) styling */
+.entity-popup {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #fff;
+    border: 2px solid #444;
+    padding: 1.7em;
+    z-index: 9999;
+    max-width: 90vw;
+    min-width: 240px;
+    box-shadow: 0 6px 32px #0003;
+    display: none;
+    border-radius: 14px;
+}
+.popup-content .close {
+    float: right;
+    cursor: pointer;
+    font-size: 2.2em;
+    font-weight: bold;
+    margin-left: 1.1em;
+}
+
+/* Responsive (Mobile) styles */
+@media (max-width: 600px) {
+    .entity-category {
+        margin-bottom: 2.5em;
+    }
+    .entity-category h4 {
+        margin-bottom: 0.8em;
+        font-size: 1.08em;
+    }
+    .entity-buttons {
+        gap: 1.3em 1.2em;  /* Less space on smaller screens */
+        justify-content: flex-start;
+        margin-bottom: 2.3em;
+    }
+    .entity-buttons button {
+        padding: 1.1em 1em;
+        font-size: 1.12em;
+        min-width: 115px;
+        max-width: 99vw;
+        border-radius: 10px;
+        margin: 0;
+    }
+    .entity-popup {
+        top: 4%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 98vw;
+        max-width: 98vw;
+        min-width: unset;
+        padding: 1em 0.5em;
+        font-size: 1em;
+        border-radius: 13px;
+    }
+    .popup-content .close {
+        font-size: 2.5em;
+        margin-right: 0.4em;
+    }
+    .container {
+        padding: 0 2vw;
+    }
+}
+
+
+/* === Confirmation Modal (fixed overlay) === */
+.modal {
+  display: none;                  /* hidden by default */
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  justify-content: center;        /* center horizontally */
+  align-items: center;            /* center vertically */
+  backdrop-filter: blur(2px);
+}
+
+.modal.active {
+  display: flex;                  /* shown when .active added */
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px 32px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.btn-danger {
+  background-color: #1877f2;
+}
+.btn-danger:hover {
+  background-color: #165ec7;
+}
+
+.btn-danger:disabled {
+  background-color: #d3d3d3;      /* light grey */
+  color: #888;
+  border: none;
+  cursor: not-allowed;
+  opacity: 1;                     /* remove transparency */
+}
+
+/* === Mobile Optimizations === */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 92%;
+    padding: 20px 16px;
+    border-radius: 10px;
+  }
+
+  .modal-content h4 {
+    font-size: 18px;
+  }
+
+  .modal-content p {
+    font-size: 14px;
+  }
+
+  .btn-danger, .btn-secondary {
+    width: 100%;              /* Stack buttons full-width on small screens */
+    font-size: 14px;
+  }
+
+  .modal-actions {
+    flex-direction: column;   /* Stack buttons vertically */
+    gap: 8px;
+  }
+}
+
+
+/* Container that holds each result section of Scenario Mining */
+.result-text {
+  background: #fdfcf9; /* subtle off-white background */
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Headings for each section */
+.result-text h4 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3a3a3a;
+  border-bottom: 2px solid #ffb74d; /* soft orange accent */
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+/* The text output area (LLM result) */
+.result-text .content {
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.7;
+  white-space: pre-wrap; /* Preserve line breaks from JSON text */
+  word-break: break-word;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Icons and dynamic messages (loading, waiting, error) */
+.result-text .content::before {
+  content: "";
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.result-text .content:contains("⏳") {
+  color: #007bff;
+}
+
+.result-text .content:contains("⚠️") {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Hover effect for better visual feel */
+.result-text:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 600px) {
+  .result-text {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .result-text h4 {
+    font-size: 17px;
+  }
+
+  .result-text .content {
+    font-size: 15px; 
+    line-height: 1.6;
+  }
+}

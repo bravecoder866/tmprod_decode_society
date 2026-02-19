@@ -1,0 +1,24 @@
+{% extends "global_base.html" %}
+
+{% comment %}
+Copyright (c) 2025 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Something Went Wrong" %}{% endblock %}
+
+{% block content %}
+    <div class="social-login-error">
+        <h2>{% trans "Login Failed" %}</h2>
+        <p>{% trans "You cancelled the Google login process or an unexpected error occurred." %}</p>
+        
+        <a class="button" style="margin-top:20px;" href="{% url 'login' %}">
+            {% trans "Try Login Again" %}
+        </a>
+    </div>
+{% endblock %}

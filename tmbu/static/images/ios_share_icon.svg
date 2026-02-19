@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="20"
+     height="20">
+  <!-- Arrow: extended stem + moved significantly higher -->
+  <path fill="#007AFF"
+        d="M12 16a1 1 0 0 1-1-1V2L8.41 4.9a1 1 0 1 1-1.42-1.4l4.29-4.3a1 1 0 0 1 1.42 0l4.29 4.3a1 1 0 1 1-1.42 1.4L13 2V15a1 1 0 0 1-1 1z"/>
+  
+  <!-- Box stays fixed -->
+  <path fill="#007AFF"
+        d="M5 21a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3a1 1 0 0 1 0 2H5v10h14V9h-3a1 1 0 0 1 0-2h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5z"/>
+</svg>
+
+

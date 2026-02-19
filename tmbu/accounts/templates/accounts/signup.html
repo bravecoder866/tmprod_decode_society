@@ -1,0 +1,102 @@
+{% extends "global_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+
+{% load i18n %}
+{% load socialaccount %}
+
+{% block title %}{% trans "Sign Up" %}{% endblock %}
+
+{% block content %}
+  <div class="sign-up">
+    
+    <h2>{% trans "Sign Up" %}</h2>
+    
+    <a href="{% provider_login_url 'google' process='signup' %}" class="btn-google">
+      <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo">
+      <span style="font-size: 24px; margin-bottom: 8px;" >{% trans "Continue with Google" %}</span>
+    </a>
+
+    <!-- OR separator -->
+    <div class="or-divider">
+      <span>{% trans "or" %}</span>
+    </div>
+  
+    <form method="post" action="{% url 'signup' %}" novalidate id="signup-form">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="id_username">{% trans "Username:" %}</label>
+        {{ form.username }}
+        {{ form.username.errors }}  <!-- Ensure errors appear first -->
+        <span class="helptext">{{ form.username.help_text }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="id_email">{% trans "Email:" %}</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+        <span class="helptext">{{ form.email.help_text }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="id_password1">{% trans "Password:" %}</label>
+        {{ form.password1 }}
+        {{ form.password1.errors }}
+        <span class="helptext">{{ form.password1.help_text }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="id_password2">{% trans "Confirm Password:" %}</label>
+        {{ form.password2 }}
+        {{ form.password2.errors }}
+        <span class="helptext">{{ form.password2.help_text }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="id_captcha">{% trans "Captcha:" %}</label>
+        {{ form.captcha }}
+        {{ form.captcha.errors }}
+      </div>
+
+      <button type="submit">{% trans "Sign Up" %}</button>
+    
+    </form>
+
+    <p>
+      {% trans "Already have an account?" %} 
+      {% if request.resolver_match.url_name != 'signup' %}
+        <a href="{% url 'login' %}?next={{ request.path }}">{% trans "Log in here" %}</a>.
+      {% else %}
+        <a href="{% url 'login' %}">{% trans "Log in here" %}</a>.
+      {% endif %}
+    </p>
+    
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const signupForm = document.getElementById("signup-form");  // Target the signup form
+
+        signupForm.addEventListener("submit", function () {
+            document.querySelectorAll("#signup-form .errorlist, #signup-form .helptext").forEach(function (element) {
+                if (element.classList.contains("errorlist") && element.children.length > 0) {
+                    element.style.display = "block";  // Show errors only if present
+                } else {
+                    element.style.display = "none";   // Hide empty error lists and help text
+                }
+            });
+        });
+    });
+  </script>
+
+  
+
+{% endblock %}

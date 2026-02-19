@@ -1,0 +1,157 @@
+{% extends "global_base.html" %}
+
+{% load static %}
+{% load i18n %}  
+
+{% block title %}
+    {% trans "Xtembusu" %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        opacity: 0;
+        transition: opacity 0.4s ease-in;
+        background: radial-gradient(ellipse at top left, #ffffff, #c2e9fb);
+        margin: 0;
+        padding: 0;
+    }
+
+    body.loaded {
+        opacity: 1;
+    }
+
+   
+    .add-to-home-container {
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        margin: calc(50vh - 200px) auto 0 auto; /* dynamic vertical centering */
+        padding: 30px 20px;
+        text-align: center;
+        max-width: 600px;
+    }
+
+    .add-to-home-container h2 {
+        font-size: 30px;
+        font-weight: 600;
+        color: #1a4b8e;
+        margin-bottom: 16px;
+    }
+
+
+    .add-to-home-container p {
+        font-size: 22px;
+        line-height: 1.6;
+        color: #222;
+        margin: 10px 0;
+    }
+
+    .footer-container {
+        display: none !important;
+        background: transparent !important;
+    }
+
+    .cookie-banner {
+        display: none !important;
+    }
+
+
+    @media (max-width: 600px) {
+        .add-to-home-container {
+            margin: 40px 16px;
+            padding: 24px 16px;
+            border-radius: 16px;
+            width: 100%;           
+            max-width: 480px;      
+            box-sizing: border-box; 
+        }
+
+        .add-to-home-container h2 {
+            font-size: 30px;
+        }
+
+        .add-to-home-container p {
+            font-size: 22px;
+            line-height: 1.5;
+        }
+    }
+
+    .inline-icon {
+        width: 22px;
+        height: 22px;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+
+    @media (max-width: 600px) {
+        .inline-icon {
+            width: 22px;
+            height: 22px;
+            margin: 0 4px;
+        }
+    }
+</style>
+
+<div class="add-to-home-container">
+    <h2>{% trans "Get Xtembusu App" %}</h2>
+
+    <p id="instructions">{% trans "Loading instructions..." %}</p>
+
+    <p class="note">
+        {% trans "Once added, open it from your Home Screen like an app." %}
+    </p>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fade-in effect
+        document.body.classList.add("loaded"); 
+        
+        const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+
+        // iOS detection: iPhone, iPad, iPod, and iPadOS desktop-mode fallback
+        const isIOS =
+            /\b(iPhone|iPad|iPod)\b/i.test(ua) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+        // Android detection
+        const isAndroid = /\bAndroid\b/i.test(ua);
+
+        // Combined mobile check (consistent with global_base.html)
+        const isMobile =
+            navigator.userAgentData &&
+            typeof navigator.userAgentData.mobile === "boolean"
+            ? navigator.userAgentData.mobile
+            : (isAndroid || isIOS);
+
+        const instructions = document.getElementById("instructions");
+
+        // ONLY PROCEED IF THE TARGET ELEMENT EXISTS
+        if (!instructions) return; 
+
+        const iOSMsg = "{% trans 'Tap' %}<img class='inline-icon' src=\"{% static 'images/ios_share_icon.svg' %}\" alt=\"{% trans 'the share icon' %}\">{% trans 'in the toolbar, scroll down and choose “Add to Home Screen”.' %}";
+        const androidMsg = "{% trans 'Open your browser menu (⋮ or ☰), then choose “Add to Home Screen”.' %}";
+        const otherMsg = "{% trans 'Please open this page in Safari or Chrome to add it to your Home Screen.' %}";
+
+
+        // Display the correct instruction
+        if (isIOS) {
+            instructions.innerHTML = iOSMsg;
+        } else if (isAndroid) {
+            instructions.textContent = androidMsg;
+        } else if (isMobile) {
+            // Unrecognized mobile OS → show help message
+            instructions.textContent = otherMsg;
+        } else {
+            // Definitely desktop → redirect home
+            window.location.replace("{% url 'home' %}");
+        }
+
+        console.log("Detected platform:", { ua, isIOS, isAndroid, isMobile });
+    });
+</script>
+
+{% endblock %}

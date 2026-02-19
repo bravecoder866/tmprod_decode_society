@@ -1,0 +1,25 @@
+{% extends "global_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Something Went Wrong" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Oops! Something went wrong." %}</h1>
+
+    <p>{% trans "It looks like your session expired or a security check failed. Please try the following:" %}</p>
+
+    <ul>
+        <li>{% trans "Refresh the page" %}</li>
+        <li>{% trans "Log in again" %}</li>
+        <li>{% trans "Clear your browser cookies if the problem persists" %}</li>
+    </ul>
+{% endblock %}

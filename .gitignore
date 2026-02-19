@@ -1,0 +1,51 @@
+.env
+.env.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django specific
+*.log
+db.sqlite3
+db.sqlite3-journal
+media
+
+# Virtual environment
+tmb/
+ENV/
+venv/
+venv.bak/
+env.bak/
+
+# IDE specific
+.idea/  # PyCharm
+.vscode/  # Visual Studio Code
+*.swp  # Vim swap files
+
+# OS generated files
+.DS_Store  # MacOS
+Thumbs.db  # Windows
+

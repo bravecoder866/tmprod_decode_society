@@ -1,0 +1,101 @@
+{% extends "global_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <!-- Top Menu for Authenticated Users -->
+    <nav class="top-menu">
+        <ul>
+             <!-- Dropdown for Services -->
+            <li class="dropdown">
+                <a href="#" class="dropbtn">{% trans "Services" %}</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'new_scenario_mining' %}?new=true">{% trans "Experience Mining" %}</a>   
+                    <a href="{% url 'interaction_space' %}">{% trans "Interaction Space" %}</a>
+                    <a href="{% url 'solution_center' %}">{% trans "Solution Center" %}</a>
+                </div>
+            </li>
+
+
+            <li class="dropdown">
+                <a href="#" class="dropbtn">{% trans "Resources" %}</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'my_scenarios_mining' %}">{% trans "Experience Bank" %}</a>  
+                    <a href="{% url 'my_simulations' %}?new=true">{% trans "Simulations Bank" %}</a> 
+                    <a href="{% url 'my_solutions' %}">{% trans "Solutions Bank" %}</a>
+                </div>
+            </li>
+           
+            <li><a href="{% url 'subscription_plan' %}">{% trans "Subscription Plan" %}</a></li>
+        </ul>
+
+        <div class="auth-buttons"></div>
+            {% if not request.user.is_authenticated %}            
+                <!-- Login Link -->
+                <a href="{% url 'login' %}?next={{ request.path }}" class="login-button">
+                    {% trans "Login" %}
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block main_content %}{% endblock %}
+    </div>
+
+    <!-- Home Content -->
+    {% block home_content %}{% endblock %}
+  
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            if (isTouchDevice) {
+                const dropdowns = document.querySelectorAll(".dropdown");
+
+                dropdowns.forEach(dropdown => {
+                    const btn = dropdown.querySelector(".dropbtn");
+                    btn.addEventListener("click", function (e) {
+                        e.preventDefault();
+
+                        // Toggle this dropdown
+                        dropdown.classList.toggle("active");
+
+                        // Close others
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) d.classList.remove("active");
+                        });
+                    });
+                });
+
+                // Close when clicking outside
+                document.addEventListener("click", function (e) {
+                    if (!e.target.closest(".dropdown")) {
+                        document.querySelectorAll(".dropdown.active").forEach(d => d.classList.remove("active"));
+                    }
+                });
+            }
+        });
+    </script>
+      
+{% endblock %}

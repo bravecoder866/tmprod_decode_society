@@ -1,0 +1,214 @@
+{% extends "dashboard_base.html" %}
+
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+
+{% block main_content %}
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div></div> <!-- empty left side -->
+    <a href="{% url 'new_scenario_quick_solution' %}" style="font-weight: bold;">
+      {% trans "→ Start Quick Solution" %}
+    </a>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'my_scenarios' %}" style="font-weight: bold;">
+        {% trans "→ My Comprehensive Solutions" %}
+      </a>
+    </div>
+
+
+  <h3>{% trans "Quick Solutions" %} ({{ total_scenarios }})</h3>
+  
+  {% if page_obj %}
+  <form method="post" action="{% url 'delete_selected_quick_solutions' %}" id="delete-form">
+    {% csrf_token %}
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>{% trans "Input Time" %}</th>
+            <th>{% trans "Goal or Situation" %}</th>
+            <th>{% trans "Quick Solution" %}</th>
+            <th><input type="checkbox" id="select-all"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for scenario in page_obj %}
+          <tr>
+            <td>
+              {% if LANGUAGE_CODE == "zh-hans" %}
+                {{ scenario.scenario_input_time|date:"Y年n月j日" }}
+              {% else %}
+                {{ scenario.scenario_input_time|date:"M. d, Y" }}
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'existing_scenario_quick_solution' scenario_id=scenario.scenario_id %}">
+                {{ scenario.scenario_input|truncatechars:30 }}
+              </a>
+            </td>
+            <td>
+              <a href="{% url 'existing_scenario_quick_solution' scenario_id=scenario.scenario_id %}">
+                {{ scenario.scenario_quick_solution|truncatechars:30 }}
+              </a>
+            </td>
+            <td>
+              <input type="checkbox" name="selected_quick_solutions" value="{{ scenario.scenario_id }}">
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div> 
+
+    <!-- Delete button aligned right -->
+    <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+      <button type="submit" class="btn btn-danger" id="delete-btn" disabled>
+        🗑️ {% trans "Delete Selected" %}
+      </button>
+    </div>
+  </form>
+  {% else %}
+    <p>{% trans "You have not yet input any scenarios." %}</p>
+  {% endif %}
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <h4>{% trans "Confirm Deletion" %}</h4>
+      <p>{% trans "Are you sure you want to delete the selected quick solutions? This action cannot be undone." %}</p>
+      <div class="modal-actions">
+        <button id="confirm-yes" class="btn btn-danger">{% trans "Yes, Delete" %}</button>
+        <button id="confirm-no" class="btn btn-secondary">{% trans "Cancel" %}</button>
+      </div>
+    </div>
+  </div>
+
+  {% if page_obj.has_other_pages %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+
+        <!-- Previous Link -->
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&laquo;</span>
+          </li>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for num in page_obj.paginator.page_range %}
+          {% if num == page_obj.number %}
+            <li class="page-item active">
+              <span class="page-link">{{ num }}</span>
+            </li>
+          {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+          {% elif num == 1 or num == page_obj.paginator.num_pages %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+          {% elif forloop.first or forloop.last %}
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Next Link -->
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&raquo;</span>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+
+  <script>
+    // === Checkbox and modal logic ===
+
+    // Get elements
+    const selectAll = document.getElementById('select-all');
+    const checkboxes = document.querySelectorAll('input[name="selected_quick_solutions"]');
+    const deleteBtn = document.getElementById('delete-btn');
+    const form = document.getElementById('delete-form');
+    const modal = document.getElementById('confirm-modal');
+    const confirmYes = document.getElementById('confirm-yes');
+    const confirmNo = document.getElementById('confirm-no');
+
+    // --- Enable or disable delete button depending on selection ---
+    function updateDeleteButton() {
+        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+        deleteBtn.disabled = !anyChecked;
+    }
+
+    // --- "Select All" checkbox toggle ---
+    if (selectAll) {
+        selectAll.addEventListener('change', (e) => {
+            checkboxes.forEach(cb => cb.checked = e.target.checked);
+            updateDeleteButton();
+        });
+    }
+
+    // --- Each checkbox updates delete button ---
+    checkboxes.forEach(cb => cb.addEventListener('change', updateDeleteButton));
+
+    // --- Intercept form submission ---
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+        if (!anyChecked) {
+          alert("{% trans 'Please select at least one quick solution to delete.' %}");
+          return;
+        }
+
+        // Show modal for confirmation
+        modal.style.display = 'flex';
+    });
+
+    // --- Confirm delete ---
+    confirmYes.addEventListener('click', () => {
+        modal.style.display = 'none';
+        form.submit();  // proceed with submission to backend
+    });
+
+    // --- Cancel delete ---
+    confirmNo.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // --- Close modal when clicking outside ---
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+  </script>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block main_content %}
+
+<div class="landing-page" style="background-color: white;">
+
+    <div class="landing-introduction" style="text-align: left;"> 
+        <div class="introduction"> 
+            <h2 style="margin-bottom: 20px; font-weight: bold;">{% trans "My Solutions" %}</h2>             
+            <p style="color: #1877f2; font-weight: bold;">{% trans "All solutions and related goals/situations are here." %}</p>
+        </div>
+    </div>
+    
+
+    <div class="landing-section">        
+        <h1>{% trans "My Quick Solutions" %}</h1>
+                 
+        <div class="start-btn">
+            <a href="{% url 'my_scenarios_quick_solution' %}">{% trans "View My Quick Solutions" %}</a>
+        </div>
+
+    </div>
+
+    <div class="landing-section">        
+        <h1>{% trans "My Comprehensive Solutions" %}</h1>
+
+        <div class="start-btn">
+            <a href="{% url 'my_scenarios' %}">{% trans "View My Comprehensive Solutions" %}</a>
+        </div>
+        
+    </div>   
+                   
+</div>            
+
+
+{% endblock %}

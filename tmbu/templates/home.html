@@ -1,0 +1,484 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Welcome to Xtembusu" %}{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+
+  <style>    
+    body { visibility: hidden; }
+ 
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at top left, #ffffff, #c2e9fb);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    #splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #splash-logo {
+      font-size: 40px;
+      font-weight: 700;
+      color: #1a4b8e;
+      animation: fadePulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes fadePulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    #splash-text {
+      font-size: 18px;
+      color: #1a4b8e;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /*
+    .page-wrapper {
+        visibility: hidden; 
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    */
+
+    .select-service {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .service-title {
+        color: #fea76d;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    /* The clickable row */
+    .service-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        background-color: #fdfdfd;
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+
+    .service-link span {
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    /* Arrow styling */
+    .arrow {
+        font-size: 1.5rem;
+        color: #fea76d;
+        transition: transform 0.3s ease;
+        padding-left: 20px;
+    }
+
+    /* Hover effects */
+    .service-link:hover {
+        background-color: #fff9f5; /* Very light orange tint */
+        border-color: #fea76d;
+        box-shadow: 0 4px 12px rgba(254, 167, 109, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .service-link:hover .arrow {
+        transform: translateX(8px); /* Moves arrow slightly to the right */
+    }
+
+
+    /* --- MOBILE STYLES --- */
+    @media (max-width: 600px) {
+        .select-service {
+            padding: 20px 15px; /* Less padding on small screens */
+        }
+
+        .service-title {
+            font-size: 1.6rem; /* Smaller title */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .service-link {
+            padding: 16px; /* Smaller padding inside the boxes */
+            border-radius: 12px;
+        }
+
+        .service-text {
+            font-size: 1rem; /* Smaller font for long sentences */
+            max-width: 80%;
+        }
+
+        .arrow {
+            font-size: 1.2rem;
+        }
+
+        /* On mobile, touch doesn't have "hover", so we remove the Y-translation 
+        to keep the UI stable, but keep the color change for tap feedback. */
+        .service-link:hover {
+            transform: none; 
+        }
+    }
+  </style>
+
+  <!-- Splash screen control -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const splash = document.getElementById("splash-screen");
+
+      // Show splash immediately (in case of standalone mode or slow load)
+      document.body.style.visibility = 'visible';
+
+      // Fade out splash once DOM is ready
+      if (splash) {
+        splash.classList.add("hidden");
+        setTimeout(() => splash.remove(), 500);
+      }
+
+      console.log("Splash screen hidden after DOM load.");
+    });
+
+    // Fallback: ensure splash never gets stuck
+    setTimeout(() => {
+      const splash = document.getElementById("splash-screen");
+      if (splash) splash.remove();
+      document.body.style.visibility = 'visible';
+    }, 4000);
+  </script>
+
+  <!-- Mobile detection & redirect logic -->
+  <script>       
+    (function () {
+        const mobileInfoUrl = "{% url 'mobile_info' %}";
+
+        // Function to normalize path
+        const normalizePath = (url) => {
+            try {
+                const link = document.createElement('a');
+                link.href = url;
+                return link.pathname.replace(/\/$/, '');
+            } catch (e) {
+                return url.replace(/\/$/, '');
+            }
+        };
+
+        const currentPath = normalizePath(window.location.href);
+        const destinationPath = normalizePath(mobileInfoUrl);
+        
+        // 1. CRITICAL EXCLUSION: If the current page IS the mobile info page, STOP.
+        if (currentPath === destinationPath) {
+            window.addEventListener('load', () => document.body.style.visibility = 'visible');
+            return;
+        }
+
+        // 2. Detect standalone (Check if PWA/Home Screen app)
+        const isStandalone =
+            (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+            (window.navigator && window.navigator.standalone === true);
+
+        // 3. Detect mobile
+        const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+
+        const isAndroid = /\bAndroid\b/i.test(ua);
+        const isIOS = /\b(iPhone|iPad|iPod)\b/i.test(ua) ||
+                    // iPadOS 13+ identifies itself as Mac; detect via touch support
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+
+        const isMobile = (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean')
+            ? navigator.userAgentData.mobile
+            : (isAndroid || isIOS);
+        
+        // 4. Behavior rules
+        if (isStandalone) {
+            console.log("Running in standalone mode — redirecting to home.");
+            }
+
+        else if (isMobile && !isStandalone) {
+            console.log("Redirecting mobile user to:", mobileInfoUrl);
+            // Use replace() to avoid back-button loops
+            window.location.replace(mobileInfoUrl);
+            return;
+        } 
+
+        Document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.visibility = 'visible';
+            console.log("Page visibility restored.");
+        });
+    })();
+    
+  </script>
+
+  <!-- Splash screen control -->
+  <!--
+  <script>
+    //document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("load", () => {
+        const splash = document.getElementById("splash-screen");
+        const wrapper = document.querySelector(".page-wrapper");
+
+        // Function to reveal the main content wrapper
+        const revealWrapper = () => {
+            if (wrapper) {
+                wrapper.style.visibility = "visible";
+                wrapper.style.transition = "opacity 0.5s ease";
+                requestAnimationFrame(() => {
+                    wrapper.style.opacity = "1";
+                });
+            }
+        };
+
+        // Ensure content wrapper starts hidden if it exists
+        if (wrapper) {
+            wrapper.style.visibility = "hidden";
+            wrapper.style.opacity = "0";
+        }
+
+        // --- Splash logic ---
+        if (splash) {
+            // Display splash for 800ms
+            setTimeout(() => {
+                splash.classList.add("splash-hidden");
+
+                // Immediately start revealing the wrapper
+                revealWrapper();
+
+                // Remove the element after its fade-out transition (0.5s)
+                setTimeout(() => splash.remove(), 500);
+            
+            }, 800);
+        
+        } else {
+            // No splash screen found (e.g., on mobile_info.html), reveal content immediately
+            revealWrapper();
+        }
+
+        // Fallback: ensure splash never gets stuck
+        setTimeout(() => {
+            if (splash) splash.remove();
+            revealWrapper();
+        }, 4000);
+
+        console.log("Splash and visibility handler initialized.");
+    });
+
+  </script>
+  -->
+
+
+  <!-- Mobile detection & redirect logic -->
+  <!--
+  <script>       
+    (function () {
+        const mobileInfoUrl = "{% url 'mobile_info' %}";
+        //const splash = document.getElementById("splash-screen");
+
+        // Function to normalize path
+        const normalizePath = (url) => {
+            try {
+                const link = document.createElement('a');
+                link.href = url;
+                return link.pathname.replace(/\/$/, '');
+            } catch (e) {
+                return url.replace(/\/$/, '');
+            }
+        };
+
+        const currentPath = normalizePath(window.location.href);
+        const destinationPath = normalizePath(mobileInfoUrl);
+        
+        // Detect mobile or standalone
+        const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+        const isAndroid = /\bAndroid\b/i.test(ua);
+        const isIOS = /\b(iPhone|iPad|iPod)\b/i.test(ua) ||
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isMobile = (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean')
+            ? navigator.userAgentData.mobile
+            : (isAndroid || isIOS);
+        const isStandalone =
+            (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+            (window.navigator && window.navigator.standalone === true);
+    
+
+        // Redirection check
+        if (currentPath === destinationPath) {
+            return;
+        }
+
+        if (isMobile && !isStandalone) {
+            console.log("Redirecting mobile user to:", mobileInfoUrl);
+            window.location.replace(mobileInfoUrl);
+            return;
+        } 
+    })();
+    
+  </script>
+  -->
+
+{% endblock %}
+
+{% comment %}
+<block splash>
+    
+    <!-- Splash screen shown before home page loads -->
+    <div id="splash-screen">
+        <img id="splash-logo" src="{% static 'images/xTEMBUSU.png' %}" alt="Xtembusu loading">
+        <div id="splash-text">{% trans "Loading Xtembusu..." %}</div>
+    </div>
+
+</block>
+{% endcomment %}
+
+{% block home_content %}
+
+    <!-- Splash screen shown before main page loads -->
+    <div id="splash-screen">
+        <img id="splash-logo" src="{% static 'images/xTEMBUSU.png' %}" alt="Xtembusu loading">
+        <div id="splash-text">{% trans "Loading Xtembusu..." %}</div>
+    </div>
+
+    <!--Main landing content -->
+    <div class="landing-page">
+
+        <div class="landing-introduction">                 
+            <h1 style="color: #fea76d;">{% trans "Decode Society" %}</h1>
+            <h2 style="font-size: 1.8rem;">{% trans "People are eager to understand society, but society is extraordinarily complex." %}</h2>
+            <h2 style="font-size: 1.8rem;">{% trans "Most people gain some understanding only after decades of hard grind." %}</h2>
+            <h2 style="font-size: 1.8rem;">{% trans "We believe there is a way to decode society much faster." %}</h2>            
+                        
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/2eYverX1C9k?si=MsASrCJUkyAZIcYy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+            </div>  
+        </div>
+
+        <div class="landing-introduction">
+            <h2 style="font-size: 1.8rem;">{% trans "Start with 20 free uses without time limit. No credit card required." %}</h2>
+            <h2 style="font-size: 1.8rem;">{% trans "Let's go!" %}</h2>
+        
+            <div class="select-service">            
+                <h1 class="service-title" style="color: #fea76d; font-size: 2.5rem; margin-bottom: 30px;">{% trans "I want to ..." %}</h1>
+                <div class="service-options">
+                    <a href="{% url 'new_scenario_mining' %}?new=true" class="service-link">
+                        <span style="font-size: 1.8rem;">{% trans "Build social experience." %}</span>
+                        <span class="arrow" style="font-weight: bold;">&rarr;</span>
+                    </a>
+
+                    <a href="{% url 'interaction_space' %}" class="service-link">
+                        <span style="font-size: 1.8rem;">{% trans "Manage social networking and skills." %}</span>
+                        <span class="arrow" style="font-weight: bold;">&rarr;</span>
+                    </a>
+
+                    <a href="{% url 'solution_center' %}" class="service-link">
+                        <span style="font-size: 1.8rem;">{% trans "Achieve goals and handle situations." %}</span>
+                        <span class="arrow" style="font-weight: bold;">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>    
+    
+{% comment %}
+        <div class="landing-introduction">  
+            <h1 style="color: #fea76d;">{% trans "Xtembusu Approach" %}</h1>
+            <h2>{% trans "Social interaction is the DNA of society. Everyone owns the best resources to decode it." %}</h2>
+            <h2>{% trans "That is your real world experiences and observations." %}</h2>
+            <h2>{% trans "You just need the right tool to unlock these rich resources." %}</h2> 
+            <h2>{% trans "Xtembusu can help you:" %}</h2>              
+            <h2>✅ {% trans "unlock experiences and observations." %}</h2>
+            <h2>✅ {% trans "understand social interactions far more quickly, allowing you to benefit much earlier." %}</h2>
+            <h2>✅ {% trans "excel in social interactions to achieve goals in life and career." %}</h2>
+            <h2>✅ {% trans "be free from social anxiety for greater wellbeing." %}</h2>            
+        </div>
+
+        <div class="landing-introduction">  
+            <h1 style="color: #fea76d;">{% trans "Sign-up Bonus" %}</h1>               
+            <h2>{% trans "20 free uses upon sign-up." %}</h2> 
+            <h2>{% trans "No time limit. No credit card required." %}</h2>             
+        </div>
+{% endcomment %}
+
+{% comment %}
+        <div class="landing-introduction">  
+            <h1 style="color: #fea76d;">{% trans "Use Cases" %}</h1>               
+            <h2>✅ {% trans "Accumulate social interaction experiences smartly." %}</h2> 
+            <h2>✅ {% trans "Build strong social networks and support." %}</h2> 
+            <h2>✅ {% trans "Practice key social skills." %}</h2> 
+            <h2>✅ {% trans "Win acceptance and respect in any community." %}</h2>  
+            <h2>✅ {% trans "Achieve career or life goals" %}</h2>              
+            <h2>✅ {% trans "Manage challenging social situations." %}</h2>
+            <h2>✅ {% trans "More uses cases? Refer to the Help Center." %}</h2>             
+        </div>
+{% endcomment %}
+
+{% comment %}
+        <div class="landing-section">        
+            <h1><i class="fas fa-brain"></i>&nbsp;{% trans "Experience Mining" %}</h1>
+            <p>{% trans "Social interaction experiences are full of treasures. Find those treasures and power up your social interactions." %}</p>
+        
+            <div class="start-btn">
+                <a href="{% url 'new_scenario_mining' %}?new=true">{% trans "Start Experience Mining" %}</a>
+            </div>    
+        </div>
+
+
+        <div class="landing-section">        
+            <h1><i class="fas fa-network-wired"></i>&nbsp;{% trans "Interaction Space" %}</h1>
+            <p>{% trans "Explore social network and simulate social interactions." %}</p>
+                
+            <div class="start-btn">
+                <a href="{% url 'interaction_space' %}">{% trans "Enter Interaction Space" %}</a>
+            </div>
+        </div>
+
+
+        <div class="landing-section">        
+            <h1><i class="fas fa-tools"></i>&nbsp;{% trans "Solution Center" %}</h1>
+            <p>{% trans "Find solutions for achieving goals or managing situations, backed by our holistic research on social interactions." %}</p>
+            
+            <div class="start-btn">
+                <a href="{% url 'solution_center' %}">{% trans "Enter Solution Center" %}</a>
+            </div>   
+        </div>   
+{% endcomment %}
+    </div>            
+
+    <!-- Load the home-specific stylesheet after global styles -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/home_style.css' %}">
+
+    
+{% endblock %}

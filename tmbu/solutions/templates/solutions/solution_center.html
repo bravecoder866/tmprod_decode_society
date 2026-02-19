@@ -1,0 +1,50 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block main_content %}
+<div class="landing-page">
+
+    <div class="landing-introduction" style="text-align: left; margin-left: 0; padding-left: 0; width: 100%;">                    
+        <h2 style="font-weight: bold; color: #FF9800;">{% trans "Solution Center" %}</h1>
+        <p style="font-weight: bold; color: #1877f2;">{% trans "Here, you can find how to achieve your goal or handle situations from social perspectives." %}</p>
+    </div>            
+    
+    <div class="landing-section">        
+        <h1>{% trans "Find Quick Solutions" %}</h1>
+                 
+        <div class="start-btn">
+            <a href="{% url 'new_scenario_quick_solution' %}?new=true">{% trans "Start Quick Solution" %}</a>
+        </div>
+
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/8su0KSun6GM?si=cgbLGChAX0D4r-sq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>   
+        </div>
+    </div>
+
+    <div class="landing-section">        
+        <h1>{% trans "Find Comprehensive Solutions" %}</h1>
+
+        <div class="start-btn">
+            <a href="{% url 'new_scenario' %}?new=true">{% trans "Start Comprehensive Solution" %}</a>
+        </div>
+
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/hJGZ2pp4Iy8?si=ysAU30by_XuE6ptQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    
+        </div>    
+    </div>   
+
+
+</div>            
+
+
+{% endblock %}

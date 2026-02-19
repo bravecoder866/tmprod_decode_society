@@ -1,0 +1,231 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block main_content %}
+
+  <div class="scenario-process">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 20px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'my_scenarios_mining' %}" style="font-weight: bold;">
+        {% trans "→ My Experiences" %}
+      </a>
+    </div>
+
+    {% comment %}
+    <!-- Show system messages -->
+    <div class="messages">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% endcomment %}
+
+
+    <div class="landing-introduction" style="text-align: left; margin-left: 0; padding-left: 0; width: 100%;">             
+        <h2 style="font-weight: bold; color:#FF9800">{% trans "Experience Mining" %}</h2>
+        <p style="font-weight: bold; color: #1877f2;">{% trans "Find treasures from experienced or observed social interactions." %}</p>
+    </div>
+
+    <!-- Dynamic Heading -->
+    {% if scenario.scenario_submitted %}
+        <div style="display: flex; gap: 10px; align-items: left;">
+           <h2 style="margin-bottom: 10px;">{% trans "Click the below colorful buttons to see your treasures." %}</h2>  <h3>{% trans "New experience or observation? Click" %} <a href="{% url 'new_scenario_mining' %}?new=true">{% trans " here." %}</a></h3>
+        </div>
+    {% endif %}
+    
+   
+      
+    <!-- Unified ScenarioShared Form -->  
+    {% if scenario_form %}
+      <form method="post" action="{% if scenario.pk %}{% url 'existing_scenario_mining' scenario_id=scenario.scenario_id %}{% else %}{% url 'new_scenario_mining' %}?new=true{% endif %}" id="scenarioForm_{% if scenario and scenario.pk %}{{ scenario.scenario_id }}{% else %}new{% endif %}" name="scenarioForm" class="form" data-show-overlay="true"> 
+        {% csrf_token %}
+        <div class="form-group">
+
+            {{ scenario_form.as_p }}
+  
+            <div class="recording-controls">
+              <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+              <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+              <div class="recording-status"></div>
+            </div>
+        
+        </div>
+
+        <!-- mining buttons -->
+        <button type="submit" name="submit_scenario" id="submitButton" class="btn">    
+          {% if scenario and scenario.scenario_form_submission_count > 0 %}
+            {% trans "Update Mining" %}
+          {% else %}
+            {% trans "Start Mining" %}
+          {% endif %}
+        </button>       
+
+      </form>
+    {% endif %}
+
+    <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-top: 30px; margin-bottom: 20px;">
+      <div style="text-align: right; font-weight: bold;">
+        <div>{% trans "Need a solution?" %}</div> 
+        <div>
+          {% trans "Click " %}<a href="{% url 'new_scenario_quick_solution' %}">{% trans "Quick Solution" %}</a>
+          {% trans " or " %}
+          <a href="{% url 'new_scenario' %}">{% trans "Comprehensive Solution." %}</a>
+        </div>
+      </div>
+    </div> 
+
+    <hr>
+
+    <!-- Only show result buttons & containers if scenario has been saved -->
+    {% if scenario and scenario.pk %}
+      <h3>{% trans "Push each button to see your mined treasures." %}</h3>
+
+      <!-- Buttons -->
+      <div class="btn-group">
+
+        <button type="button" class="btn btn-actors"
+                onclick="fetchResult('{% url 'get_scenario_actors_traits' scenario_id=scenario.scenario_id %}', 'traitsResult')">
+            {% trans "People and Groups" %} 
+        </button>
+
+        <button type="button" class="btn btn-dynamics"
+                onclick="fetchResult('{% url 'get_scenario_dynamics' scenario_id=scenario.scenario_id %}', 'dynamicsResult')">
+            {% trans "Interaction Dynamics" %} 
+        </button>
+
+
+        <button type="button" class="btn btn-needs" 
+                onclick="fetchResult('{% url 'get_scenario_needs' scenario_id=scenario.scenario_id %}', 'needsResult')">             
+            {% trans "Needs and Motivations" %} 
+        </button>
+
+        <button type="button" class="btn btn-skills"               
+                onclick="fetchResult('{% url 'get_scenario_skills_resources' scenario_id=scenario.scenario_id %}', 'skillsresourcesResult')">
+            {% trans "Skills and Resources" %}
+        </button>
+                
+        <button type="button" class="btn btn-analysis"               
+                onclick="fetchResult('{% url 'get_scenario_analysis_prediction' scenario_id=scenario.scenario_id %}', 'analysispredictionResult')">
+            {% trans "Analysis and Prediction" %} 
+        </button>
+      </div>
+ 
+      <!-- Hidden result containers -->
+      <div id="traitsResult" class="result-text" style="display:none; margin-top:15px;">
+        <h4>{% trans "People and Groups" %}</h4>
+        <div class="content">⏳ {% trans "Waiting for result..." %}</div>
+      </div>
+
+      <div id="dynamicsResult" class="result-text" style="display:none; margin-top:15px;">
+        <h4>{% trans "Interaction Dynamics" %}</h4>
+        <div class="content">⏳ {% trans "Waiting for result..." %}</div>
+      </div>
+
+      <div id="needsResult" class="result-text" style="display:none; margin-top:15px;">
+        <h4>{% trans "Needs and Motivations" %}</h4>
+        <div class="content">⏳ {% trans "Waiting for result..." %}</div>
+      </div>
+
+      <div id="skillsresourcesResult" class="result-text" style="display:none; margin-top:15px;">
+        <h4>{% trans "Skills and Resources" %}</h4>
+        <div class="content">⏳ {% trans "Waiting for result..." %}</div>
+      </div>
+
+      <div id="analysispredictionResult" class="result-text" style="display:none; margin-top:15px;">
+        <h4>{% trans "Analysis and Prediction" %}</h4>
+        <div class="content">⏳ {% trans "Waiting for result..." %}</div>
+      </div>
+    {% endif %}
+  </div>
+
+
+  <!-- Overlay with message -->
+  <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4); z-index:1000; text-align:center; padding-top:20%; font-size:24px; color:white; font-family:Arial, sans-serif;">
+    {% trans "Processing, please wait..." %}
+  </div>
+  
+
+  <!-- Load JavaScript translation catalog before any script that uses gettext -->
+  <script src="{% url 'javascript-catalog' %}"></script>
+
+  <script src="{% static 'solutions/js/form_utils.js' %}"></script>
+
+  <script src="{% static 'solutions/js/speech_to_text.js' %}"></script>
+
+  <script>
+    const MAX_TRIES = 10;
+
+    function fetchResult(url, resultDivId, attempt = 0) {
+      if (attempt === 0) {
+        // Hide all results first
+        document.querySelectorAll(".result-text").forEach(el => el.style.display = "none");
+        const firstContainer = document.getElementById(resultDivId);
+        firstContainer.style.display = "block";
+        firstContainer.querySelector(".content").innerText = "⏳ Fetching result...";
+      }
+
+      const container = document.getElementById(resultDivId);
+      const resultDiv = container.querySelector(".content");
+
+      fetch(url)
+        .then(res => {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+        .then(data => {
+          if (data.status === "ready") {
+            resultDiv.innerText = data.result;
+            return;
+          } 
+          
+          if (attempt + 1 >= MAX_TRIES) {
+            resultDiv.innerText = `⚠️ Gave up after ${MAX_TRIES} attempts. Please try again later.`;
+            return;
+          }
+
+          resultDiv.innerText = `⏳ Still processing... retrying in 2s (attempt ${attempt + 1}/${MAX_TRIES})`;
+          setTimeout(() => fetchResult(url, resultDivId, attempt + 1), 2000); 
+        })
+        .catch(err => {
+          resultDiv.innerText = "⚠️ Error fetching result: " + err;
+        });
+      }
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {     
+      const form = document.getElementById("scenarioForm");
+      const submitButton = document.getElementById("submitButton");
+        
+      form.addEventListener("submit", function() {
+        submitButton.disabled = true;
+        submitButton.textContent = "{{ _('Submitting...') }}";  
+      });
+    
+   
+      form.addEventListener("input", function() {
+        submitButton.disabled = false;
+        submitButton.textContent = "{{ _('Start Mining') }}";  
+      });
+    });
+  </script>
+
+{% endblock %}
+

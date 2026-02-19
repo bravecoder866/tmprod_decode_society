@@ -1,0 +1,81 @@
+{% extends "global_base.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Cookie Policy" %}
+{% endblock title %}
+
+{% block content %}
+<head>
+  <style>
+      h1 {font-size: 24px; font-weight: bold;}
+      h2 {font-size: 20px; font-weight: bold;}
+      h3 {font-size: 16px; font-weight: bold;}
+      .container {
+          padding-top: 20px;
+          padding-bottom: 20px;
+      }
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 15px;
+          margin-bottom: 15px;
+      }
+      th, td {
+          border: 1px solid #ccc;
+          padding: 8px;
+          text-align: left;
+      }
+      th {
+          background-color: #f2f2f2;
+      }
+  </style>
+</head>
+
+<div class="container">
+
+  <h1>{% trans "Cookie Policy" %}</h1>
+  <p><em>{% trans "Last updated:" %} {{ "October 30, 2025" }}</em></p>
+
+  <p>{% blocktrans %}Our website uses only essential cookies that are necessary for the website to function properly. These cookies do not store any personally identifiable information.{% endblocktrans %}</p>
+
+  <h2>{% trans "1. What are cookies?" %}</h2>
+  <p>{% blocktrans %}Cookies are small text files stored on your device when you visit a website. They help the website remember your preferences, improve functionality, and ensure secure operation.{% endblocktrans %}</p>
+
+  <h2>{% trans "2. Types of cookies we use" %}</h2>
+  <p>{% blocktrans %}At present, we only use cookies that are strictly necessary for the website to function.{% endblocktrans %}</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Purpose" %}</th>
+        <th>{% trans "Example" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{% trans "Essential cookies" %}</td>
+        <td>{% trans "Enable core functionality such as authentication, security, and network management." %}</td>
+        <td>{% trans "Session ID cookies used for login and security." %}</td>
+      </tr>
+      <tr>
+        <td>{% trans "Non-essential cookies" %}</td>
+        <td>{% trans "Currently not used. We do not use analytics, advertising, or tracking cookies." %}</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>{% trans "3. Managing cookies" %}</h2>
+  <p>{% blocktrans %}Because we only use essential cookies, no consent is required. These essential cookies cannot be disabled through our system. However, you can still manage or delete cookies through your browser settings.{% endblocktrans %}</p>
+
+  <h2>{% trans "4. Updates to this policy" %}</h2>
+  <p>{% blocktrans %}We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Updates will be posted on this page.{% endblocktrans %}</p>
+
+  <h2>{% trans "5. Contact us" %}</h2>
+  <p>{% blocktrans %}If you have any questions about this Cookie Policy, please contact us at legal@xtembusu.com.{% endblocktrans %}</p>
+
+</div>
+
+{% endblock content %}

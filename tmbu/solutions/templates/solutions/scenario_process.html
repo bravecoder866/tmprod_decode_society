@@ -1,0 +1,291 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block main_content %}
+
+  <div class="scenario-process">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'my_scenarios' %}" style="font-weight: bold;">
+        {% trans "→ My Comprehensive Solutions" %}
+      </a>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'new_scenario_quick_solution' %}" style="font-weight: bold;">
+        {% trans "→ Quick Solution" %}
+      </a>
+    </div>
+
+    {% comment %}
+    <div class="messages">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% endcomment %}
+
+    <!-- Dynamic Heading -->
+    {% if scenario and scenario.scenario_id is not None %}
+      {% if scenario.experience_submitted %}
+        <div style="display: flex; gap: 10px; align-items: left;">
+          <h2>{% trans "Comprehensive Solution completed!" %}</h2>  <h3>{% trans "New goal or situation?" %} <a href="{% url 'new_scenario' %}?new=true">{% trans "Click here" %}</a></h3>
+        </div>
+      {% elif scenario.solution_form_submission_count == 1 %}
+        <h2>{% trans "Please complete your solution by integrating strategic considerations." %}</h2>
+      {% elif scenario.solution_form_submission_count == 2 and not scenario.experience_submitted %}
+        <h2>{% trans "Solution Found! Please reflect your experience after trying the solution." %}</h2>
+      {% elif scenario.scenario_form_submission_count == 1 %}
+        <h2>{% trans "Please update the goal/situation input based on the goal/situation review. Next, solution ideas will be provided." %}</h2>
+      {% elif scenario.scenario_form_submission_count == 2 %}
+        <h2>{% trans "Please work out solutions based on the solution ideas. Next, strategic considerations will be provided." %}</h2>
+      {% endif %}
+    {% elif is_new_scenario %}      
+      <div style="margin-bottom: 60px;">
+        <h2 style="margin-bottom: 10px;">{% trans "Comprehensive Solution" %}</h2> 
+        <p style="font-size: 18px; font-weight: bold;">{% trans "The multi-step approach for important or complex goals/situations." %}</p>
+      </div>
+    {% endif %}
+      
+    
+    <!-- Scenario Element Advice -->
+        
+    {% if scenario %}
+      {% if not scenario.scenario_factor_advice %}
+        {% if scenario.scenario_element_advice %}
+          <div class="scenario-review">
+            <h4>{% trans "Goal/Situation Review:" %}</h4>
+            <p>{{ scenario.scenario_element_advice|linebreaks }}</p>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+    <!-- Scenario Form -->  
+    {% if scenario_form %}
+      <form method="post" action="{% if scenario.pk %}{% url 'existing_scenario' scenario_id=scenario.scenario_id %}{% else %}{% url 'new_scenario' %}?new=true{% endif %}" id="scenarioForm_{% if scenario and scenario.pk %}{{ scenario.scenario_id }}{% else %}new{% endif %}" name="scenarioForm" class="form" data-show-overlay="true">
+        {% csrf_token %}
+        <div class="form-group">
+
+          {{ scenario_form.as_p }}
+
+          <div class="recording-controls">
+            <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+            <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+            <div class="recording-status"></div>
+          </div>
+
+        </div>
+
+
+        {% if not scenario %}
+          <button type="submit" name="submit_scenario" class="btn">
+            {% trans "Submit Goal/Situation" %}
+          </button>
+        {% elif scenario and scenario.scenario_form_submission_count < 2 %}
+          <button type="submit" name="submit_scenario" class="btn" style="margin-top: 30px; margin-bottom: 20px;">
+            {% if scenario and scenario.scenario_form_submission_count == 1 %}
+              {% trans "Update Goal/Situation" %}
+            {% else %}
+              {% trans "Submit Goal/Situation" %}
+            {% endif %}
+          </button>
+        {% endif %}
+      </form>
+      
+      <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-top: 30px; margin-bottom: 20px;">
+        <div style="text-align: right; font-weight: bold;">    
+          <div>{% trans "Interested in mining this goal/situation?" %}</div>
+          <div>
+            {% trans "Click " %}<a href="{% url 'new_scenario_mining' %}">{% trans "Experience Mining." %}</a>
+          </div>
+        </div>
+      </div>
+
+    {% else %}
+
+      {% if last_scenario_input %}
+        <div class="last-scenario-input">
+          <h3>{% trans "Goal/Situation:" %}</h3>
+          <p>{{ last_scenario_input|linebreaks }}</p>
+        </div>  
+      {% endif %}
+    
+    {% endif %}
+        
+
+    <!-- Scenario Factor Advice -->    
+    {% if scenario.scenario_factor_advice %}
+
+      {% if scenario.experience_submitted %}
+        <button class="toggle-button" onclick="toggleSection('solution-thoughts')">{% blocktrans %}Show/Hide Solution Ideas{% endblocktrans %}</button>
+      {% endif %}
+
+      <div id="solution-thoughts" class="{% if scenario.experience_submitted %}hidden-section{% else %}solution-thoughts{% endif %}">
+        <h4>{% trans "Solution Ideas:" %}</h4>
+        <p>{{ scenario.scenario_factor_advice|linebreaks }}</p>
+      </div>
+
+    {% endif %}
+
+
+    <!-- Scenario Solution Advice -->
+    {% if scenario.scenario_solution_advice %}
+
+      {% if scenario.experience_submitted %}
+        <button class="toggle-button" onclick="toggleSection('solution-review')">{% blocktrans %}Show/Hide Strategic Considerations{% endblocktrans %}</button>
+      {% endif %}
+
+      {# {% if scenario.solution_form_submission_count != 2 %} #}
+      <div id="solution-review" class="{% if scenario.experience_submitted %}hidden-section{% else %}solution-review{% endif %}">
+        {# <div class="solution-review"> #}
+        <h4>{% trans "Strategic Consideratons:" %}</h4>
+        <p>{{ scenario.scenario_solution_advice|linebreaks }}</p>
+      </div>
+      {# {% endif %} #}
+    {% endif %}    
+
+
+    <!-- Solution Form -->
+    {% if solution_form %}
+      <h2>
+        {% if scenario.solution_form_submission_count == 0 %}
+          {% trans "Input your solution" %}
+        {% elif scenario.solution_form_submission_count == 1 %}
+          {% trans "Update your solution" %}
+        {% elif scenario.solution_form_submission_count >= 2 %}
+          {% trans "Solution Found!" %}
+        {% endif %}
+      </h2>
+
+      <form method="post" action="{% url 'existing_scenario' scenario_id=scenario.scenario_id %}" id="solutionForm_{{ scenario.scenario_id }}" name="solutionForm_{{ scenario.scenario_id }}" class="form" data-show-overlay="true">
+        {% csrf_token %}
+        <div class="form-group">
+
+          {{ solution_form.as_p }}
+
+          <div class="recording-controls">
+            <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+            <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+            <div class="recording-status"></div>
+          </div>
+
+        </div>
+
+        {% if scenario.solution_form_submission_count < 2 %} 
+          <button type="submit" name="submit_solution" class="btn">
+            {% if scenario.solution_form_submission_count == 1 %}
+              {% trans "Update Solution" %}
+            {% else %} 
+              {% trans "Submit Solution" %}
+            {% endif %}
+          </button>
+        {% endif %}
+      </form>
+    
+    
+    {% else %}
+
+      {% if last_solution_input %}
+        <div class="last-solution-input">
+          <h3>{% trans "Solution:" %}</h3>
+          <p>{{ last_solution_input|linebreaks }}</p>
+        </div>  
+      {% endif %}
+
+    {% endif %}
+  
+
+    <!-- Experience Form -->
+    {% if experience_form %}
+
+      <h2>
+        {% if not scenario.experience_submitted %}
+            {% trans "Input your experience." %}
+        {% else %}
+            {% trans "Experience Completed!" %}
+        {% endif %}
+      </h2>
+
+      <form method="post" action="{% url 'existing_scenario' scenario_id=scenario.scenario_id %}" id="experienceForm_{{ scenario.scenario_id }}" name="experienceForm_{{ scenario.scenario_id }}" class="form">
+        {% csrf_token %}
+        <div class="form-group">
+
+          {{ experience_form.as_p }}
+
+          <div class="recording-controls">
+            <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+            <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+            <div class="recording-status"></div>
+          </div>
+
+        </div>
+
+        {% if not scenario.experience_submitted %}<button type="submit" name="submit_experience" class="btn" >
+          {% trans "Submit Experience" %}
+          </button>
+        {% endif %}
+      </form>
+
+    
+    {% else %}
+
+      {% if last_experience_input %}
+        <div class="last-experience-input">
+          <h3>{% trans "Experience:" %}</h3>
+          <p>{{ last_experience_input|linebreaks }}</p>
+        </div>   
+      {% endif %}
+
+    {% endif %}
+    
+  </div>
+
+  
+  <!-- Overlay with message -->
+  <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4); z-index:1000; text-align:center; padding-top:20%; font-size:24px; color:white; font-family:Arial, sans-serif;">
+    {% trans "Processing, please wait..." %}
+  </div>
+  
+
+  <!-- Expansion Buttons -->
+  <script>
+    function toggleSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "block"; // Show the section
+        } else {
+            section.style.display = "none"; // Hide the section
+        }
+    }
+  </script>
+
+
+
+  <!-- Load JavaScript translation catalog before any script that uses gettext -->
+  <script src="{% url 'javascript-catalog' %}"></script>
+
+  <script src="{% static 'solutions/js/form_utils.js' %}"></script>
+
+  <script src="{% static 'solutions/js/speech_to_text.js' %}"></script>
+
+
+{% endblock %}

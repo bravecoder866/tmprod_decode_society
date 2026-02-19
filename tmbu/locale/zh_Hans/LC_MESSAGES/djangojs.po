@@ -1,0 +1,45 @@
+# Xtembusu Simplied Chinese Version V1.00
+# Copyright (C) 2025 Qu Zhi
+#
+# AUTHOR <qjeffrey8@gmail.com>
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-20 09:44+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+#: solutions/static/solutions/js/speech_to_text.js:25
+msgid "Recording..."
+msgstr "正在录音..."
+
+#: solutions/static/solutions/js/speech_to_text.js:46
+msgid "Please click inside a text field before recording."
+msgstr "请在录音前点击文本框。"
+
+#: solutions/static/solutions/js/speech_to_text.js:60
+msgid "Your browser does not support audio recording."
+msgstr "您的浏览器不支持音频录制。"
+
+#: solutions/static/solutions/js/speech_to_text.js:76
+msgid "Processing transcription..."
+msgstr "正在处理转录..."
+
+#: solutions/static/solutions/js/speech_to_text.js:104
+msgid "An error occurred: "
+msgstr "发生错误："
+
+#: solutions/static/solutions/js/speech_to_text.js:116
+msgid "Transcription failed: "
+msgstr "转录失败："
+
+#: solutions/static/solutions/js/speech_to_text.js:132
+msgid "Could not start recording. Check microphone permissions."
+msgstr "无法开始录音。请检查麦克风权限。"

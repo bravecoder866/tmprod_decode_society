@@ -1,0 +1,62 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Profile" %}{% endblock %}
+
+{% block main_content %}
+
+<link rel="stylesheet" href="{% static 'css/profile_style.css' %}">
+
+<div class="profile-container">
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <h3>{% trans "Edit My Profile" %}</h3>
+    
+    <div class="form-group">
+      <label for="id_username">{% trans "Username:" %}</label>
+      {{ u_form.username }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_email">{% trans "Email:" %}</label>
+      {{ u_form.email }}
+    </div>
+
+    {% comment %}
+    <div class="form-group">
+      <label for="id_bio">Bio:</label>
+      {{ p_form.bio }}
+    </div>
+    {% endcomment %}
+
+    {% comment %}
+    <div class="form-group">
+      <label for="id_image">Profile Picture:</label>
+      {{ p_form.image }}
+      {% if user.profile.image %}
+        <img src="{{ user.profile.image.url }}" alt="{{ user.username }}'s profile picture" class="current-profile-pic">
+      {% endif %}
+    </div>
+    {% endcomment %}
+
+    <div class="button-container">
+      <button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
+      <a href="{% url 'profile' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    </div>
+  
+  </form>  
+</div>
+{% endblock %}

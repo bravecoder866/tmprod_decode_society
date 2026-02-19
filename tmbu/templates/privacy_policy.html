@@ -1,0 +1,87 @@
+{% extends "global_base.html" %}
+
+{% load i18n %}  
+
+{% block title %}
+{% trans "Privacy Policy" %}
+{% endblock title %}
+
+{% block content %}
+ <head>
+    <style>
+        h1 {font-size: 24px;font-weight: bold;}
+        h2 {font-size: 20px;font-weight: bold;}
+        h3 {font-size: 16px;font-weight: bold;}
+        .container {
+        padding-top: 20px; 
+        padding-bottom: 20px; 
+        }
+    </style>
+ </head>
+
+  <div class="container">  <!-- Bootrap is used.Adds automatic padding -->
+    
+    <h1>{% trans "Privacy Policy" %}</h1>
+
+    <p>{% blocktrans %}We, Xtembusu, together with our affiliates (hereinafter referred to as “Xtembusu”, “we”, “our” or “us”) are committed to respecting your privacy. This Privacy Policy describes our practices with respect to your personal information (“Personal Information”) we collect when you use our website and services (collectively, “Services”).{% endblocktrans %}</p>
+
+    <h2>{% trans "1. Personal information" %}</h2>
+
+    <ul>
+        <li><strong>{% trans "Account Information:" %}</strong> {% blocktrans %}When you create an account with us, we will collect information associated with your account, including your name, contact information, account credentials, and transaction history.{% endblocktrans %}</li>
+        <li><strong>{% trans "User Content:" %}</strong> {% blocktrans %}When you use our Services, we collect Personal Information that is included in the input or feedback that you provide.{% endblocktrans %}</li>
+        <li><strong>{% trans "Communication Information:" %}</strong> {% blocktrans %}If you communicate with us, we collect your name, contact information, and the contents of any messages you send.{% endblocktrans %}</li>
+        <li><strong>{% trans "Social Media Information:" %}</strong> {% blocktrans %}When you interact with our social media pages, we will collect Personal Information that you provide to us, such as your contact details.{% endblocktrans %}</li>
+        <li><strong>{% trans "Other Information:" %}</strong> {% blocktrans %}We collect other information that you may provide to us, such as when you participate in our events or surveys.{% endblocktrans %}</li>
+    </ul>
+
+    <h2>{% trans "2. How we use personal information" %}</h2>
+    <p>{% trans "We may use Personal Information for the following purposes:" %}</p>
+
+    <ul>
+        <li>{% trans "To provide, administer, maintain and/or analyze the Services." %}</li>
+        <li>{% trans "To improve our Services and conduct research or develop new Services." %}</li>
+        <li>{% trans "To communicate with you, including to send you information about our Services and events." %}</li>
+        <li>{% trans "To prevent fraud, criminal activity, or misuse of our Services." %}</li>
+        <li>{% trans "To carry out business transfers." %}</li>
+        <li>{% trans "To comply with legal obligations and protect our rights and property." %}</li>
+    </ul>
+
+    <h2>{% trans "3. Aggregated or de-identified information" %}</h2>
+    <p>{% blocktrans %}We may aggregate or de-identify Personal Information so that it may no longer be used to identify you and use such information to analyze the effectiveness of our Services, to improve and add features to our Services, to conduct research, and for other similar purposes.{% endblocktrans %}</p>
+
+    <h2>{% trans "4. Disclosure of personal information" %}</h2>
+    <p>{% blocktrans %}In certain circumstances, we may provide your Personal Information to third parties without further notice to you, unless required by the law.{% endblocktrans %}</p>
+
+    <h2>{% trans "5. Your rights" %}</h2>
+    <p>{% trans "Depending on location, individuals may have certain statutory rights in relation to their Personal Information. For example, you may have the right to:" %}</p>
+
+    <ul>
+        <li>{% trans "Access your Personal Information and information relating to how it is processed." %}</li>
+        <li>{% trans "Delete your Personal Information from our records." %}</li>
+        <li>{% trans "Rectify or update your Personal Information." %}</li>
+        <li>{% trans "Transfer your Personal Information to a third party." %}</li>
+        <li>{% trans "Withdraw your consent—where we rely on consent as the legal basis for processing." %}</li>
+    </ul>
+
+    <h2>{% trans "6. Children" %}</h2>
+    <p>{% blocktrans %}Our Service is not directed to children under the age of 13. If you have reason to believe that a child under the age of 13 has provided Personal Information to Xtembusu through the Services, please email us at legal@xtembusu.com.{% endblocktrans %}</p>
+
+    <h2>{% trans "7. Links to other websites" %}</h2>
+    <p>{% blocktrans %}The Service may contain links to other websites not operated or controlled by Xtembusu, including social media services.{% endblocktrans %}</p>
+
+    <h2>{% trans "8. Security and retention" %}</h2>
+    <p>{% blocktrans %}We implement commercially reasonable measures to protect Personal Information both online and offline from loss, misuse, and unauthorized access.{% endblocktrans %}</p>
+
+    <h2>{% trans "9. International users" %}</h2>
+    <p>{% blocktrans %}By using our Service, you understand and acknowledge that your Personal Information will be processed and stored in our or our service providers’ facilities and servers outside your country.{% endblocktrans %}</p>
+
+    <h2>{% trans "10. Changes to the privacy policy" %}</h2>
+    <p>{% blocktrans %}We may update this Privacy Policy from time to time. When we do, we will post an updated version on this page.{% endblocktrans %}</p>
+
+    <h2>{% trans "11. Contact us" %}</h2>
+    <p>{% blocktrans %}If you have any questions related to this Privacy Policy, please contact us at legal@xtembusu.com.{% endblocktrans %}</p>
+ 
+  </div>
+
+{% endblock content %}

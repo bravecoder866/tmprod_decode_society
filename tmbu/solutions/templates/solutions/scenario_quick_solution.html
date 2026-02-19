@@ -1,0 +1,127 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load static %}
+{% load i18n %}
+
+{% block main_content %}
+
+  <div class="scenario-process">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'my_scenarios_quick_solution' %}" style="font-weight: bold;">
+        {% trans "→ My Quick Solutions" %}
+      </a>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <div></div> <!-- empty left side -->
+      <a href="{% url 'new_scenario' %}" style="font-weight: bold;">
+        {% trans "→ Comprehensive Solution" %}
+      </a>
+    </div>
+
+
+
+    
+    {% comment %}
+    <div class="messages">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% endcomment %}
+
+    <!-- Dynamic Heading -->
+   
+    {% if scenario.scenario_quick_solution %}
+        <div style="display: flex; gap: 10px; align-items: left;">
+          <h2>{% trans "Quick Solution found! Update anytime." %}</h2>  <h3>{% trans "New goal or situation?" %} <a href="{% url 'new_scenario_quick_solution' %}?new=true">{% trans "Click here." %}</a></h3>
+        </div>
+    {% elif is_new_scenario %}
+        <div style="margin-bottom: 60px;">
+            <h2 style="margin-bottom: 10px;">{% trans "Quick Solution" %}</h2> 
+            <p style="font-size: 18px; font-weight: bold;">{% trans "The one-shot approach for time-sensitive goals/situations." %}</p>
+        </div>
+    {% endif %}
+         
+
+    <!-- Scenario Form -->  
+    {% if scenario_form %}
+      <form method="post" action="{% if scenario.pk %}{% url 'existing_scenario_quick_solution' scenario_id=scenario.scenario_id %}{% else %}{% url 'new_scenario_quick_solution' %}?new=true{% endif %}" id="scenarioForm_{% if scenario and scenario.pk %}{{ scenario.scenario_id }}{% else %}new{% endif %}" name="scenarioForm" class="form" data-show-overlay="true">
+        {% csrf_token %}
+        <div class="form-group">
+         
+          {{ scenario_form.as_p }}
+
+          <div class="recording-controls">
+            <button type="button" class="record">🎤 {% trans "Voice" %}</button>
+            <button type="button" class="stop">⏹️ {% trans "Stop" %}</button>
+            <div class="recording-status"></div>
+          </div>
+
+        </div>
+
+        <button type="submit" name="submit_scenario" class="btn" style="margin-top: 30px; margin-bottom: 20px;">
+            {% if scenario and scenario.scenario_form_submission_count > 0 %}
+              {% trans "Update Quick Solution" %}
+            {% else %}
+              {% trans "Get Quick Solution" %}
+            {% endif %}
+        </button>
+      </form>
+    {% endif %}
+
+    <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-top: 30px; margin-bottom: 20px;">
+      <div style="text-align: right; font-weight: bold;">  
+        <div>{% trans "Interested in mining this goal/situation?" %}</div>
+        <div>
+          {% trans "Click " %}<a href="{% url 'new_scenario_mining' %}">{% trans "Experience Mining." %}</a>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Scenario Quick Solution -->
+        
+    {% if scenario.scenario_quick_solution %}
+        <div class="scenario-review">
+        <h4>{% trans "Quick Solution:" %}</h4>
+        <p>{{ scenario.scenario_quick_solution|linebreaks }}</p>
+        </div>
+    {% endif %}
+
+  </div>
+
+         
+  <!-- Overlay with message -->
+  <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.4); z-index:1000; text-align:center; padding-top:20%; font-size:24px; color:white; font-family:Arial, sans-serif;">
+    {% trans "Processing, please wait..." %}
+  </div>
+
+
+
+  <!-- Load JavaScript translation catalog before any script that uses gettext -->
+  <script src="{% url 'javascript-catalog' %}"></script>
+
+  <script src="{% static 'solutions/js/form_utils.js' %}"></script>
+
+  <script src="{% static 'solutions/js/speech_to_text.js' %}"></script>
+
+
+{% endblock %}

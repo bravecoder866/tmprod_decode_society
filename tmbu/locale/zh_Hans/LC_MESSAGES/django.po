@@ -1,0 +1,1693 @@
+# Xtembusu Simplied Chinese Version V1.00
+# Copyright (C) 2025 Qu Zhi
+#
+# AUTHOR <qjeffrey8@gmail.com>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-20 14:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/forms.py:25
+msgid "Required."
+msgstr "必填。"
+
+#: accounts/forms.py:25
+msgid "Enter your username"
+msgstr "输入您的用户名"
+
+#: accounts/forms.py:26
+msgid "Required. Enter a valid email address."
+msgstr "必填。请输入有效的电子邮件地址。"
+
+#: accounts/forms.py:26
+msgid "Enter your email"
+msgstr "输入您的电子邮件"
+
+#: accounts/forms.py:33 accounts/forms.py:123
+msgid "Enter your password"
+msgstr "输入密码"
+
+#: accounts/forms.py:34
+msgid "Confirm your password"
+msgstr "确认密码"
+
+#: accounts/forms.py:40
+msgid "Captcha"
+msgstr "验证"
+
+#: accounts/forms.py:59
+msgid "A user with that email already exists."
+msgstr "使用该电子邮件的用户已存在。"
+
+#: accounts/forms.py:70
+msgid "A user with that username already exists."
+msgstr "使用该用户名的用户已存在。"
+
+#: accounts/forms.py:117
+msgid "Enter your username or email"
+msgstr "输入您的用户名或电子邮件"
+
+#: accounts/forms.py:118
+msgid "Username or Email"
+msgstr "用户名或邮箱"
+
+#: accounts/forms.py:124
+msgid "Password"
+msgstr "密码"
+
+#: accounts/forms.py:147
+msgid "Invalid username/email or password"
+msgstr "用户名/电子邮箱或密码无效"
+
+#: accounts/otp_utils.py:18
+msgid "Your Verification Code"
+msgstr "您的验证码"
+
+#: accounts/otp_utils.py:20
+#, python-brace-format
+msgid ""
+"Hi {username},\n"
+"\n"
+"Your OTP code is: {otp_code}\n"
+"\n"
+"This code is valid for 60 minutes.\n"
+"\n"
+"Thank you for signing up!\n"
+"\n"
+"Xtembusu Support Team"
+msgstr ""
+"您好 {username},\n"
+"\n"
+"您的一次性验证码（OTP）是：{otp_code}\n"
+"\n"
+"该验证码有效期为 60 分钟。\n"
+"\n"
+"感谢您的注册!\n"
+"\n"
+"Xtembusu支持团队"
+
+#: accounts/templates/accounts/csrf_failure.html:13
+msgid "Something Went Wrong"
+msgstr "错误信息"
+
+#: accounts/templates/accounts/csrf_failure.html:16
+msgid "Oops! Something went wrong."
+msgstr "噢！出错了。"
+
+#: accounts/templates/accounts/csrf_failure.html:18
+msgid ""
+"It looks like your session expired or a security check failed. Please try "
+"the following:"
+msgstr "您的会话已过期或安全检查失败。请尝试以下操作："
+
+#: accounts/templates/accounts/csrf_failure.html:21
+msgid "Refresh the page"
+msgstr "更新页面"
+
+#: accounts/templates/accounts/csrf_failure.html:22
+msgid "Log in again"
+msgstr "重新登录"
+
+#: accounts/templates/accounts/csrf_failure.html:23
+msgid "Clear your browser cookies if the problem persists"
+msgstr "如果问题仍然存在，请清除浏览器的 Cookies。"
+
+#: accounts/templates/accounts/edit_profile.html:15
+#: accounts/templates/accounts/profile.html:38
+msgid "Edit Profile"
+msgstr "编辑用户信息"
+
+#: accounts/templates/accounts/edit_profile.html:26
+msgid "Edit My Profile"
+msgstr "编辑我的信息"
+
+#: accounts/templates/accounts/edit_profile.html:29
+#: accounts/templates/accounts/profile.html:27
+#: accounts/templates/accounts/signup.html:25
+msgid "Username:"
+msgstr "用户名"
+
+#: accounts/templates/accounts/edit_profile.html:34
+#: accounts/templates/accounts/profile.html:28
+#: accounts/templates/accounts/signup.html:32
+msgid "Email:"
+msgstr "电子邮箱"
+
+#: accounts/templates/accounts/edit_profile.html:58
+msgid "Save Changes"
+msgstr "保存更改"
+
+#: accounts/templates/accounts/edit_profile.html:59
+msgid "Cancel"
+msgstr "取消"
+
+#: accounts/templates/accounts/profile.html:15 templates/dashboard_base.html:51
+msgid "Profile"
+msgstr "用户信息"
+
+#: accounts/templates/accounts/profile.html:26
+msgid "My Profile"
+msgstr "我的信息"
+
+#: accounts/templates/accounts/profile.html:42
+msgid "Manage Subscription"
+msgstr "管理使用计划"
+
+#: accounts/templates/accounts/profile.html:44
+msgid ""
+"Access the customer portal to manage your subscription details, payment "
+"methods, and more."
+msgstr "访问客户中心，以管理您的使用计划、支付方式等."
+
+#: accounts/templates/accounts/profile.html:48
+msgid "Customer Portal"
+msgstr "客户中心"
+
+#: accounts/templates/accounts/signup.html:14
+#: accounts/templates/accounts/signup.html:19
+#: accounts/templates/accounts/signup.html:58
+msgid "Sign Up"
+msgstr "注册"
+
+#: accounts/templates/accounts/signup.html:39
+#: accounts/templates/registration/login.html:43
+msgid "Password:"
+msgstr "密码"
+
+#: accounts/templates/accounts/signup.html:46
+msgid "Confirm Password:"
+msgstr "确认密码"
+
+#: accounts/templates/accounts/signup.html:53
+msgid "Captcha:"
+msgstr "验证："
+
+#: accounts/templates/accounts/verify_otp.html:13
+#: accounts/templates/accounts/verify_otp.html:16
+msgid "Verify Your OTP"
+msgstr "验证您的 OTP"
+
+#: accounts/templates/accounts/verify_otp.html:17
+msgid "Please enter the 6-digit code sent to your email."
+msgstr "请输入发送到您电子邮箱的6位数代码。"
+
+#: accounts/templates/accounts/verify_otp.html:21
+msgid "OTP Code:"
+msgstr "OTP代码:"
+
+#: accounts/templates/accounts/verify_otp.html:23
+msgid "Verify"
+msgstr "验证"
+
+#: accounts/templates/registration/login.html:16
+#: accounts/templates/registration/login.html:22
+#: accounts/templates/registration/login.html:47 templates/home.html:38
+msgid "Login"
+msgstr "登录"
+
+#: accounts/templates/registration/login.html:38
+msgid "Username or Email:"
+msgstr "用户名或电子邮箱："
+
+#: accounts/templates/registration/login.html:50 templates/home.html:40
+msgid "Don't have an account?"
+msgstr "还沒有帳戶？"
+
+#: accounts/templates/registration/login.html:50 templates/home.html:40
+msgid "Sign up here"
+msgstr "请在这里注册"
+
+#: accounts/templates/registration/login.html:51 templates/home.html:41
+msgid "Forgot your password?"
+msgstr "忘记密码？"
+
+#: accounts/templates/registration/login.html:51 templates/home.html:41
+msgid "Reset it here"
+msgstr "请在这里重置"
+
+#: accounts/templates/registration/password_reset_complete.html:13
+#: accounts/templates/registration/password_reset_complete.html:19
+msgid "Password Reset Complete"
+msgstr "密码重置完成"
+
+#: accounts/templates/registration/password_reset_complete.html:21
+msgid "Your password has been successfully reset. You can now"
+msgstr "您的密码已成功重置。您现在可以使用您的新密码"
+
+#: accounts/templates/registration/password_reset_complete.html:21
+msgid "log in"
+msgstr "登录。"
+
+#: accounts/templates/registration/password_reset_complete.html:21
+msgid "with your new password."
+msgstr " "
+
+#: accounts/templates/registration/password_reset_confirm.html:14
+#: accounts/templates/registration/password_reset_confirm.html:20
+msgid "Enter New Password"
+msgstr "输入新密码"
+
+#: accounts/templates/registration/password_reset_confirm.html:25
+#: accounts/templates/registration/password_reset_form.html:13
+#: accounts/templates/registration/password_reset_form.html:18
+msgid "Reset Password"
+msgstr "重置密码"
+
+#: accounts/templates/registration/password_reset_done.html:13
+#: accounts/templates/registration/password_reset_done.html:19
+msgid "Reset Email Sent"
+msgstr "重置密码邮件已发送"
+
+#: accounts/templates/registration/password_reset_done.html:21
+msgid ""
+"If an account with that email exists, you will receive a password reset link "
+"shortly."
+msgstr "如果存在使用该电子邮件的帐户，您将很快收到密码重置链接。"
+
+#: accounts/templates/registration/password_reset_done.html:23
+msgid "Return to Login"
+msgstr "返回登陆界面"
+
+#: accounts/templates/registration/password_reset_email.html:13
+#, python-format
+msgid ""
+"\n"
+"Hi %(username)s,\n"
+"\n"
+"You're receiving this email because you requested a password reset for your "
+"user account at Xtembusu.\n"
+"\n"
+"To reset your password, please click the link below:\n"
+msgstr ""
+"\n"
+"您好 %(username)s，\n"
+"\n"
+"您收到此电子邮件是因为您请求重置在 Xtembusu 的用户账户密码。\n"
+"\n"
+"要重置您的密码，请点击以下链接：\n"
+
+#: accounts/templates/registration/password_reset_email.html:23
+msgid ""
+"\n"
+"If the above link does not work, copy and paste this URL into your browser:\n"
+msgstr ""
+"\n"
+"如果以上链接无法打开，请将以下网址复制并粘贴到您的浏览器中：\n"
+
+#: accounts/templates/registration/password_reset_email.html:29
+msgid ""
+"\n"
+"For security reasons, this link will expire in 3 days.\n"
+"\n"
+"If you did not request a password reset, please ignore this email.\n"
+"\n"
+"Thank you for using our site!\n"
+"\n"
+"Xtembusu Support Team\n"
+msgstr ""
+"\n"
+"出于安全原因，该链接将在 3 天后失效。\n"
+"\n"
+"如果您没有请求密码重置，请忽略此电子邮件。\n"
+"\n"
+"感谢您使用我们的网站！\n"
+"\n"
+"Xtembusu支持团队\n"
+
+#: accounts/templates/registration/password_reset_form.html:20
+msgid ""
+"Enter your email address, and we'll send you a link to reset your password."
+msgstr "请输入您的电子邮件地址，我们将向您发送重置密码的链接。"
+
+#: accounts/templates/registration/password_reset_form.html:25
+msgid "Send Reset Link"
+msgstr "发送重置链接"
+
+#: accounts/templates/registration/password_reset_form.html:29
+msgid "Please enter a valid email address."
+msgstr "请输入有效的电子邮件地址。"
+
+#: accounts/views.py:73
+msgid "A verification code has been sent to your email."
+msgstr "验证码已发送至您的电子邮箱。"
+
+#: accounts/views.py:98
+msgid "Your session has expired. Please sign up again."
+msgstr "您的访问状态已过期。请重新注册。"
+
+#: accounts/views.py:108
+msgid "Session expired. Please sign up again."
+msgstr "您的访问状态已过期。请重新注册。"
+
+#: accounts/views.py:114
+msgid "OTP expired. Please request a new one."
+msgstr "OTP 已过期。请重新申请。"
+
+#: accounts/views.py:142
+msgid ""
+"Account created! You have one free trial available. The free trial covers "
+"all the steps to completion."
+msgstr "帐户已创建！您有一次免费试用机会。免费试用包含以下所有步骤，直至完成。"
+
+#: accounts/views.py:147
+msgid "Invalid OTP. Please try again."
+msgstr "OTP 无效。请重试。"
+
+#: payments/templates/payments/subscribe_cancel.html:14
+msgid "Subscription Canceled or Failed"
+msgstr "使用计划已取消或失效"
+
+#: payments/templates/payments/subscribe_cancel.html:15
+msgid "Your subscription was canceled or failed."
+msgstr "您的使用计划已取消或失效"
+
+#: payments/templates/payments/subscribe_cancel.html:16
+msgid "Retry"
+msgstr "请重试"
+
+#: payments/templates/payments/subscribe_success.html:16
+msgid "Subscription Success"
+msgstr "使用计划购买成功"
+
+#: payments/templates/payments/subscribe_success.html:17
+msgid "Your subscription is now activated."
+msgstr "您的使用计划已启动。"
+
+#: payments/templates/payments/subscribe_success.html:18
+msgid "Start a New Scenario"
+msgstr "开始驾驭新场景"
+
+#: payments/templates/payments/subscription_plan.html:27
+msgid "Subscription Plan - Monthly Membership"
+msgstr "订阅计划 - 月度会员"
+
+#: payments/templates/payments/subscription_plan.html:29
+msgid ""
+"SGD10.00 (or the equivalent value in your local currency) for all the "
+"services on monthly basis."
+msgstr "每月10新币（或等值的本地货币), 包含使用所有服务。"
+
+#: payments/templates/payments/subscription_plan.html:58
+msgid "We work with Stripe to provide fast and secure payment process."
+msgstr "我们与Stripe合作，提供快速、安全的支付流程。"
+
+#: payments/templates/payments/subscription_plan.html:60
+msgid "Find more details here."
+msgstr "点击此处了解更多详细信息。"
+
+#: payments/templates/payments/subscription_plan.html:66
+msgid "Checkout"
+msgstr "查看"
+
+#: payments/views.py:60
+msgid "You already have an active subscription."
+msgstr "您已经拥有有效使用计划。"
+
+#: payments/views.py:116
+msgid "An error occurred while creating the checkout session"
+msgstr "创建查看过程时发生错误"
+
+#: payments/views.py:402
+msgid ""
+"You do not have an active subscription. Please subscribe to access your "
+"portal."
+msgstr "您当前没有有效的使用计划。请先购买使用计划，再访问您的门户。"
+
+#: payments/views.py:434
+msgid "An error occurred while connecting to Stripe. Please try again later."
+msgstr "连接到 Stripe 时出错。请稍后重试。"
+
+#: solutions/forms.py:22
+msgid "Describe your goal or situation:"
+msgstr "描述您的目标或情况："
+
+#: solutions/forms.py:50
+msgid "Draft a solution:"
+msgstr "起草解决方案："
+
+#: solutions/forms.py:78
+msgid "Your experience with the solution:"
+msgstr "有关上述解决方案，请在此回顾您的经历体验"
+
+#: solutions/forms.py:107
+msgid "Your daily social experience:"
+msgstr "您日常的社会经历："
+
+#: solutions/forms.py:136 solutions/forms.py:165
+msgid "Describe a scenario:"
+msgstr "在此描述场景："
+
+#: solutions/forms.py:193
+msgid "Describe a situation or goal:"
+msgstr "描述情况或目标："
+
+#: solutions/models.py:37
+#, python-format
+msgid ""
+"您的输入必须至少包含 %(min_chars)s 个字符。目前，已输入 %(char_count)s 个字"
+"符。"
+msgstr ""
+"您的输入必须至少包含 %(min_chars)s 个字符。目前，已输入 %(char_count)s 个字"
+"符。"
+
+#: solutions/models.py:43
+#, python-format
+msgid ""
+"您的输入不得超过 %(max_chars)s 个字符。目前，已输入 %(char_count)s 个字符。"
+msgstr ""
+"您的输入不得超过 %(max_chars)s 个字符。目前，已输入 %(char_count)s 个字符。"
+
+#: solutions/models.py:57
+#, python-brace-format
+msgid ""
+"Your input must contain at least {min_words} words. Currently, it has "
+"{word_count} words."
+msgstr ""
+"您的输入必须至少包含 {min_words} 个字。目前，已输入 {word_count} 个字。"
+
+#: solutions/models.py:64
+#, python-brace-format
+msgid ""
+"Your input must contain no more than {max_words} words. Currently, it has "
+"{word_count} words."
+msgstr "您的输入不得超过 {max_words} 个字。目前，已输入 {word_count} 个字。"
+
+#: solutions/templates/solutions/my_scenarios.html:16
+#: templates/dashboard_base.html:46
+msgid "DIY Solutions"
+msgstr "DIY解决方案记录"
+
+#: solutions/templates/solutions/my_scenarios.html:23
+#: solutions/templates/solutions/my_scenarios_analyze.html:23
+#: solutions/templates/solutions/my_scenarios_predict.html:23
+#: solutions/templates/solutions/my_scenarios_quick_solutions.html:23
+#: solutions/templates/solutions/my_scenarios_social_map.html:23
+msgid "Input Time"
+msgstr "输入时间"
+
+#: solutions/templates/solutions/my_scenarios.html:24
+#: solutions/templates/solutions/my_scenarios_analyze.html:24
+#: solutions/templates/solutions/my_scenarios_predict.html:24
+#: solutions/templates/solutions/my_scenarios_quick_solutions.html:24
+#: solutions/templates/solutions/my_scenarios_social_map.html:24
+msgid "Scenario"
+msgstr "场景"
+
+#: solutions/templates/solutions/my_scenarios.html:25
+msgid "Status"
+msgstr "状态"
+
+#: solutions/templates/solutions/my_scenarios.html:45
+msgid "Completed"
+msgstr "已完成"
+
+#: solutions/templates/solutions/my_scenarios.html:47
+msgid "Ongoing"
+msgstr "进行中"
+
+#: solutions/templates/solutions/my_scenarios.html:56
+#: solutions/templates/solutions/my_scenarios_analyze.html:54
+#: solutions/templates/solutions/my_scenarios_predict.html:54
+#: solutions/templates/solutions/my_scenarios_quick_solutions.html:54
+#: solutions/templates/solutions/my_scenarios_social_map.html:54
+msgid "You have not yet input any scenarios."
+msgstr "您还没有输入任何场景描述。"
+
+#: solutions/templates/solutions/my_scenarios_analyze.html:16
+#: templates/dashboard_base.html:43
+msgid "Analyzed Scenarios"
+msgstr "场景分析记录"
+
+#: solutions/templates/solutions/my_scenarios_analyze.html:25
+msgid "Analysis"
+msgstr "分析"
+
+#: solutions/templates/solutions/my_scenarios_predict.html:16
+#: templates/dashboard_base.html:44
+msgid "Predicted Scenarios"
+msgstr "预测场景记录"
+
+#: solutions/templates/solutions/my_scenarios_predict.html:25
+msgid "Prediction"
+msgstr "预测"
+
+#: solutions/templates/solutions/my_scenarios_quick_solutions.html:16
+#: templates/dashboard_base.html:45
+msgid "Quick Solutions"
+msgstr "快速解决方案记录"
+
+#: solutions/templates/solutions/my_scenarios_quick_solutions.html:25
+#: solutions/templates/solutions/scenario_quick_solution.html:38
+#: templates/dashboard_base.html:33 templates/home.html:73
+msgid "Quick Solution"
+msgstr "快速解决方案"
+
+#: solutions/templates/solutions/my_scenarios_social_map.html:16
+#: solutions/templates/solutions/my_scenarios_social_map.html:25
+#: templates/dashboard_base.html:42
+msgid "Scenario Social Map"
+msgstr "场景社图"
+
+#: solutions/templates/solutions/scenario_analyze.html:34
+msgid "Scenario analysis generated! Update it anytime."
+msgstr "场景分析完成！可随时更新。"
+
+#: solutions/templates/solutions/scenario_analyze.html:34
+#: solutions/templates/solutions/scenario_predict.html:34
+#: solutions/templates/solutions/scenario_process.html:34
+#: solutions/templates/solutions/scenario_quick_solution.html:34
+msgid "Got a new scenario?"
+msgstr "又有新场景？"
+
+#: solutions/templates/solutions/scenario_analyze.html:34
+#: solutions/templates/solutions/scenario_predict.html:34
+#: solutions/templates/solutions/scenario_process.html:34
+#: solutions/templates/solutions/scenario_quick_solution.html:34
+#: solutions/templates/solutions/scenario_social_map.html:33
+msgid "Click here"
+msgstr "点击这里"
+
+#: solutions/templates/solutions/scenario_analyze.html:38
+#: solutions/templates/solutions/scenario_analyze.html:64
+#: templates/dashboard_base.html:31 templates/home.html:61
+msgid "Analyze"
+msgstr "分析"
+
+#: solutions/templates/solutions/scenario_analyze.html:39
+msgid "Analyze any scenario involving people, organizations or communities."
+msgstr "分析任何涉及人们，组织或社群的场景。"
+
+#: solutions/templates/solutions/scenario_analyze.html:53
+#: solutions/templates/solutions/scenario_predict.html:54
+#: solutions/templates/solutions/scenario_process.html:75
+#: solutions/templates/solutions/scenario_process.html:161
+#: solutions/templates/solutions/scenario_process.html:210
+#: solutions/templates/solutions/scenario_quick_solution.html:53
+#: solutions/templates/solutions/scenario_social_map.html:54
+msgid "Record"
+msgstr "录音"
+
+#: solutions/templates/solutions/scenario_analyze.html:54
+#: solutions/templates/solutions/scenario_predict.html:55
+#: solutions/templates/solutions/scenario_process.html:76
+#: solutions/templates/solutions/scenario_process.html:162
+#: solutions/templates/solutions/scenario_process.html:211
+#: solutions/templates/solutions/scenario_quick_solution.html:54
+#: solutions/templates/solutions/scenario_social_map.html:55
+msgid "Stop"
+msgstr "停止"
+
+#: solutions/templates/solutions/scenario_analyze.html:62
+msgid "Update the Analysis"
+msgstr "更新分析"
+
+#: solutions/templates/solutions/scenario_analyze.html:75
+msgid "Scenario Analysis:"
+msgstr "场景分析："
+
+#: solutions/templates/solutions/scenario_analyze.html:85
+#: solutions/templates/solutions/scenario_predict.html:87
+#: solutions/templates/solutions/scenario_process.html:240
+#: solutions/templates/solutions/scenario_quick_solution.html:85
+#: solutions/templates/solutions/scenario_social_map.html:85
+msgid "Processing, please wait..."
+msgstr "正在处理，请稍后..."
+
+#: solutions/templates/solutions/scenario_predict.html:34
+msgid "Prediction generated! Update it anytime."
+msgstr "预测已完成！可随时更新。"
+
+#: solutions/templates/solutions/scenario_predict.html:38
+#: solutions/templates/solutions/scenario_predict.html:65
+#: templates/dashboard_base.html:32 templates/home.html:67
+msgid "Predict"
+msgstr "预测"
+
+#: solutions/templates/solutions/scenario_predict.html:39
+msgid "Predict people's behavior and how things will change in a scenario."
+msgstr "预测在各种场景中，人们可能的行为，以及事态可能如何进展。"
+
+#: solutions/templates/solutions/scenario_predict.html:63
+msgid "Update the Prediction"
+msgstr "更新预测"
+
+#: solutions/templates/solutions/scenario_predict.html:76
+msgid "Scenario Prediction:"
+msgstr "场景预测"
+
+#: solutions/templates/solutions/scenario_process.html:34
+msgid "Scenario Completed!"
+msgstr "场景处理完成！"
+
+#: solutions/templates/solutions/scenario_process.html:37
+msgid "Please complete your solution by integrating strategy considerations."
+msgstr "请融合战略考虑，以完成您的解决方案。"
+
+#: solutions/templates/solutions/scenario_process.html:39
+msgid "Please reflect your experience after trying the solution."
+msgstr "尝试过上述解决方案后，请回顾您的经历体验。"
+
+#: solutions/templates/solutions/scenario_process.html:41
+msgid ""
+"Please update the scenario input based on the scenario review. Next, "
+"solution ideas will be provided."
+msgstr "请参照场景审阅，更新场景描述。下一步，将得到解决方案想法。"
+
+#: solutions/templates/solutions/scenario_process.html:43
+msgid ""
+"Please work out solutions based on the solution ideas. Next, strategy "
+"considerations will provided."
+msgstr "请参照解决方案想法，制定解决方案。下一步，将得到策略考虑。"
+
+#: solutions/templates/solutions/scenario_process.html:47
+#: templates/dashboard_base.html:34 templates/home.html:79
+msgid "DIY Solution"
+msgstr "DIY解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:48
+msgid "Find a comprehensive solution for your key goals or complex situations."
+msgstr "找到实现重要目标和应对复杂情况的全面解决方案。"
+
+#: solutions/templates/solutions/scenario_process.html:59
+msgid "Scenario Review:"
+msgstr "场景审阅"
+
+#: solutions/templates/solutions/scenario_process.html:85
+#: solutions/templates/solutions/scenario_process.html:92
+msgid "Submit Scenario"
+msgstr "提交场景"
+
+#: solutions/templates/solutions/scenario_process.html:90
+msgid "Update Scenario"
+msgstr "更新场景描述"
+
+#: solutions/templates/solutions/scenario_process.html:102
+msgid "Scenario:"
+msgstr "场景"
+
+#: solutions/templates/solutions/scenario_process.html:114
+msgid "Show/Hide Solution Ideas"
+msgstr "显示/隐藏 解决方案想法"
+
+#: solutions/templates/solutions/scenario_process.html:118
+msgid "Solution Ideas:"
+msgstr "解决方案想法"
+
+#: solutions/templates/solutions/scenario_process.html:129
+msgid "Show/Hide Strategy Considerations"
+msgstr "显示/隐藏 策略考虑"
+
+#: solutions/templates/solutions/scenario_process.html:135
+msgid "Strategy Consideratons:"
+msgstr "策略考虑"
+
+#: solutions/templates/solutions/scenario_process.html:146
+msgid "Input your solution"
+msgstr "制定您的解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:148
+msgid "Update your solution"
+msgstr "更新您的解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:150
+msgid "Solution Completed!"
+msgstr "解决方案完成！"
+
+#: solutions/templates/solutions/scenario_process.html:171
+msgid "Update Solution"
+msgstr "更新解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:173
+msgid "Submit Solution"
+msgstr "提交解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:184
+msgid "Solution:"
+msgstr "解决方案"
+
+#: solutions/templates/solutions/scenario_process.html:197
+msgid "Input your experience."
+msgstr "输入您的经历体验"
+
+#: solutions/templates/solutions/scenario_process.html:199
+msgid "Experience Completed!"
+msgstr "经历体验回顾完成！"
+
+#: solutions/templates/solutions/scenario_process.html:218
+msgid "Submit Experience"
+msgstr "提交经历体验"
+
+#: solutions/templates/solutions/scenario_process.html:228
+msgid "Experience:"
+msgstr "经历体验"
+
+#: solutions/templates/solutions/scenario_quick_solution.html:34
+msgid "Scenario quick solution found! Update it anytime."
+msgstr "场景快速解决方案已找到！可随时更新。"
+
+#: solutions/templates/solutions/scenario_quick_solution.html:39
+msgid "Find a quick solution for fast-changing daily situations or goals."
+msgstr "为快速变化的日常情况或目标找到快速解决方案。"
+
+#: solutions/templates/solutions/scenario_quick_solution.html:62
+msgid "Update Quick Solutions"
+msgstr "更新快速解决方案"
+
+#: solutions/templates/solutions/scenario_quick_solution.html:64
+msgid "Get Quick Solutions"
+msgstr "获得快速解决方案"
+
+#: solutions/templates/solutions/scenario_quick_solution.html:75
+msgid "Scenario Quick Solutions:"
+msgstr "场景快速解决方案："
+
+#: solutions/templates/solutions/scenario_social_map.html:33
+msgid "Social Map built! Update it anytime."
+msgstr "社图已建好！可随时更新。"
+
+#: solutions/templates/solutions/scenario_social_map.html:33
+msgid "Got new experience?"
+msgstr "有新体验？"
+
+#: solutions/templates/solutions/scenario_social_map.html:37
+#: solutions/templates/solutions/scenario_social_map.html:65
+#: templates/dashboard_base.html:30 templates/home.html:54
+msgid "Build Scenario Social Map"
+msgstr "建设场景社图"
+
+#: solutions/templates/solutions/scenario_social_map.html:38
+msgid ""
+"Add your daily experience involving people, organizations or communities."
+msgstr "描述日常涉及人们，组织或社群的经历。"
+
+#: solutions/templates/solutions/scenario_social_map.html:63
+msgid "Update Scenario Social Map"
+msgstr "更新场景社图"
+
+#: solutions/templates/solutions/scenario_social_map.html:75
+msgid "Scenario Social Map:"
+msgstr "场景社图："
+
+#: solutions/templates/solutions/social_map.html:17
+#: templates/dashboard_base.html:50
+msgid "Dynamic Social Map"
+msgstr "动态社图"
+
+#: solutions/templates/solutions/social_map.html:25
+msgid "Me"
+msgstr "我"
+
+#: solutions/templates/solutions/social_map.html:27
+msgid "People"
+msgstr "人们"
+
+#: solutions/templates/solutions/social_map.html:29
+msgid "Organization"
+msgstr "组织"
+
+#: solutions/templates/solutions/social_map.html:55
+msgid "No social map data available."
+msgstr "目前还没有社图数据。"
+
+#: solutions/views.py:78 solutions/views.py:272 solutions/views.py:369
+#: solutions/views.py:478 solutions/views.py:585
+msgid "You must have an active subscription to submit a scenario."
+msgstr "您必须拥有有效使用计划才能提交场景。"
+
+#: solutions/views.py:86 solutions/views.py:280 solutions/views.py:377
+#: solutions/views.py:486 solutions/views.py:593
+msgid "You have exceeded the free trial limit for scenario creation."
+msgstr "您已超出场景创建的免费试用限制。"
+
+#: solutions/views.py:93
+msgid "New scenario created successfully."
+msgstr "新场景创建成功。"
+
+#: solutions/views.py:106
+msgid ""
+"You have already submitted your scenario twice. Further updates are not "
+"allowed."
+msgstr "您已提交该场景两次，无法进行进一步更新。"
+
+#: solutions/views.py:111
+msgid "Scenario updated successfully."
+msgstr "场景更新成功。"
+
+#: solutions/views.py:121
+msgid "Scenario review generated."
+msgstr "场景审阅生成。"
+
+#: solutions/views.py:129
+msgid "Solution ideas generated."
+msgstr "解决方案想法已生成。"
+
+#: solutions/views.py:144
+msgid "Scenario solution created successfully."
+msgstr "解决方案创建成功。"
+
+#: solutions/views.py:152
+msgid ""
+"You have already submitted your solution twice. Further updates are not "
+"allowed."
+msgstr "您已提交该解决方案两次，无法进行进一步更新。"
+
+#: solutions/views.py:159
+msgid "You've got a solution! Please share your experience after you try it. "
+msgstr "您已经找到解决方案了！您尝试后，请分享经历体验。"
+
+#: solutions/views.py:168
+msgid "Strategy considerations generated."
+msgstr "策略考虑已生成。"
+
+#: solutions/views.py:180
+msgid ""
+"You have already submitted your experience. Further updates are not allowed."
+msgstr "您已提交经历体验，无法进行进一步更新。"
+
+#: solutions/views.py:211 solutions/views.py:312 solutions/views.py:421
+#: solutions/views.py:527 solutions/views.py:636
+msgid "You have completed the free trial."
+msgstr "您已完成免费试用。"
+
+#: solutions/views.py:297
+msgid "Scenario submitted and social map built!"
+msgstr "场景已提交，社图已建好！"
+
+#: solutions/views.py:299
+msgid "Scenario and social map updated!"
+msgstr "场景和社图更新完成！"
+
+#: solutions/views.py:302
+msgid "Something went wrong while building the social map. Please try again."
+msgstr "建设社图过程出错，请重试。"
+
+#: solutions/views.py:393
+msgid "Scenario submitted and analysis generated!"
+msgstr "场景已提交，分析已完成！"
+
+#: solutions/views.py:396
+msgid "Scenario and analysis updated!"
+msgstr "场景和分析已更新！"
+
+#: solutions/views.py:400
+msgid "Something went wrong while generating the analysis."
+msgstr "生成分析过程出错。"
+
+#: solutions/views.py:502
+msgid "Scenario submitted and prediction generated!"
+msgstr "场景已提交，预测已完成！"
+
+#: solutions/views.py:504
+msgid "Scenario and prediction updated!"
+msgstr "场景和预测已更新！"
+
+#: solutions/views.py:507
+msgid "Something went wrong while generating the prediction. Please try again."
+msgstr "生成预测过程出错。请稍后重试。"
+
+#: solutions/views.py:609
+msgid "Scenario submitted and quick solution generated!"
+msgstr "场景已提交，快速解决方案已生成！"
+
+#: solutions/views.py:611
+msgid "Scenario and quick solution updated!"
+msgstr "场景和快速解决方案已更新！"
+
+#: solutions/views.py:614
+msgid "Something went wrong while generating quick solution. Please try again."
+msgstr "生成快速解决方案过程出错，请重试。"
+
+#: templates/about_us.html:6 templates/global_base.html:63
+msgid "About Us"
+msgstr "关于我们"
+
+#: templates/about_us.html:24
+msgid "Our Vision"
+msgstr "我们的愿景"
+
+#: templates/about_us.html:26
+msgid ""
+"Everyone can manage and navigate their social situations successfully, which "
+"are essential for having equal opportunties to realize their life or career "
+"goals."
+msgstr ""
+"每个人都能够成功处理和应对面临的社会情况。这对获得平等机会以实现生活或事业目"
+"标至关重要。"
+
+#: templates/about_us.html:30
+msgid "Our Mission"
+msgstr "我们的使命"
+
+#: templates/about_us.html:32
+msgid ""
+"Provide the best online services for people to analyze, predict, find "
+"solutions and build social map for their social situaitons using relevant "
+"scientific research and technologies."
+msgstr ""
+"基于相关科学研究和技术，为人们提供最好的在线服务，以分析，预测社会和社交情"
+"形，找到解决方案，并建设社图。"
+
+#: templates/about_us.html:36
+msgid "Our Values"
+msgstr "我们的价值观"
+
+#: templates/about_us.html:38
+msgid "Care"
+msgstr "关注"
+
+#: templates/about_us.html:39
+msgid "Integrity"
+msgstr "诚信"
+
+#: templates/about_us.html:40
+msgid "Innovation"
+msgstr "创新"
+
+#: templates/contact_us.html:6 templates/contact_us.html:24
+#: templates/global_base.html:62
+msgid "Contact Us"
+msgstr "联系我们"
+
+#: templates/contact_us.html:26
+msgid "Please contact us via this email: customerservice@xtembusu.com"
+msgstr "请通过以下电子邮件联系我们：customerservice@xtembusu.com"
+
+#: templates/dashboard_base.html:15
+msgid "Dashboard"
+msgstr "核心页面"
+
+#: templates/dashboard_base.html:28
+msgid "Services"
+msgstr "服务"
+
+#: templates/dashboard_base.html:40
+msgid "My Resources"
+msgstr "我的资源"
+
+#: templates/dashboard_base.html:52
+msgid "Subscription Plan"
+msgstr "使用计划"
+
+#: templates/dashboard_base.html:60
+msgid "Logout"
+msgstr "登出"
+
+#: templates/global_base.html:41
+msgid "Language"
+msgstr "语言"
+
+#: templates/global_base.html:59
+msgid "All rights reserved."
+msgstr "版权所有。"
+
+#: templates/global_base.html:60 templates/privacy_policy.html:6
+#: templates/privacy_policy.html:24
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+#: templates/global_base.html:61 templates/terms_of_use.html:7
+#: templates/terms_of_use.html:26
+msgid "Terms of Use"
+msgstr "使用条款"
+
+#: templates/home.html:14
+msgid "Welcome to Xtembusu"
+msgstr "欢迎来到Xtembusu"
+
+#: templates/home.html:26
+msgid "Our services enable you to manage your social life confidently."
+msgstr "我们提供的服务帮助您自信地管理社交生活。"
+
+#: templates/home.html:27
+msgid ""
+"Your life or career depends on how you interact with people, organizations "
+"or communities. No way around it."
+msgstr "您的生活和事业依靠如何同他人，组织或社群互动。这不可避免。"
+
+#: templates/home.html:28
+msgid ""
+"We provide services to analyze, predict, find solutions and build "
+"personalized social map for social interactions."
+msgstr ""
+"我们提供的相关服务，用以分析，预测社会和社交互动，并获得解决方案和建设个性化"
+"的社图。"
+
+#: templates/home.html:29 templates/home.html:85
+msgid "Try any of our services now with a free trial."
+msgstr "立即试用，开启免费体验。"
+
+#: templates/home.html:30 templates/home.html:86
+msgid "Get Started"
+msgstr "开始注册"
+
+#: templates/home.html:34
+msgid "Already have an account? Login here."
+msgstr "已拥有账户？在这里登陆。"
+
+#: templates/home.html:49
+msgid "Our Services"
+msgstr "我们的服务"
+
+#: templates/home.html:55
+msgid ""
+"In the physical world, you need a map to move around. Likewise, in the "
+"society, you need a social map to navigate!"
+msgstr ""
+"在物理世界里，您需要地图指引方向。同样，在任何社会中，您需要社图顺利航行！"
+
+#: templates/home.html:56
+msgid ""
+"Our Build Scenario Social Map service helps you to build personalized social "
+"map with ease."
+msgstr "我们提供的建设场景社图服务，帮助您轻松建设个性化的社图。"
+
+#: templates/home.html:57
+msgid ""
+"Just say a few words every day about interacting with people, organizations "
+"or communities. Your personalized socal map will just keep growing."
+msgstr ""
+"每天说几句, 或写几句有关和人们，组织或社群的互动，您的个性化社图就会不断扩"
+"大。"
+
+#: templates/home.html:62
+msgid "Understanding complex social scenarios requires good analysis."
+msgstr "理解复杂社会场景需要好的分析。"
+
+#: templates/home.html:63
+msgid ""
+"Our Analzye service helps you to uncover and gain deeper understandings and "
+"insights of social scenarios relevant to you or the people you care about."
+msgstr ""
+"我们提供的分析服务，针对和您以及您关心的人们有关的社交场景, 帮助您发现并获得"
+"更加深入的理解和洞察。"
+
+#: templates/home.html:68
+msgid ""
+"Reasonable predictions provide insights and give you chance to be better "
+"prepared."
+msgstr "合理的预测给予洞见，并给您机会，事先做更好的准备。"
+
+#: templates/home.html:69
+msgid ""
+"Our Predict service helps you to find out how people, organizations or "
+"communities will likely act or how things will likely change in your "
+"provided scenarios."
+msgstr ""
+"我们提供的预测服务，针对您提供的场景，帮助您发现他人，组织或社群可能会采取的"
+"行为，或者事态可能会怎样变化。"
+
+#: templates/home.html:74
+msgid ""
+"Things may change very fast. Expectations or goals may evolve constantly. "
+"You need real-time solutions."
+msgstr "各种情况可能会迅速变化。期望和目标也会不停改变。您需要实时解决方案。"
+
+#: templates/home.html:75
+msgid ""
+"Our Quick Solution service helps you to obtain immediate solutions for fast-"
+"changing situations or goals."
+msgstr ""
+"我们提供的快速解决方案服务，针对迅速变化的情形和目标，帮助您立刻获得解决方"
+"案。"
+
+#: templates/home.html:80
+msgid ""
+"You want to achieve important goals or deal with challenging situations "
+"involving complex soical context. You need comprehensive solutions."
+msgstr ""
+"您想要实现重要目标，或应对涉及复杂环境，具有挑战性的情形，您需要全面的解决方"
+"案。"
+
+#: templates/home.html:81
+msgid ""
+"Our DIY Solution service provides a self-controlled process to help you find "
+"out solutions with thorough understandings of the relevant social context."
+msgstr ""
+"我们的DIY解决方案服务，提供了您可自控的流程，帮助您通过对相关环境的透彻理解，"
+"以获得全面的解决方案。"
+
+#: templates/privacy_policy.html:26
+msgid ""
+"We, Xtembusu, together with our affiliates (hereinafter referred to as "
+"“Xtembusu”, “we”, “our” or “us”) are committed to respecting your privacy. "
+"This Privacy Policy describes our practices with respect to your personal "
+"information (“Personal Information”) we collect when you use our website and "
+"services (collectively, “Services”)."
+msgstr ""
+"我们 Xtembusu 及我们的关联公司（以下简称“Xtembusu”、“我们”或“本公司”）致力于"
+"尊重您的隐私。本隐私政策描述了当您使用我们的网站和服务（统称为“服务”）时，我"
+"们如何收集、使用您的个人信息（“个人信息”）。"
+
+#: templates/privacy_policy.html:28
+msgid "1. Personal information"
+msgstr "1. 个人信息"
+
+#: templates/privacy_policy.html:31
+msgid "Account Information:"
+msgstr "账户信息："
+
+#: templates/privacy_policy.html:31
+msgid ""
+"When you create an account with us, we will collect information associated "
+"with your account, including your name, contact information, account "
+"credentials, and transaction history."
+msgstr ""
+"当您创建账户时，我们会收集与您的账户相关的信息，包括您的姓名、联系方式、账户"
+"凭证及交易记录。"
+
+#: templates/privacy_policy.html:32
+msgid "User Content:"
+msgstr "用户内容："
+
+#: templates/privacy_policy.html:32
+msgid ""
+"When you use our Services, we collect Personal Information that is included "
+"in the input or feedback that you provide."
+msgstr "当您使用我们的服务时，我们会收集您输入或反馈的个人信息。"
+
+#: templates/privacy_policy.html:33
+msgid "Communication Information:"
+msgstr "通信信息："
+
+#: templates/privacy_policy.html:33
+msgid ""
+"If you communicate with us, we collect your name, contact information, and "
+"the contents of any messages you send."
+msgstr "如果您与我们沟通，我们会收集您的姓名、联系方式以及您发送的消息内容。"
+
+#: templates/privacy_policy.html:34
+msgid "Social Media Information:"
+msgstr "社交媒体信息："
+
+#: templates/privacy_policy.html:34
+msgid ""
+"When you interact with our social media pages, we will collect Personal "
+"Information that you provide to us, such as your contact details."
+msgstr ""
+"当您与我们的社交媒体页面互动时，我们会收集您提供的个人信息，例如您的联系方"
+"式。"
+
+#: templates/privacy_policy.html:35
+msgid "Other Information:"
+msgstr "其他信息："
+
+#: templates/privacy_policy.html:35
+msgid ""
+"We collect other information that you may provide to us, such as when you "
+"participate in our events or surveys."
+msgstr ""
+"我们还可能收集您提供的其他信息，例如您参与我们的活动或调查时提供的信息。"
+
+#: templates/privacy_policy.html:38
+msgid "2. How we use personal information"
+msgstr "2. 我们如何使用个人信息"
+
+#: templates/privacy_policy.html:39
+msgid "We may use Personal Information for the following purposes:"
+msgstr "我们可能会出于以下目的使用个人信息："
+
+#: templates/privacy_policy.html:42
+msgid "To provide, administer, maintain and/or analyze the Services."
+msgstr "提供、管理、维护和/或分析我们的服务。"
+
+#: templates/privacy_policy.html:43
+msgid "To improve our Services and conduct research or develop new Services."
+msgstr "改进我们的服务，并进行研究或开发新服务。"
+
+#: templates/privacy_policy.html:44
+msgid ""
+"To communicate with you, including to send you information about our "
+"Services and events."
+msgstr "与您沟通，包括向您发送有关我们的服务和活动的信息。"
+
+#: templates/privacy_policy.html:45
+msgid "To prevent fraud, criminal activity, or misuse of our Services."
+msgstr "防止欺诈、犯罪活动或滥用我们的服务。"
+
+#: templates/privacy_policy.html:46
+msgid "To carry out business transfers."
+msgstr "进行业务转让。"
+
+#: templates/privacy_policy.html:47
+msgid "To comply with legal obligations and protect our rights and property."
+msgstr "履行法律义务，并保护我们的权利和财产。"
+
+#: templates/privacy_policy.html:50
+msgid "3. Aggregated or de-identified information"
+msgstr "3. 汇总或去标识化信息"
+
+#: templates/privacy_policy.html:51
+msgid ""
+"We may aggregate or de-identify Personal Information so that it may no "
+"longer be used to identify you and use such information to analyze the "
+"effectiveness of our Services, to improve and add features to our Services, "
+"to conduct research, and for other similar purposes."
+msgstr ""
+"我们可能会汇总或去标识化您的个人信息，使其无法用于识别您的身份，并利用这些信"
+"息分析我们的服务效果，改进和增加服务功能，进行研究及其他类似用途。"
+
+#: templates/privacy_policy.html:53
+msgid "4. Disclosure of personal information"
+msgstr "4. 个人信息的披露"
+
+#: templates/privacy_policy.html:54
+msgid ""
+"In certain circumstances, we may provide your Personal Information to third "
+"parties without further notice to you, unless required by the law."
+msgstr ""
+"在某些情况下，我们可能会在不另行通知您的情况下将您的个人信息提供给第三方，除"
+"非法律要求我们通知您。"
+
+#: templates/privacy_policy.html:56
+msgid "5. Your rights"
+msgstr "5. 您的权利"
+
+#: templates/privacy_policy.html:57
+msgid ""
+"Depending on location, individuals may have certain statutory rights in "
+"relation to their Personal Information. For example, you may have the right "
+"to:"
+msgstr ""
+"根据所在地区的不同，个人可能享有与其个人信息相关的特定法定权利。例如，您可能"
+"有权："
+
+#: templates/privacy_policy.html:60
+msgid ""
+"Access your Personal Information and information relating to how it is "
+"processed."
+msgstr "访问您的个人信息以及与其处理方式相关的信息。"
+
+#: templates/privacy_policy.html:61
+msgid "Delete your Personal Information from our records."
+msgstr "从我们的记录中删除您的个人信息。"
+
+#: templates/privacy_policy.html:62
+msgid "Rectify or update your Personal Information."
+msgstr "更正或更新您的个人信息。"
+
+#: templates/privacy_policy.html:63
+msgid "Transfer your Personal Information to a third party."
+msgstr "将您的个人信息转移至第三方。"
+
+#: templates/privacy_policy.html:64
+msgid ""
+"Withdraw your consent—where we rely on consent as the legal basis for "
+"processing."
+msgstr "撤回您的同意（在我们依赖您的同意作为处理个人信息的法律依据的情况下）。"
+
+#: templates/privacy_policy.html:67
+msgid "6. Children"
+msgstr "6. 儿童"
+
+#: templates/privacy_policy.html:68
+msgid ""
+"Our Service is not directed to children under the age of 13. If you have "
+"reason to believe that a child under the age of 13 has provided Personal "
+"Information to Xtembusu through the Services, please email us at "
+"legal@xtembusu.com."
+msgstr ""
+"我们的服务不适用于13岁以下的儿童。如果您有理由认为13岁以下的儿童通过我们的服"
+"务向 Xtembusu 提供了个人信息，请发送电子邮件至legal@xtembusu.com 与我们联系。"
+
+#: templates/privacy_policy.html:70
+msgid "7. Links to other websites"
+msgstr "7. 其他网站的链接"
+
+#: templates/privacy_policy.html:71
+msgid ""
+"The Service may contain links to other websites not operated or controlled "
+"by Xtembusu, including social media services."
+msgstr ""
+"我们的服务可能包含指向 Xtembusu 无法运营或控制的其他网站的链接，包括社交媒体"
+"服务。"
+
+#: templates/privacy_policy.html:73
+msgid "8. Security and retention"
+msgstr "8. 安全性和信息保留"
+
+#: templates/privacy_policy.html:74
+msgid ""
+"We implement commercially reasonable measures to protect Personal "
+"Information both online and offline from loss, misuse, and unauthorized "
+"access."
+msgstr ""
+"我们采取符合商业标准的合理措施，保护个人信息免遭丢失、滥用和未经授权的访问，"
+"无论是在线还是离线。"
+
+#: templates/privacy_policy.html:76
+msgid "9. International users"
+msgstr "9. 国际用户"
+
+#: templates/privacy_policy.html:77
+msgid ""
+"By using our Service, you understand and acknowledge that your Personal "
+"Information will be processed and stored in our or our service providers’ "
+"facilities and servers outside your country."
+msgstr ""
+"使用我们的服务即表示您理解并同意，您的个人信息将在我们或我们的服务提供商设于"
+"您所在国家/地区以外的设施和服务器中进行处理和存储。"
+
+#: templates/privacy_policy.html:79
+msgid "10. Changes to the privacy policy"
+msgstr "10. 隐私政策的变更"
+
+#: templates/privacy_policy.html:80
+msgid ""
+"We may update this Privacy Policy from time to time. When we do, we will "
+"post an updated version on this page."
+msgstr "我们可能会不时更新本隐私政策。更新后，我们将在本页面发布新版本。"
+
+#: templates/privacy_policy.html:82
+msgid "11. Contact us"
+msgstr "11. 联系我们"
+
+#: templates/privacy_policy.html:83
+msgid ""
+"If you have any questions related to this Privacy Policy, please contact us "
+"at legal@xtembusu.com."
+msgstr "如果您对本隐私政策有任何疑问，请通过legal@xtembusu.com联系我们。"
+
+#: templates/terms_of_use.html:28
+msgid ""
+"These Terms of Use apply to your use of Xtembusu, along with any associated "
+"software applications and websites (all together, “Services”). These Terms "
+"form an agreement between you and Xtembusu. By using our Services, you agree "
+"to these Terms."
+msgstr ""
+"本使用条款适用于您对 Xtembusu 及其相关软件应用程序和网站（统称为“服务”）的使"
+"用。本条款构成您与 Xtembusu 之间的协议。使用我们的服务即表示您同意本条款。"
+
+#: templates/terms_of_use.html:30
+msgid "1. Registration and Access"
+msgstr "1. 注册与访问"
+
+#: templates/terms_of_use.html:32
+msgid "Minimum age"
+msgstr "最低年龄要求"
+
+#: templates/terms_of_use.html:33
+msgid ""
+"You must be at least 13 years old or the minimum age required in your "
+"country to consent to use the Services. If you are under 18, you must have "
+"your parent or legal guardian’s permission to use the Services."
+msgstr ""
+"您必须年满13岁或符合您所在国家/地区法律规定的最低年龄要求，方可使用本服务。如"
+"果您未满18岁，您必须获得您的父母或法定监护人的许可后才能使用本服务。"
+
+#: templates/terms_of_use.html:35
+msgid "Registration"
+msgstr "注册"
+
+#: templates/terms_of_use.html:36
+msgid ""
+"You must provide accurate and complete information to register for an "
+"account to use our Services. You may not share your account credentials or "
+"make your account available to anyone else and are responsible for all "
+"activities that occur under your account. If you create an account or use "
+"the Services on behalf of another person or entity, you must have the "
+"authority to accept these Terms on their behalf."
+msgstr ""
+"您必须提供准确、完整的信息才能注册账户并使用我们的服务。您不得共享您的账户凭"
+"据或允许他人使用您的账户，并需对您的账户下发生的所有活动负责。如果您代表他人"
+"或实体创建账户或使用本服务，您必须获得代表其接受本条款的授权。"
+
+#: templates/terms_of_use.html:38
+msgid "2. Using Our Services"
+msgstr "2. 使用我们的服务"
+
+#: templates/terms_of_use.html:40
+msgid "What you can do"
+msgstr "您可以做的事情"
+
+#: templates/terms_of_use.html:41
+msgid ""
+"Subject to your compliance with these Terms, you may access and use our "
+"Services. In using our Services, you must comply with all applicable laws as "
+"well as any other documentation, guidelines, or policies we make available "
+"to you."
+msgstr ""
+"在遵守本条款的前提下，您可以访问和使用我们的服务。在使用我们的服务时，您必须"
+"遵守所有适用的法律法规，以及我们向您提供的任何相关文件、指南或政策。"
+
+#: templates/terms_of_use.html:43
+msgid ""
+"Posting your own inputs or completions to social media is generally "
+"permissible, as is livestreaming your usage or demonstrating our products to "
+"groups of people. Please adhere to the following: Manually review each "
+"output before sharing or while streaming. Attribute the content to your name "
+"or your company. Indicate that the content is AI-generated in a way no user "
+"could reasonably miss or misunderstand. Do not share content that violates "
+"our policies or that may offend others. If taking audience requests for "
+"prompts, use good judgment; do not input prompts that might result in "
+"violations of our policies."
+msgstr ""
+"您通常可以在社交媒体上发布您的输入内容或生成结果，也可以直播您的使用情况或向"
+"人群展示我们的产品。请遵守以下准则：在分享或直播前手动审核每个输出结果；将内"
+"容归属到您的姓名或公司；明确标注内容为AI协助生成，确保用户不会忽略或误解；不"
+"得分享违反我们政策或可能冒犯他人的内容；如果接受观众的提示词请求，请谨慎判"
+"断，不要输入可能导致违反我们政策的提示词。"
+
+#: templates/terms_of_use.html:45
+msgid "What you cannot do"
+msgstr "您不得从事的行为"
+
+#: templates/terms_of_use.html:46
+msgid ""
+"You may not use our Services for any illegal, harmful, or abusive activity. "
+"For example, you may not:"
+msgstr "您不得将我们的服务用于任何非法、有害或滥用行为。例如，您不得："
+
+#: templates/terms_of_use.html:49
+msgid ""
+"Use our Services in a way that infringes, misappropriates, or violates "
+"anyone’s rights."
+msgstr "以侵犯、盗用或违反他人权利的方式使用我们的服务。"
+
+#: templates/terms_of_use.html:50
+msgid "Modify, copy, lease, sell, or distribute any of our Services."
+msgstr "修改、复制、租赁、销售或分发我们的任何服务。"
+
+#: templates/terms_of_use.html:51
+msgid ""
+"Attempt to or assist anyone to reverse engineer, decompile or discover the "
+"source code or underlying components of our Services, including our models, "
+"algorithms, or systems (except to the extent this restriction is prohibited "
+"by applicable law)."
+msgstr ""
+"尝试或协助他人对我们的服务进行逆向工程、反编译或发现其源代码或底层组件，包括"
+"我们的模型、算法或系统（除非适用法律禁止此类限制）。"
+
+#: templates/terms_of_use.html:52
+msgid ""
+"Automatically or programmatically extract data or Output (defined below)."
+msgstr "自动或以程序化方式提取数据或输出（定义见下文）。"
+
+#: templates/terms_of_use.html:53
+msgid "Represent that Output was human-generated when it was not."
+msgstr "误导他人认为AI生成的内容是人为创作的。"
+
+#: templates/terms_of_use.html:54
+msgid ""
+"Interfere with or disrupt our Services, including circumvent any rate limits "
+"or restrictions or bypass any protective measures or safety mitigations we "
+"put on our Services."
+msgstr ""
+"干扰或破坏我们的服务，包括规避任何速率限制或使用限制，或绕过我们为服务设置的"
+"任何保护措施或安全防护机制。"
+
+#: templates/terms_of_use.html:55
+msgid "Use Output to develop models that compete with Xtembusu."
+msgstr "利用生成的内容开发与 Xtembusu 竞争的模型。"
+
+#: templates/terms_of_use.html:58
+msgid "Software"
+msgstr "软件"
+
+#: templates/terms_of_use.html:59
+msgid ""
+"Our Services may allow you to download software, such as mobile "
+"applications, which may update automatically to ensure you’re using the "
+"latest version. Our software may include open-source software that is "
+"governed by its own licenses that we’ve made available to you."
+msgstr ""
+"我们的服务可能允许您下载软件（如移动应用程序），该软件可能会自动更新，以确保"
+"您使用最新版本。我们的软件可能包含开源软件，并受相应许可证的约束，我们已向您"
+"提供相关许可证信息。"
+
+#: templates/terms_of_use.html:61
+msgid "Third-party Services"
+msgstr "第三方服务"
+
+#: templates/terms_of_use.html:62
+msgid ""
+"Our services may include third-party software, products, or services, "
+"(“Third Party Services”) and some parts of our Services, like our browse "
+"feature, may include output from those services (“Third Party Output”). "
+"Third Party Services and Third Party Output are subject to their own terms, "
+"and we are not responsible for them."
+msgstr ""
+"我们的服务可能包含第三方软件、产品或服务（“第三方服务”），并且我们的某些功能"
+"（如浏览功能）可能包含来自这些服务的内容（“第三方内容”）。第三方服务及第三方"
+"内容受其各自的使用条款约束，我们不对其负责。"
+
+#: templates/terms_of_use.html:64
+msgid "Feedback"
+msgstr "反馈"
+
+#: templates/terms_of_use.html:65
+msgid ""
+"We appreciate your feedback, and you agree that we may use it without "
+"restriction or compensation to you."
+msgstr ""
+"我们感谢您的反馈，并且您同意我们可以在不受限制的情况下使用您的反馈，且无需向"
+"您支付任何报酬。"
+
+#: templates/terms_of_use.html:67
+msgid "3. Content"
+msgstr "3. 内容"
+
+#: templates/terms_of_use.html:68
+msgid "Your content"
+msgstr "您的内容"
+
+#: templates/terms_of_use.html:69
+msgid ""
+"You may provide input to the Services (“Input”), and receive output from the "
+"Services based on the Input (“Output”). Input and Output are collectively "
+"“Content.” You are responsible for Content, including ensuring that it does "
+"not violate any applicable law or these Terms. You represent and warrant "
+"that you have all rights, licenses, and permissions needed to provide Input "
+"to our Services."
+msgstr ""
+"您可以向本服务提供输入（“输入”），并根据输入从本服务接收输出（“输出”）。输入"
+"和输出统称为“内容”。您需对内容负责，包括确保其不违反任何适用法律或本条款。您"
+"声明并保证，您拥有提供输入内容所需的所有权利、许可和授权。"
+
+#: templates/terms_of_use.html:71
+msgid "Ownership of content"
+msgstr "内容所有权"
+
+#: templates/terms_of_use.html:72
+msgid ""
+"As between you and Xtembusu, and to the extent permitted by applicable law, "
+"you retain your ownership rights in Input and own the Output. We hereby "
+"assign to you all our right, title, and interest, if any, in and to Output."
+msgstr ""
+"在您与 Xtembusu 之间，并在适用法律允许的范围内，您保留对输入内容的所有权，并"
+"拥有输出内容的所有权。我们在此将我们可能拥有的与输出内容相关的所有权利、所有"
+"权和权益全部转让给您。"
+
+#: templates/terms_of_use.html:74
+msgid "4. Our IP rights"
+msgstr "我们的知识产权"
+
+#: templates/terms_of_use.html:75
+msgid ""
+"We and our affiliates own all rights, title, and interest in and to the "
+"Services, including our name and logo."
+msgstr ""
+"我们及我们的关联公司拥有本服务的所有权利、所有权和权益，包括我们的名称和标"
+"识。"
+
+#: templates/terms_of_use.html:77
+msgid "5. Paid accounts"
+msgstr "5. 付费账户"
+
+#: templates/terms_of_use.html:78
+msgid ""
+"If you purchase any Services, you will provide complete and accurate billing "
+"information, including a valid payment method. You’re responsible for all "
+"applicable taxes, and we’ll charge tax when required. If your payment cannot "
+"be completed, we may downgrade your account or suspend your access to our "
+"Services until payment is received."
+msgstr ""
+"如果您购买任何服务，您需要提供完整、准确的账单信息，包括有效的付款方式。您需"
+"承担所有适用税费，我们将在必要时收取税款。如果您的付款无法完成，我们可能会降"
+"级您的账户或暂停您的服务访问权限，直到收到付款。"
+
+#: templates/terms_of_use.html:97
+msgid "6. Termination and Suspension"
+msgstr "6. 终止与暂停"
+
+#: templates/terms_of_use.html:98
+msgid "Termination"
+msgstr "终止"
+
+#: templates/terms_of_use.html:99
+msgid ""
+"You are free to stop using our Services at any time. We reserve the right to "
+"suspend or terminate your access to our Services or delete your account if "
+"we determine:"
+msgstr ""
+"您可以随时停止使用我们的服务。我们保留在以下情况下暂停或终止您的访问权限或删"
+"除您的账户的权利："
+
+#: templates/terms_of_use.html:102
+msgid "You breached these Terms."
+msgstr "您已违反本条款。"
+
+#: templates/terms_of_use.html:103
+msgid "We must do so to comply with the law."
+msgstr "我们必须这样做以遵守法律。"
+
+#: templates/terms_of_use.html:104
+msgid ""
+"Your use of our Services could cause risk or harm to Xtembusu, our users, or "
+"anyone else."
+msgstr "您对我们的服务使用可能会对 Xtembusu、我们的用户或他人造成风险或损害。"
+
+#: templates/terms_of_use.html:107
+msgid "7. Disclaimer"
+msgstr "7. 免责声明"
+
+#: templates/terms_of_use.html:109
+msgid ""
+"The Services provided by Xtembusu, including any outputs or recommendations "
+"generated, are for informational purposes only and do not constitute "
+"professional advice. Users are solely responsible for evaluating and using "
+"the output generated by the Services. Xtembusu makes no representations or "
+"warranties regarding the accuracy, completeness, or reliability of the "
+"outputs."
+msgstr ""
+"Xtembusu 提供的服务（包括生成的任何输出或建议）仅供参考，不构成专业建议。用户"
+"需自行对生成的输出进行评估和使用，Xtembusu 不对输出的准确性、完整性或可靠性作"
+"出任何陈述或保证。"
+
+#: templates/terms_of_use.html:111
+msgid ""
+"By using the Services, you acknowledge and agree that any reliance on the "
+"outputs is at your own risk. Xtembusu shall not be liable for any "
+"consequences, losses, damages, or claims arising from your use of the "
+"Services, whether direct or indirect, including any impact on third parties. "
+"It is your responsibility to verify and validate any information provided by "
+"the Services before acting upon it."
+msgstr ""
+"使用本服务即表示您承认并同意，您对输出的任何依赖均由您自行承担风险。Xtembusu "
+"不对因您使用本服务而产生的任何后果、损失、损害或索赔承担责任，无论是直接的还"
+"是间接的，包括对第三方的任何影响。您有责任在采纳服务提供的信息之前进行验证和"
+"确认。"
+
+#: templates/terms_of_use.html:113
+msgid ""
+"If you require professional advice, you should seek the assistance of a "
+"qualified professional."
+msgstr "如果您需要专业建议，请寻求合格专业人士的帮助。"
+
+#: tmbu/settings.py:213
+msgid "English"
+msgstr "English"
+
+#: tmbu/settings.py:214
+msgid "Simplified Chinese"
+msgstr "简体中文"

@@ -1,0 +1,44 @@
+{% extends "global_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Verify Your OTP" %}{% endblock %}
+
+{% block content %}
+<div class="otp-wrapper">
+  <div class="otp-box">
+    <h2>{% trans "Verify Your OTP" %}</h2>
+    <p>{% trans "Please enter the 6-digit code sent to your email." %}</p>
+
+    <form method="post" action="{% url 'verify_otp' %}">
+      {% csrf_token %}
+      <label for="otp">{% trans "OTP Code:" %}</label>
+      <input type="number" name="otp" id="otp" required>
+
+      {% comment %}
+      {% if next %}
+        <input type="hidden" name="next" value="{{ next }}">
+      {% endif %}
+      {% endcomment %}
+      
+      <button type="submit">{% trans "Verify" %}</button>
+    </form>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

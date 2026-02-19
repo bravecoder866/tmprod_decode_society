@@ -1,0 +1,82 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block main_content %}
+
+    <div class="container">
+        <h2>
+            {% if type == "Generated" %}
+            {% trans "Generated Simulation" %}
+            {% else %}
+            {% trans "Live Simulation" %}
+            {% endif %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Date:" %}</strong>
+            {{ simulation.created_at|date:"M. d, Y H:i" }}
+        </p>
+
+
+        <p>
+            <strong>{% trans "Scenario:" %}</strong><br>
+            <div style="white-space: pre-wrap;">{{ simulation.scenario }}</div>
+        </p>
+
+
+        <h4>{% trans "Actors" %}</h4>
+        <ul>
+            {% for actor in simulation.actors %}
+            <li>{{ actor }}</li>
+            {% endfor %}
+        </ul>
+
+
+        {% if type == "Generated" %}
+            <h4>{% trans "Interactions" %}</h4>
+            <div class="simulation-result">
+                {% for entry in simulation.result.simulation %}
+                    <div class="sim-entry {{ entry.type }}">
+                        {% if entry.type == "speech" %}
+                            <p><strong>{{ entry.actor }}:</strong> {{ entry.content }}</p>
+                        {% elif entry.type == "thought" %}
+                            <p><em>{{ entry.actor }} (thought):</em> {{ entry.content }}</p>
+                        {% elif entry.type == "feeling" %}
+                            <p><em>{{ entry.actor }}</em> {% trans "feels" %}: {{ entry.content }}</p>
+                        {% elif entry.type == "action" %}
+                            <p><em>{{ entry.actor }} {{ entry.content }}</em></p>
+                        {% else %}
+                            <p>{{ entry.actor }}: {{ entry.content }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+                    
+        
+    
+        {% else %}
+            <h4>{% trans "Interactions" %}</h4>
+            <ul>
+            {% for turn in simulation.interactions %}
+                <li>
+                <strong>{{ turn.actor }}:</strong>
+                <span>{{ turn.content }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        
+
+        <p><a href="{% url 'my_simulations' %}" style="font-weight: bold;">{% trans "Back to My Simulations" %}</a></p>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block main_content %}
+    <h1>{% trans "Subscription Canceled or Failed" %}</h1>
+        <p>{% trans "Your subscription was canceled or failed." %}</p>
+        <a href="{% url 'create_checkout_session' %}">{% trans "Retry" %}</a>  
+{% endblock %}

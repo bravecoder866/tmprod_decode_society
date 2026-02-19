@@ -1,0 +1,61 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block main_content %}
+    {# <p id="status-message">{% trans "We are creating your subscription..." %}</p> #}
+
+    <h1>{% trans "Subscription Success" %}</h1>
+        <p>{% trans "Your subscription is now activated." %}</p>
+        <a href="{% url 'new_scenario' %}">{% trans "Start a New Scenario" %}</a>  
+
+ {% comment %}
+    <script>
+        let retryCount = 0;
+        const maxRetries = 5; // Limit retries to prevent infinite polling
+
+        function checkSubscriptionStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+
+            fetch("{% url 'check_subscription_status' %}?session_id=" + sessionId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === "active") {
+                        document.getElementById("status-message").innerText = "{% trans 'Your subscription is active. Redirecting...' %}";
+                        setTimeout(() => {
+                            window.location.href = "{% url 'new_scenario' %}";
+                        }, 2000); // 2 second delay before redirect
+                    } else if (data.status === "error" || data.status === "missing_session_id" || data.status === "no_subscription") {
+                        document.getElementById("status-message").innerText = "{% trans 'Error checking subscription status. Please contact support.' %}";
+                    } else if (retryCount < maxRetries) {
+                        retryCount++;
+                        setTimeout(checkSubscriptionStatus, 5000);
+                    } else {
+                        document.getElementById("status-message").innerText = "{% trans 'Failed to verify subscription. Please refresh the page.' %}";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error checking subscription status:", error);
+                    document.getElementById("status-message").innerText = "{% trans 'We're experiencing temporary issues checking your subscription status. Please try refreshing the page in a few moments.' %}";
+                });
+        }
+
+        setTimeout(checkSubscriptionStatus, 5000);
+    </script>
+ {% endcomment %}
+
+{% endblock %}

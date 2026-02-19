@@ -1,0 +1,55 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block main_content %}
+
+<link rel="stylesheet" href="{% static 'css/profile_style.css' %}">
+
+  
+  
+  <div class="profile-container">
+      
+    <div class="profile-info">
+      <h3>{% trans "My Profile" %}</h3>
+      <p><strong>{% trans "Username:" %}</strong> {{ user.username }}</p>
+      <p><strong>{% trans "Email:" %}</strong> {{ user.email }}</p>
+      {# <p><strong>Bio:</strong> {{ user.profile.bio }}</p> #}
+      
+      {% comment %}
+      <div class="profile-image">
+        <img src="{{ user.profile.image.url }}" alt="{{ user.username }}'s profile picture">
+      </div>}*/
+      {% endcomment %}
+
+      <a href="{% url 'edit_profile' %}" class="btn">{% trans "Edit Profile" %}</a>
+    </div>
+
+    <div class="manage-subscription">
+      <h3>{% trans "Manage Subscription" %}</h3>
+
+      <p>{% trans "Access the customer portal to manage your subscription details, payment methods, and more." %}</p>
+      
+      <form action="{% url 'stripe_customer_portal' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn">{% trans "Customer Portal" %}</button>
+      </form>
+      
+     
+    
+    </div>
+  </div>
+
+{% endblock %}

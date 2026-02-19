@@ -1,0 +1,988 @@
+ /* Body Styling */
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
+    background-color: #ffffff; /* Light background */
+    color: #1c1e21; /* Dark gray text for readability */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+
+/* Make sure the html and body occupy the full height of the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* The main container for content, filling available space */
+body > header,
+body > footer {
+    flex-shrink: 0; /* Ensure header and footer do not shrink */
+}
+
+
+
+/* Header Styling */
+header {
+    background-color: #ffffff; /* blue */
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #e2e3e5; /* Slightly darker blue border */
+}
+
+/* Logo Styling */
+.logo {
+    float: left;
+}
+
+.logo img {
+    max-height: 50px; /* Adjust this based on the size of your logo */
+    width: auto; /* Maintain aspect ratio */
+}
+
+/* Account Icon Styling */
+.account-icon {
+    position: relative;
+    display: flex;
+    align-items: center; 
+    margin-right: 20px;
+    user-select: none;
+}
+
+.account-icon img {
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    border-radius: 50%;
+    opacity: 0.95;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    display: block;
+}
+
+.account-icon img:hover {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* Dropdown Styling */
+.account-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px); /* nicely below icon */
+    right: 0;
+    width: 220px;
+    background: white;
+    border: none; 
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    padding: 6px 0;
+    list-style: none;
+    z-index: 2000;
+    list-style: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+/* Visible state toggle */
+.account-dropdown.show { /* controlled via JS class toggle */
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.account-dropdown .divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 6px 0;
+}
+
+.account-dropdown li {
+    width: 100%;
+}
+
+
+/* Link + Button unified styling */
+.account-dropdown a,
+.account-dropdown button {
+    width: 100%;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    padding: 12px 18px; 
+    font-size: 15px; 
+    font-weight: 500;
+    background: none;
+    border: none;
+    color: #1f2937; 
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Hover */
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+    background: #f3f4f6; 
+}
+
+.account-dropdown li form {
+    margin: 0; 
+}
+
+
+
+
+/* Mobile Responsive Header */
+@media (max-width: 600px) {
+    header {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 16px;
+    }
+
+    .logo img {
+        max-height: 38px; /* Scale logo slightly down */
+    }
+
+    .account-icon img {
+        width: 34px;
+        height: 34px; /* Slightly smaller icon */
+    }
+
+    /* Optional: Make dropdown position better for small screens */
+    .account-dropdown {
+        top: 42px;    
+        right: -4px;
+        min-width: 140px;
+    }
+}
+
+
+/* Footer Styling */
+.footer {
+  background: #00527e;
+  color: #ffffff;
+  padding: 50px 0 15px;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 40px;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-column h4,
+.footer-social h4 {
+  font-size: 14px;
+  color: #dbeafe;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.footer-column a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 6px 0;
+  opacity: 0.9;
+  transition: opacity .2s ease;
+}
+.footer-column a:hover {
+  opacity: 1;
+}
+
+.footer-brand .footer-logo {
+  width: 120px;
+  margin-bottom: 12px;
+}
+
+.footer-brand p {
+  max-width: 240px;
+  font-size: 14px;
+  opacity: .9;
+}
+
+.footer-social a {
+  font-size: 24px;
+  margin-right: 14px;
+  transition: opacity .2s ease;
+}
+.footer-social a:hover {
+  opacity: .7;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #165ec7;
+  margin-top: 30px;
+  padding-top: 12px;
+  font-size: 13px;
+  opacity: .85;
+}
+
+/* Mobile Responsive Footer */
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* Stack columns */
+    text-align: center;
+    gap: 25px;
+  }
+
+  .footer-brand {
+    margin-bottom: 10px;
+  }
+
+  .footer-brand .footer-logo {
+    width: 100px; /* Slightly smaller */
+    margin: 0 auto 12px;
+    display: block;
+  }
+
+  .footer-brand p {
+    max-width: none;
+    margin: auto;
+    font-size: 13px;
+  }
+
+  .footer-column h4,
+  .footer-social h4 {
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  .footer-column a {
+    margin: 4px 0;
+    font-size: 13px;
+  }
+
+  .footer-social {
+    margin-top: 8px;
+  }
+
+  .footer-social a {
+    font-size: 22px;
+    margin: 0 8px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    margin-top: 20px;
+  }
+}
+
+
+/* Link Styling */
+a {
+    color: #1877f2; /* blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Language switcher container */
+header form {
+    display: flex;            /* Arrange label and select box horizontally */
+    align-items: center;      /* Align vertically */
+    gap: 8px;                 /* Space between elements */
+    padding: 10px;
+    border-radius: 4px;       /* Slightly rounded corners */
+}
+
+/* Style the label */
+header form label {
+    font-size: 14px;          /* Set readable font size */
+    font-weight: 600;         /* Slightly bold */
+    color: #333;              /* Dark gray for contrast */
+}
+
+/* Style the select dropdown */
+header form select {
+    font-size: 14px;          /* Ensure text is readable */
+    padding: 6px 10px;        /* Space inside the dropdown */
+    border: 1px solid #ccc;   /* Light gray border */
+    border-radius: 4px;       /* Smooth edges */
+    background-color: white;  /* White background */
+    cursor: pointer;          /* Pointer cursor */
+}
+
+/* Style the dropdown on hover */
+header form select:hover {
+    border-color: #1877f2;  /* Change border color on hover */
+}
+
+/* Make sure the dropdown looks good on smaller screens */
+@media (max-width: 768px) {
+    header form {
+        flex-direction: column;  /* Stack label and select vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+    
+    header form label {
+        font-size: 12px;
+    }
+
+    header form select {
+        width: 100%;  /* Make the dropdown full width */
+    }
+}
+
+
+/* Global Container for Login Section */
+.login, 
+.sign-up,
+.social-login-error {
+    width: 30%;                /* Form takes 50% of viewport width */
+    max-width: 100%;          /* Prevents it from becoming too large on big screens */
+    margin: 15px auto;            /* Centers it horizontally */
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border: none;
+    flex: 1;
+    text-align: center;        /* Center align content */
+}
+
+/* Login Header Styling */
+.login h2, 
+.signup h2,
+.social-login-error h2 {
+    font-size: 24px; /* Larger size for heading */
+    margin-bottom: 20px; /* Spacing below the heading */
+}
+
+/* Form Element Styling */
+.login form, 
+.sign-up form {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack input fields and button vertically */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 15px; /* Add spacing between form elements */  
+}
+
+.login form label,
+.sign-up form label {
+    display: block;  /* Ensures label is on its own line */
+    text-align: left;
+}
+.login input,
+.sign-up input {
+    width: 100%;                /* Make inputs full width inside form */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;      /* Ensures padding doesn't increase width */
+    background-color: #f9f9f9;   /* Light background */
+}
+
+.login form input[type="text"],
+.login form input[type="password"],
+.sign-up form input[type="text"],
+.sign-up form input[type="email"],
+.sign-up form input[type="password"]{
+    background-color: #f8f8f8; /* Light background for inputs */
+}
+
+/* Button Styling */
+.login button, 
+.sign-up button,
+.social-login-error a.button {
+    background-color: #1877f2; /* Primary blue color for the button */
+    color: #ffffff; /* White text for contrast */
+    padding: 8px 10px; /* Add padding for a clickable area */
+    font-size: 16px; /* Larger font for visibility */
+    font-weight: 600; /* Slightly bold for emphasis */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Button Hover Effect */
+.login button:hover, 
+.sign-up button:hover,
+.social-login-error a.button:hover {
+    background-color: #165ec7; /* Darker blue on hover */
+}
+
+/* Links in Login Section */
+.login a, 
+.sign-up a,
+.social-login-error a {
+    color: #007bff; /* Primary blue for links */
+    text-decoration: none; /* Remove underline */
+    font-weight: 600; /* Bold links for emphasis */
+}
+
+.login a:hover, 
+.sign-up a:hover,
+.social-login-error a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Formatting errolist and helptext */
+.login .error_message,
+.sign-up form .errorlist,
+.sign-up form .helptext {
+    color: red;
+    font-size: 14px;
+    list-style: none;  /* Remove bullet points */
+    margin: 5px 0;
+    padding-left: 0;
+}
+
+.login .error-container {
+    min-height: 30px; /* Adjust based on expected error message height */
+}
+
+/* Hide help text initially */
+.sign-up form .helptext,
+.sign-up form .errorlist {
+    display: none;
+} 
+
+.sign-up form.submitted .errorlist,
+.sign-up form.submitted .helptext {
+    display: block;
+}
+
+/* Show help text and errors only when validation fails */
+.sign-up form .errorlist:has(li),
+.sign-up form .helptext:has(+ .errorlist) {
+    display: block;
+}
+
+.btn-google img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 8px;
+  }
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.or-divider:not(:empty)::before {
+  margin-right: 0.75em;
+}
+
+.or-divider:not(:empty)::after {
+  margin-left: 0.75em;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login, 
+    .sign-up,
+    .social-login-error {
+        width: 90%; /* Reduce width on smaller screens */
+        padding: 15px;
+    }
+
+    .login h2, 
+    .sign-up h2,
+    .social-login-error h2 {
+        font-size: 20px; /* Slightly smaller heading */
+    }
+
+    .login button, 
+    .signup button,
+    .social-login-error button {
+        font-size: 14px; /* Reduce button font size */
+        padding: 8px 10px;
+    }
+}
+
+
+.password-reset-form,
+.password-reset-confirm,
+.password-reset-email-sent,
+.password-reset-complete {
+    width: 30%;                /* Form takes 50% of viewport width */
+    max-width: 100%;          /* Prevents it from becoming too large on big screens */
+    margin: 15px auto;            /* Centers it horizontally */
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border: none;
+    flex: 1;
+    text-align: left;        /* Center align content */
+}
+
+
+.password-reset-form h2,
+.password-reset-confirm h2,
+.password-reset-email-sent h2,
+.password-reset-complete h2 {
+    font-size: 24px; /* Larger size for heading */
+    margin-bottom: 20px; /* Spacing below the heading */
+}
+
+.password-reset-form form, 
+.password-reset-confirm form {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack input fields and button vertically */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 15px; /* Add spacing between form elements */  
+}
+
+.password-reset-form input,
+.password-reset-confirm input {
+    width: 100%;                /* Make inputs full width inside form */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;      /* Ensures padding doesn't increase width */
+    background-color: #f9f9f9;   /* Light background */
+}
+
+
+.password-reset-form button, 
+.password-reset-confirm button {
+    background-color: #1877f2; /* Primary blue color for the button */
+    color: #ffffff; /* White text for contrast */
+    padding: 8px 10px; /* Add padding for a clickable area */
+    font-size: 16px; /* Larger font for visibility */
+    font-weight: 600; /* Slightly bold for emphasis */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.password-reset-confirm .helptext {
+    font-size: 8px;  /* Adjust font size */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .password-reset-form,
+    .password-reset-confirm,
+    .password-reset-email-sent,
+    .password-reset-complete {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .password-reset-form h2,
+    .password-reset-confirm h2,
+    .password-reset-email-sent h2,
+    .password-reset-complete h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .password-reset-form form,
+    .password-reset-confirm form {
+        gap: 10px;
+    }
+
+    .password-reset-form button,
+    .password-reset-confirm button {
+        font-size: 15px;
+    }
+}
+
+.vision-block,
+.mission-block,
+.values-block {
+  margin-bottom: 60px;
+}
+
+/* Layout for Landing Page */
+.landing-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;   
+}
+
+.landing-introduction {
+    width: 80%;
+    max-width: 1200px;
+    margin: 50px 0 30px 0;
+    padding: 40px 20px;
+    text-align: left;
+    padding: 40px 20px;
+    border-bottom: 1px solid #e0e0e0; /* light grey divider line */
+}
+
+
+.landing-introduction h1 {
+    font-size: 64px;
+    font-weight: bold;
+    color: #1877f2;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+.landing-introduction h2 {
+    font-size: 24px;
+    color: #1877f2;
+    white-space: nowrap;
+}
+
+
+/* Buttons */
+.landing-section .start-btn {
+    text-align: left; /* keep the button centered inside section */
+    margin-top: 25px;
+}
+
+.landing-section .start-btn a {
+    display: inline-block;
+    padding: 16px 36px;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-weight: bold;
+    font-weight: bold;
+    background-color: #42b72a !important; 
+    color: #fff !important;
+    text-decoration: none;  
+    margin-bottom: 15px; 
+}
+
+.landing-section .start-btn a:hover {
+    background-color: #36a420 !important; /* Darker green on hover */
+}
+
+
+/* Additional Sections (Stacked Vertically) */
+.landing-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: left;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0; /* light grey divider line */
+}
+
+
+.landing-section h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fea76d;
+    margin-bottom: 15px;
+}
+
+.landing-section i {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1877f2;
+    margin-bottom: 15px;
+}
+
+.landing-section p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #606770;
+    margin-bottom: 15px;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 800px; /* limit overall size */
+  margin: 40px auto; /* center + add vertical space */
+  border-radius: 8px; /* optional rounded corners */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* optional soft shadow */
+  background: #000; /* ensures clean edges if letterboxed */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0; /* removes iframe border */
+  border-radius: 8px;
+}
+
+
+@media (max-width: 768px) {    
+    .btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .video-container {
+        max-width: 100%;
+        margin: 24px auto;
+        border-radius: 6px;
+    }
+}
+
+
+/* For tablets and small devices (≤ 768px) */
+@media (max-width: 768px) {
+    .landing-page {
+        padding: 15px;
+    }
+
+    .landing-introduction {
+        width: 100%;
+        margin: 30px 0 20px 0;
+        padding: 25px 15px;
+        text-align: left;
+    }
+
+    .landing-introduction h1 {
+        font-size: 40px;
+        line-height: 1.2;
+        white-space: normal;
+    }
+
+    .landing-introduction h2 {
+        font-size: 18px;
+        white-space: normal;
+    }
+
+    .landing-section {
+        padding: 25px 15px;
+        margin-bottom: 25px;
+    }
+
+    .landing-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .landing-section p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .landing-section .start-btn a {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+}
+
+/* --- Cookie Banner Styling --- */
+  .cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+    width: 90%;
+    background: #fffef8; /* soft cream tone */
+    color: #222;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px 20px;
+    z-index: 9999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, bottom 0.4s ease;
+    font-family: system-ui, sans-serif;
+  }
+
+  .cookie-banner.visible {
+    display: block;
+    opacity: 1;
+    bottom: 30px;
+  }
+
+  .cookie-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cookie-text {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .cookie-text a {
+    color: #2e7d32; /* green accent */
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .cookie-banner button {
+    align-self: flex-end;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+  }
+
+  .cookie-banner button:hover {
+    background: #43a047;
+  }
+
+  /* --- Mobile adjustments --- */
+  @media (max-width: 600px) {
+    .cookie-banner {
+      max-width: 95%;
+      bottom: 10px;
+      padding: 14px 16px;
+    }
+    .cookie-banner button {
+      width: 100%;
+    }
+  }
+
+
+/* Centers only the OTP container */
+.otp-wrapper {
+  flex: 1; /* take remaining height of body */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; /* subtle neutral background */
+  padding: 3rem 1rem;   
+  margin: 2rem 0;     
+}
+
+/* Card-style box for OTP form */
+.otp-box {
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  margin: 2rem auto;  
+}
+
+.otp-box h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.otp-box p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.otp-box input[type="number"] {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 230px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.otp-box button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.otp-box button:hover {
+  background-color: #45a049;
+}
+
+.otp-box ul {
+  margin-top: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.otp-box ul li {
+  color: #007bff;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .otp-box {
+    padding: 1.8rem 1.5rem;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: none; /* flatter mobile look */
+  }
+
+  .otp-box h2 {
+    font-size: 1.3rem;
+  }
+
+  .otp-box p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .otp-box input[type="number"] {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.8rem;
+  }
+
+  .otp-box button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+
+  .otp-wrapper {
+    align-items: flex-start;
+    padding-top: 15vh; /* push content slightly down on small screens */
+    padding-bottom: 5vh;
+  }
+}

@@ -1,0 +1,70 @@
+{% extends "dashboard_base.html" %}
+
+{% comment %}
+Copyright (c) 2024 Qu Zhi
+All Rights Reserved.
+
+This software is proprietary and confidential.
+Unauthorized copying, distribution, or modification of this software is strictly prohibited.
+{% endcomment %}
+
+{% load i18n %}
+
+{% block main_content %}
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+        <div class="subscription-plan">
+
+            <h2>{% trans "Subscription Plan" %}</h2>
+
+            <h3>{% trans "SGD6.90/month, covering all services. Free to cancel at any time." %}</h3> 
+       
+            
+            {% comment %}
+            <h2>{% trans "Subscription Plan - Pay As You Go" %}</h2>
+
+            <p>{% trans "Usage-based. Use first, pay later." %}</p> 
+
+            <p>{% blocktrans %}
+                Your usage will be charged on the 1st day of next month, unless you cancel your subscription early (it will be charged upon your cancellation).
+                {% endblocktrans %}
+            </p>
+
+            <p>{% blocktrans %}
+                When you submit a scenario, you will kick off a process consisting of a few steps which help you to find out a solution. The process will end after you submit your experience for your own use. Submitting a scenario counts as one scenario used. 
+               {% endblocktrans %}
+            </p>
+
+            <p>{% trans "Our pricing include two tiers:" %}</p>
+
+            <h3>
+            <ul>
+                <li>{% trans "- SGD4.00 (or the equivalent value in your local currency) per scenario for the first 10 each month." %}</li>
+                <li>{% trans "- SGD3.00 (or the equivalent value in your local currency) per scenario from the 11th onward each month." %}</li>
+            </ul>
+            </h3>
+            {% endcomment %}
+
+            <p>{% trans "We partner with Stripe to provide fast and secure payment experience." %}</p>
+
+            <p>{% trans "Proceed to subscribe here." %}</p>
+
+        </div>
+
+    <form action="{% url 'create_checkout_session' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn">{% trans "Checkout" %}</button>
+    </form>
+    
+    
+
+{% endblock %}
